@@ -57,7 +57,7 @@ async def get_prompt_handler(user_id: int, text: str, token: str):
     return JSONResponse(status_code=200, content={"status": "SUCCESS", "id_": conversation.conversation_id, "result": response})
 
 
-@app.get("/reset_state", tags=["reset_state"], response_model=ResponseModel)
+@app.get("/reset_state", tags=["reset_state"])
 async def get_prompt_handler(user_id: int, token: str):
 
     # проверка токена

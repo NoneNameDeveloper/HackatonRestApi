@@ -8,12 +8,16 @@ from src.routers import *
 tags_metadata = [
     {
         "name": "reset_state",
-        "description": "Сбрасывание текущего состояния диалога в ноль, очистка истории сообщений",
+        "description": "Сбрасывание текущего состояния диалога с чат-ботом, очистка истории сообщений",
     },
     {
         "name": "text_prompt",
         "description": "Запрос чат-боту бизнес-аналитику",
     },
+    {
+        "name": "rate_chat",
+        "description": "Оценка диалога с чат-ботом"
+    }
 ]
 
 app = FastAPI()
