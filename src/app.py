@@ -21,6 +21,6 @@ app = FastAPI()
 app = FastAPI(
     title="Умный Ассистент",
     description="Умный корпоративный ассистент для помощи в решении бизнес-задач",
-    version="0.0.1",
+    version="0.0.2",
     openapi_tags=tags_metadata,
 )
