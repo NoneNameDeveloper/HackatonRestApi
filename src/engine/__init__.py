@@ -1,1 +1,1 @@
-from .ChatGPT import ChatGPT
+from .ChatGPT import complete

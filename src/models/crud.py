@@ -8,7 +8,7 @@ from . import Company
 
 
 # CONVERSATION
-def get_conversation(user_id: int) -> typing.Union[list[Conversation], None]:
+def get_conversation(user_id: int) -> 'typing.Union[list[Conversation], None]':
     """
     получение истории запросов с сортировкой
     по дате сообщений
@@ -58,7 +58,7 @@ def rate_conversation(user_id: int, rate: int) -> int:
 
 
 # COMPANY
-def create_company(company_name: typing.Union[str, None]):
+def create_company(company_name: 'typing.Union[str, None]'):
     """
     создаем компанию (название компании - не обязательно)
     """
@@ -110,7 +110,7 @@ def archive_rule(rule_id: int) -> None:
     rule.save()
 
 
-def get_rules(token: str) -> typing.Optional[list[Rule]]:
+def get_rules(token: str) -> 'typing.Optional[list[Rule]]':
     """
     вытащить правила определенной компании по токену 
     """

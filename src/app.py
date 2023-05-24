@@ -4,7 +4,6 @@ from starlette.responses import FileResponse
 
 from src.routers import *
 
-
 tags_metadata = [
     {
         "name": "reset_state",
