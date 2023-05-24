@@ -1,62 +1,91 @@
 import typing
 
 from fastapi import HTTPException
+
+from src.app import app
+
 from pydantic import BaseModel
 
 from src.data import config
 from src.engine import ChatGPT
-from src.models import crud, Conversation, ConversationStart
+from src.models import crud
 
-from src.app import app
-
-
-class ConversationStartedModel(BaseModel):
-    """
-    возврат айди чата, по которому можно продолжить общение
-    с ботом
-    """
-    id_: str
+from fastapi.responses import JSONResponse
 
 
-@app.get("/conversation/start", response_model=ConversationStartedModel)
-async def start_conversation_handler():
-    """
-    Начинает диалог с ассиснентом. Возвращается id_, который будет служить идентификатором текущего диалога.
-    """
+class ResponseModel(BaseModel):
+    status: str
+    id_: typing.Optional[int]
+    result: typing.Optional[str]
 
-    conversation = ConversationStart()
-    started_conv: ConversationStart = conversation.create()
-
-    return ConversationStartedModel(id_=str(started_conv.conversation_id))
-
-
-class ConversationResponse(BaseModel):
-    id_: str
-    response_body: str
+    class Config:
+        schema_extra = {
+            "example": {
+                "status": "SUCCESS",
+                "id_": 1,
+                "result": "Начиная с 2017 года, президентом Зимбабве является Эммерсон Мнангагва."
+            }
+        }
 
 
-@app.get("/conversation/ask", response_model=ConversationResponse)
-async def ask_handler(id_: str, message: str):
+class Status(BaseModel):
+    status: str
 
-    # проверка на существование такого чата
-    conversation: ConversationStart = crud.get_conversation(id_)
 
-    if conversation is None:
-        return HTTPException(status_code=403, detail="wrong conversation id")
+@app.get("/text_prompt", tags=["text_prompt"], response_model=ResponseModel)
+async def get_prompt_handler(user_id: int, text: str, token: str):
+
+    # проверка токена
+    company = crud.get_company(token)
+    if company is None:
+        return JSONResponse(status_code=403, content={"status": "INVALID_API_TOKEN"})
+
+    conversations = crud.get_conversation(user_id=user_id)
+
+    chatGPT = ChatGPT(conversations)
 
     # получение ответа от чатжпт во вопросу
-    chat_gpt = ChatGPT()
-    response = await chat_gpt.process(message + config.ADDITIONAL_PROMPT)
+    response = await chatGPT.process(config.ADDITIONAL_PROMPT + text)
+
+    # лимит ChatGPT достигнут
+    if not response:
+        return JSONResponse(status_code=500, content={"status": "INTERNAL_ERROR"})
 
     # добавление действия в бд
-    Conversation.create(
-        conversation_id=conversation.conversation_id,
-        message_body=message,
-        answer_body=response
-    )
+    conversation = crud.create_conversation(user_id, company.company_id, text, response)
 
-    return ConversationResponse(
-        id_=str(conversation.conversation_id),
-        response_body=response
-    )
+    return JSONResponse(status_code=200, content={"status": "SUCCESS", "id_": conversation.conversation_id, "result": response})
 
+
+@app.get("/reset_state", tags=["reset_state"], response_model=ResponseModel)
+async def get_prompt_handler(user_id: int, token: str):
+
+    # проверка токена
+    company = crud.get_company(token)
+    if company is None:
+        return JSONResponse(status_code=403, content={"status": "INVALID_API_TOKEN"})
+
+    # количество отредактированных ячеек
+    res = crud.deactivate_conversations(user_id=user_id)
+    # если редактировать было нечего
+    if res == 0:
+        return JSONResponse(status_code=200, content={"status": "NOTHING_TO_RESET"})
+
+    return JSONResponse(status_code=200, content={"status": "SUCCESS"})
+
+
+@app.get("/rate_chat", tags=["rate_chat"])
+async def rate_chat_handler(token: str, user_id: int, rate: int):
+
+    # проверка токена
+    company = crud.get_company(token)
+    if company is None:
+        return JSONResponse(status_code=403, content={"status": "INVALID_API_TOKEN"})
+
+    # проставлчем оценки
+    res = crud.rate_conversation(user_id=user_id, rate=rate)
+    # если нет активного флоу
+    if res == 0:
+        return JSONResponse(status_code=200, content={"status": "NOTHING_TO_RATE"})
+
+    return JSONResponse(status_code=200, content={"status": "SUCCESS"})

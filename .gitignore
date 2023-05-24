@@ -164,3 +164,6 @@ cython_debug/
 .http
 test.http
 *.http
+
+Task.txt
+test.py
