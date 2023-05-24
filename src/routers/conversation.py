@@ -7,7 +7,7 @@ from src.app import app
 from pydantic import BaseModel
 
 from src.data import config
-from src.engine import ChatGPT
+from src.engine import complete
 from src.models import crud
 
 from fastapi.responses import JSONResponse
@@ -42,10 +42,10 @@ async def get_prompt_handler(user_id: int, text: str, token: str):
 
     conversations = crud.get_conversation(user_id=user_id)
 
-    chatGPT = ChatGPT(conversations)
+    # chatGPT = ChatGPT(conversations)
 
     # получение ответа от чатжпт во вопросу
-    response = await chatGPT.process(config.ADDITIONAL_PROMPT + text)
+    response = complete(config.ADDITIONAL_PROMPT + text)
 
     # лимит ChatGPT достигнут
     if not response:

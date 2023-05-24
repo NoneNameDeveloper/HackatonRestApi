@@ -4,8 +4,9 @@ import datetime
 import typing
 
 from peewee import *
+from src.db import db
 
-db = PostgresqlDatabase('hackatonrestdb', user='postgres', password='159326', host='195.201.170.94', port=5432)
+# db = PostgresqlDatabase('hackatonrestdb', user='postgres', password='159326', host='195.201.170.94', port=5432)
 
 
 class Company(Model):
