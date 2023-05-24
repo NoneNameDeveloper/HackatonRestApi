@@ -8,13 +8,13 @@ openai.api_key = config.OPENAI_KEY
 # print(openai.Model.list())
 
 def complete(prompt: str) -> str:
-    # chat_completion = openai.ChatCompletion.create(model="gpt-3.5-turbo", messages=[
-    #     {"role": "system", "content": "Ты юрист, который помогает клиенту разобраться в юридических вопросах. Задавай уточняющие вопросы и ссылайся на источники."},
-    #     {"role": "user", "content": "Что нужно, чтобы уволить сотрудника?"}
-    # ])
+    chat_completion = openai.ChatCompletion.create(model="gpt-3.5-turbo", messages=[
+        {"role": "system", "content": "Ты юрист, который помогает клиенту разобраться в юридических вопросах. Задавай уточняющие вопросы и ссылайся на источники."},
+        {"role": "user", "content": prompt}
+    ])
 
-    # response = chat_completion.choices[0].message.content
-    response = openai.Completion.create(model="text-davinci-003", prompt="Вопрос: Что нужно, чтобы уволить сотрудника по инициативе компании?\n\nОтвет: ").choices[0].text
+    response = chat_completion.choices[0].message.content
+    # response = openai.Completion.create(model="text-davinci-003", prompt="Вопрос: Что нужно, чтобы уволить сотрудника по инициативе компании?\n\nОтвет: ").choices[0].text
     print("openai: ", response)
     return response
 
