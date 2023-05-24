@@ -5,7 +5,7 @@ from src.models import Conversation
 import openai
 
 openai.api_key = config.OPENAI_KEY
-print(openai.Model.list())
+# print(openai.Model.list())
 
 def complete(prompt: str) -> str:
     # chat_completion = openai.ChatCompletion.create(model="gpt-3.5-turbo", messages=[
