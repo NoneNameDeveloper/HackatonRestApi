@@ -45,7 +45,7 @@ async def get_prompt_handler(user_id: int, text: str, token: str):
     # chatGPT = ChatGPT(conversations)
 
     # получение ответа от чатжпт во вопросу
-    response = complete(config.ADDITIONAL_PROMPT + text)
+    response = complete(config.ADDITIONAL_PROMPT + text, conversations)
 
     # лимит ChatGPT достигнут
     if not response:
