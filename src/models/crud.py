@@ -40,7 +40,6 @@ def deactivate_conversations(user_id: int) -> int:
     """
     q = Conversation.update({Conversation.active: False}).where((Conversation.user_id == user_id) & (Conversation.active == True))
     res = q.execute()
-    print(res)
     return res
 
 
