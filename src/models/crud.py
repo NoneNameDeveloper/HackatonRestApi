@@ -3,7 +3,7 @@ import hashlib
 import secrets
 import typing
 
-from . import Conversation, Rule
+from . import Conversation, Rule, User
 from . import Company
 from .session import Session
 
@@ -39,7 +39,8 @@ def deactivate_conversations(user_id: int) -> int:
     деактивация истории переписки
     сброс стейта
     """
-    q = Conversation.update({Conversation.active: False}).where((Conversation.user_id == user_id) & (Conversation.active == True))
+    q = Conversation.update({Conversation.active: False}).where(
+        (Conversation.user_id == user_id) & (Conversation.active == True))
     res = q.execute()
     return res
 
@@ -53,7 +54,8 @@ def rate_conversation(user_id: int, rate: int) -> int:
 
     возвращает количество обновленных ячеек в бд
     """
-    q = Conversation.update({Conversation.rate: rate}).where((Conversation.user_id == user_id) & (Conversation.active == True))
+    q = Conversation.update({Conversation.rate: rate}).where(
+        (Conversation.user_id == user_id) & (Conversation.active == True))
     return q.execute()
 
 
@@ -137,3 +139,27 @@ def create_session(conversations: list[Conversation]) -> Session:
         conversation_ids=conversation_ids_,
         rate=conversations[0].rate
     )
+
+
+# USERS
+def add_user(
+        user_id: int,
+        city: typing.Optional[str],
+        industry: typing.Optional[str]
+):
+    """
+    создание пользователя
+    """
+    return User.create(
+        user_id=user_id,
+        city=city,
+        industry=industry
+    )
+
+
+def get_user(user_id: int) -> typing.Union[User, None]:
+    """
+    получение пользователя из базы
+    """
+    return User.get_or_none(User.user_id == user_id)
+
