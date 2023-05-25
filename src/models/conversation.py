@@ -1,11 +1,9 @@
-import uuid
 import datetime
 
 from peewee import *
 
 from .company import Company
 from src.db import db
-
 
 
 class Conversation(Model):
