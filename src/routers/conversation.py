@@ -1,7 +1,5 @@
 import typing
 
-from fastapi import HTTPException
-
 from src.app import app
 
 from pydantic import BaseModel
