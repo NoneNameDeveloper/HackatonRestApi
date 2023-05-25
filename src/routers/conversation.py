@@ -80,10 +80,16 @@ async def rate_chat_handler(token: str, user_id: int, rate: int):
     if company is None:
         return JSONResponse(status_code=403, content={"status": "INVALID_API_TOKEN"})
 
-    # проставлчем оценки
-    res = crud.rate_conversation(user_id=user_id, rate=rate)
+    # проставляем оценки
+    conversations: int = crud.rate_conversation(user_id=user_id, rate=rate)
+
     # если нет активного флоу
-    if res == 0:
+    if conversations == 0:
         return JSONResponse(status_code=200, content={"status": "NOTHING_TO_RATE"})
+
+    # вытягиваем результирующие вопросы ответы уже оцененные
+    conversations_list = crud.get_conversation(user_id)
+    # собираем отдельные вопрос-ответы в одну сессию
+    crud.create_session(conversations_list)
 
     return JSONResponse(status_code=200, content={"status": "SUCCESS"})
