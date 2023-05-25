@@ -1,8 +1,8 @@
 from fastapi import FastAPI
-from fastapi.staticfiles import StaticFiles
-from starlette.responses import FileResponse
 
+from src.middlewares import *
 from src.routers import *
+
 
 tags_metadata = [
     {
@@ -23,7 +23,9 @@ app = FastAPI()
 
 app = FastAPI(
     title="Умный Ассистент",
-    description="Умный корпоративный ассистент для помощи в решении бизнес-задач",
+    description="""
+Умный корпоративный ассистент для помощи в решении бизнес-задач.\n\n<a href='/docs/example/'>Check Example</a>
+""",
     version="0.0.2",
-    openapi_tags=tags_metadata,
+    openapi_tags=tags_metadata
 )
