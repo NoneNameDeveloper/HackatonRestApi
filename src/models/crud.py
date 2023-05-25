@@ -132,7 +132,7 @@ def create_session(conversations: list[Conversation]) -> Session:
     # собираем ID каждого вопрос-ответа
     for c in conversations:
         conversation_ids_.append(c.conversation_id)
-    print(conversations[0].rate)
+
     return Session.create(
         conversation_ids=conversation_ids_,
         rate=conversations[0].rate
