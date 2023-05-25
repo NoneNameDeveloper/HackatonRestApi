@@ -1,1 +1,0 @@
-from src.middlewares.auth import *
