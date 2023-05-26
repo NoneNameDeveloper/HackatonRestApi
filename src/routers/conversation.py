@@ -56,7 +56,7 @@ async def get_prompt_handler(user_id: int, text: str, token: str):
 
 
 @app.get("/reset_state", tags=["reset_state"])
-async def get_prompt_handler(user_id: int, token: str):
+async def reset_state_handler(user_id: int, token: str):
 
     # проверка токена
     company = crud.get_company(token)
@@ -91,5 +91,8 @@ async def rate_chat_handler(token: str, user_id: int, rate: int):
     conversations_list = crud.get_conversation(user_id)
     # собираем отдельные вопрос-ответы в одну сессию
     crud.create_session(conversations_list)
+
+    # деактивируем все вопрос-ответы (сбрасываем состояние сессии)
+    crud.deactivate_conversations(user_id)
 
     return JSONResponse(status_code=200, content={"status": "SUCCESS"})
