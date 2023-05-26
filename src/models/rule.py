@@ -16,7 +16,6 @@ class Rule(Model):
     company_id = ForeignKeyField(Company, field=Company.company_id)  # айди компании, создавшей правило
 
     filter_text = TextField(null=False)  # текст фильтра
-    filter_description = TextField(null=False)  # описание фильтра
 
     date = DateTimeField(constraints=[SQL('DEFAULT CURRENT_TIMESTAMP')], default=datetime.datetime.now)  # дата-время создания фильтра
 
@@ -28,4 +27,5 @@ class Rule(Model):
         table_name = "rules"
 
 
+# db.drop_tables([Rule])
 db.create_tables([Rule])

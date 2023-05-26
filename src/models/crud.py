@@ -60,13 +60,13 @@ def rate_conversation(user_id: int, rate: int) -> int:
 
 
 # COMPANY
-def create_company(company_name: 'typing.Union[str, None]'):
+def create_company(company_name: typing.Union[str, None], company_id: int):
     """
     создаем компанию (название компании - не обязательно)
     """
     token = secrets.token_urlsafe(16)  # генерируем 16 значный токен
     token_hash = hashlib.sha256(token.encode()).hexdigest()  # хешируем его
-    return Company.create(token_hash=token_hash, company_name=company_name), token
+    return Company.create(company_id=company_id, token_hash=token_hash, company_name=company_name), token
 
 
 def get_company(token: str):
@@ -76,6 +76,13 @@ def get_company(token: str):
     token_hash = hashlib.sha256(token.encode()).hexdigest()  # хешируем токен обратно для поиска в бд
 
     return Company.get_or_none(Company.token_hash == token_hash)
+
+
+def get_company_by_id(company_id: int) -> typing.Optional[Company]:
+    """
+    получение данных о компании по ID
+    """
+    return Company.get_or_none(Company.company_id == company_id)
 
 
 def delete_company(company_id: int):
@@ -144,14 +151,19 @@ def create_session(conversations: list[Conversation]) -> Session:
 # USERS
 def add_user(
         user_id: int,
+        company_id: int,
         city: typing.Optional[str],
         industry: typing.Optional[str]
 ):
     """
     создание пользователя
+
+    пользователь создается после первого
+    сообщения в телеграм чате компании - ID компании = ID чата телеграм
     """
     return User.create(
         user_id=user_id,
+        company_id=company_id,
         city=city,
         industry=industry
     )

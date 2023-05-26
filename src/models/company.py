@@ -10,8 +10,8 @@ class Company(Model):
     """
     таблица с компаниями
     """
-    company_id = AutoField(primary_key=True, unique=True)  # айди компании
-    company_name = TextField(null=True)  # название компании (если есть)
+    company_id = BigIntegerField(primary_key=True, unique=True)  # айди компании (Telegram Chat ID)
+    company_name = TextField(null=True)  # название компании (если есть) (Название чата Telegram)
 
     token_hash = CharField(unique=True)  # храним хэш токена
 
@@ -22,4 +22,5 @@ class Company(Model):
         table_name = "companies"
 
 
+# db.drop_tables([Company])
 db.create_tables([Company])

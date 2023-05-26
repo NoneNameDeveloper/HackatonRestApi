@@ -24,4 +24,5 @@ class Session(Model):
         table_name = "sessions"
 
 
+# db.drop_tables([Session])
 db.create_tables([Session])
