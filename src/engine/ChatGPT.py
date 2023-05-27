@@ -9,7 +9,7 @@ openai.api_key = config.OPENAI_KEY
 
 def complete(prompt: str, conversations: 'list[Conversation]') -> str:
     messages = [
-        {"role": "system", "content": "Ты юрист, который помогает клиенту разобраться в юридических вопросах. Задавай уточняющие вопросы и ссылайся на источники."}
+        {"role": "system", "content": "Ты робот-помощник, старающийся ответить на вопросы с максимальной точностью. Твои знания о большинсте правовых актов устарели, опирайся только на присланные тебе мною"}
     ]
     if conversations is not None:
         for conversation in conversations:
