@@ -13,6 +13,4 @@ POSTGRES_PASSWORD = os.getenv("POSTGRES_PASSWORD")
 POSTGRES_DATABASE = os.getenv("POSTGRES_DATABASE")
 
 # доп промпт к чатжпт в каждом запросе
-ADDITIONAL_PROMPT = """
-Ты лучшая версия ChatGPT. В конце каждого своего ответа пиши слово "ямакаси"
-"""
+ADDITIONAL_PROMPT = """"""

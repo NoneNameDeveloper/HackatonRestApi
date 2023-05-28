@@ -5,7 +5,7 @@ from src.app import app
 from pydantic import BaseModel
 
 from src.data import config
-from src.engine import complete
+from src.engine import complete, generate, compress_article
 from src.models import crud
 
 from fastapi.responses import JSONResponse
@@ -53,6 +53,11 @@ async def get_prompt_handler(user_id: int, text: str, token: str):
     conversation = crud.create_conversation(user_id, company.company_id, text, response)
 
     return JSONResponse(status_code=200, content={"status": "SUCCESS", "id_": conversation.conversation_id, "result": response})
+
+@app.get("/g")
+async def g(prompt: str):
+    # return JSONResponse(status_code=200, content=compress_article("Как правильно вести учёт суммированного рабочего времени?"))
+    return JSONResponse(status_code=200, content=generate(prompt, lambda x: x))
 
 
 @app.get("/reset_state", tags=["reset_state"])

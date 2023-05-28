@@ -1,0 +1,2358 @@
+[
+    {
+        "request": "Как вести учет суммированного рабочего времени в России",
+        "response": {
+            "kind": "customsearch#search",
+            "url": {
+                "type": "application/json",
+                "template": "https://www.googleapis.com/customsearch/v1?q={searchTerms}&num={count?}&start={startIndex?}&lr={language?}&safe={safe?}&cx={cx?}&sort={sort?}&filter={filter?}&gl={gl?}&cr={cr?}&googlehost={googleHost?}&c2coff={disableCnTwTranslation?}&hq={hq?}&hl={hl?}&siteSearch={siteSearch?}&siteSearchFilter={siteSearchFilter?}&exactTerms={exactTerms?}&excludeTerms={excludeTerms?}&linkSite={linkSite?}&orTerms={orTerms?}&relatedSite={relatedSite?}&dateRestrict={dateRestrict?}&lowRange={lowRange?}&highRange={highRange?}&searchType={searchType}&fileType={fileType?}&rights={rights?}&imgSize={imgSize?}&imgType={imgType?}&imgColorType={imgColorType?}&imgDominantColor={imgDominantColor?}&alt=json"
+            },
+            "queries": {
+                "request": [
+                    {
+                        "title": "Google Custom Search - Как вести учет суммированного рабочего времени в России",
+                        "totalResults": "18800",
+                        "searchTerms": "Как вести учет суммированного рабочего времени в России",
+                        "count": 10,
+                        "startIndex": 1,
+                        "inputEncoding": "utf8",
+                        "outputEncoding": "utf8",
+                        "safe": "off",
+                        "cx": "86165028723124a88"
+                    }
+                ],
+                "nextPage": [
+                    {
+                        "title": "Google Custom Search - Как вести учет суммированного рабочего времени в России",
+                        "totalResults": "18800",
+                        "searchTerms": "Как вести учет суммированного рабочего времени в России",
+                        "count": 10,
+                        "startIndex": 11,
+                        "inputEncoding": "utf8",
+                        "outputEncoding": "utf8",
+                        "safe": "off",
+                        "cx": "86165028723124a88"
+                    }
+                ]
+            },
+            "context": {
+                "title": "tadateam"
+            },
+            "searchInformation": {
+                "searchTime": 0.532842,
+                "formattedSearchTime": "0.53",
+                "totalResults": "18800",
+                "formattedTotalResults": "18,800"
+            },
+            "items": [
+                {
+                    "kind": "customsearch#result",
+                    "title": "Как правильно вести суммированный учет рабочего времени: 5 ...",
+                    "htmlTitle": "Как правильно \u003cb\u003eвести суммированный учет рабочего времени\u003c/b\u003e: 5 ...",
+                    "link": "https://school.kontur.ru/publications/251",
+                    "displayLink": "school.kontur.ru",
+                    "snippet": "Jan 17, 2023 ... Суммированный учет рабочего времени вводят, когда по условиям производства, работы при выполнении отдельных видов работ не может быть соблюдена ...",
+                    "htmlSnippet": "Jan 17, 2023 \u003cb\u003e...\u003c/b\u003e \u003cb\u003eСуммированный учет рабочего времени\u003c/b\u003e вводят, когда по условиям производства, работы при выполнении отдельных видов работ не может быть соблюдена&nbsp;...",
+                    "cacheId": "AJrVMujcxdEJ",
+                    "formattedUrl": "https://school.kontur.ru/publications/251",
+                    "htmlFormattedUrl": "https://school.kontur.ru/publications/251",
+                    "pagemap": {
+                        "cse_thumbnail": [
+                            {
+                                "src": "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcRM-LBHA1TFbPNBO4gds8BF0FlZg9ThQBA_FD1RLn_WpTi_YlWHPKvXPEY",
+                                "width": "340",
+                                "height": "148"
+                            }
+                        ],
+                        "metatags": [
+                            {
+                                "apple-itunes-app": "app-id=1459247576",
+                                "og:image": "https://school.kontur.ru/Files/Modules/Article/251_bs.jpg?t=1445360330",
+                                "twitter:card": "summary",
+                                "og:type": "article",
+                                "og:site_name": "Контур.Школа",
+                                "og:title": "Суммированный учет рабочего времени в 2023 году: как правильно вести (5 основных правил)",
+                                "zen-verification": "alsEyGbZriPHULe0kPo0gVSEjxngLDMPblK0kcJ9oytpXMMgYObCwDTAJSJg84g6",
+                                "yandex-verification": "412710cff97493c5",
+                                "twitter:creator": "@uc_SKBkontur",
+                                "og:description": "Вместе с экспертами Контур.Школы разберем, когда его можно ввести, как установить учетный период и оформить процедуру без ошибок. Скачайте бесплатную шпаргалку...",
+                                "twitter:site": "@uc_SKBkontur",
+                                "viewport": "width=device-width, initial-scale=1.0",
+                                "og:url": "https://school.kontur.ru/publications/251",
+                                "google-play-app": "app-id=ru.kontur.school"
+                            }
+                        ],
+                        "cse_image": [
+                            {
+                                "src": "https://school.kontur.ru/Files/Modules/Article/251_bs.jpg?t=1445360330"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "kind": "customsearch#result",
+                    "title": "Суммированный учет рабочего времени: основные правила ...",
+                    "htmlTitle": "\u003cb\u003eСуммированный учет рабочего времени\u003c/b\u003e: основные правила ...",
+                    "link": "https://kontur.ru/articles/4321",
+                    "displayLink": "kontur.ru",
+                    "snippet": "Feb 27, 2020 ... Суммированный учет — это не режим рабочего времени, а способ ведения учета рабочего времени, способ выполнения требования, содержащегося в ст.",
+                    "htmlSnippet": "Feb 27, 2020 \u003cb\u003e...\u003c/b\u003e \u003cb\u003eСуммированный учет\u003c/b\u003e — это не режим \u003cb\u003eрабочего времени\u003c/b\u003e, а способ ведения \u003cb\u003eучета рабочего времени\u003c/b\u003e, способ выполнения требования, содержащегося в ст.",
+                    "cacheId": "gNm4t2IU_GUJ",
+                    "formattedUrl": "https://kontur.ru/articles/4321",
+                    "htmlFormattedUrl": "https://kontur.ru/articles/4321",
+                    "pagemap": {
+                        "cse_thumbnail": [
+                            {
+                                "src": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRK7AmhCld6lBGW5w3_Sw0VrxGVxqXphDXYERh5HcGJpQub0qaIMIB7ByE",
+                                "width": "311",
+                                "height": "162"
+                            }
+                        ],
+                        "metatags": [
+                            {
+                                "og:image": "https://services.kontur.ru/Files/Modules/Article/articles-4321_l.jpg?t=1467633576",
+                                "twitter:card": "summary",
+                                "og:type": "article",
+                                "twitter:site": "@skbkontur",
+                                "og:site_name": "СКБ Контур",
+                                "viewport": "width=device-width, initial-scale=1.0",
+                                "mailru-verification": "f1fa2c95f986cb78",
+                                "og:title": "Суммированный учет рабочего времени: основные правила",
+                                "yandex-verification": "43acf0690c9ca29d",
+                                "og:url": "https://kontur.ru/articles/4321",
+                                "twitter:creator": "@skbkontur",
+                                "og:description": "Введение суммированного учета рабочего времени часто сопровождается многочисленными вопросами. Они касаются выбора подходящего графика, оплаты сверхурочных, праздничных дней и других тонкостей. Разберемся во всем по порядку."
+                            }
+                        ],
+                        "cse_image": [
+                            {
+                                "src": "https://services.kontur.ru/Files/Modules/Article/articles-4321_l.jpg?t=1467633576"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "kind": "customsearch#result",
+                    "title": "В каких случаях устанавливается суммированный учет рабочего ...",
+                    "htmlTitle": "В каких случаях устанавливается \u003cb\u003eсуммированный учет рабочего\u003c/b\u003e ...",
+                    "link": "https://xn--80akibcicpdbetz7e2g.xn--p1ai/questions/viewFaq/1374",
+                    "displayLink": "xn--80akibcicpdbetz7e2g.xn--p1ai",
+                    "snippet": "Работодатель обязан вести учет времени, фактически отработанного каждым работником. Статья 92 ТК РФ устанавливает сокращенную продолжительность рабочего времени ...",
+                    "htmlSnippet": "Работодатель обязан \u003cb\u003eвести учет времени\u003c/b\u003e, фактически отработанного каждым работником. Статья 92 ТК РФ устанавливает сокращенную продолжительность \u003cb\u003eрабочего времени\u003c/b\u003e&nbsp;...",
+                    "cacheId": "pKljyOd5ePQJ",
+                    "formattedUrl": "https://онлайнинспекция.рф/questions/viewFaq/1374",
+                    "htmlFormattedUrl": "https://онлайнинспекция.рф/questions/viewFaq/1374",
+                    "pagemap": {
+                        "metatags": [
+                            {
+                                "sputnik-verification": "hQoY5Il5CwfXA3al",
+                                "viewport": "width=device-width, initial-scale=1, maximum-scale=1",
+                                "google-signin-client_id": "304510775260-of847fttdghfs3gnci255ijodquh1nrp.apps.googleusercontent.com",
+                                "format-detection": "telephone=no"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "kind": "customsearch#result",
+                    "title": "Как начать вести суммированный учет рабочего времени",
+                    "htmlTitle": "Как начать \u003cb\u003eвести суммированный учет рабочего времени\u003c/b\u003e",
+                    "link": "https://delo-press.ru/journals/staff/oplata-truda-i-sotsialnoe-obespechenie/59059-kak-nachat-vesti-summirovannyy-uchet-rabochego-vremeni/",
+                    "displayLink": "delo-press.ru",
+                    "snippet": "Нормальная продолжительность рабочего времени не может превышать 40 часов в неделю (ч. 2 ст. 91 ТК РФ). Не все работодатели могут обеспечить еженедельное ...",
+                    "htmlSnippet": "Нормальная продолжительность \u003cb\u003eрабочего времени\u003c/b\u003e не может превышать 40 \u003cb\u003eчасов\u003c/b\u003e в неделю (ч. 2 ст. 91 ТК РФ). Не все работодатели могут обеспечить еженедельное&nbsp;...",
+                    "cacheId": "-sKsjGsZgToJ",
+                    "formattedUrl": "https://delo-press.ru/.../59059-kak-nachat-vesti-summirovannyy-uchet- rabochego-vremeni/",
+                    "htmlFormattedUrl": "https://delo-press.ru/.../59059-kak-nachat-vesti-summirovannyy-uchet- rabochego-vremeni/",
+                    "pagemap": {
+                        "metatags": [
+                            {
+                                "og:image": "/upload/phpthumb/0/e0004408d878458fb7c220068521cf7d.jpg",
+                                "viewport": "width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover"
+                            }
+                        ],
+                        "cse_image": [
+                            {
+                                "src": "/upload/phpthumb/0/e0004408d878458fb7c220068521cf7d.jpg"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "kind": "customsearch#result",
+                    "title": "Как вести суммированный учёт рабочего времени",
+                    "htmlTitle": "\u003cb\u003eКак вести суммированный учёт рабочего времени\u003c/b\u003e",
+                    "link": "https://www.klerk.ru/blogs/moedelo/566172/",
+                    "displayLink": "www.klerk.ru",
+                    "snippet": "Mar 13, 2023 ... лиц от 16 до 18 лет, инвалидов I и II группы – до 35 часов;. для «вредников» (3 и 4 класс условий труда) – до 36 часов. В ст. 94 ТК РФ прописана ...",
+                    "htmlSnippet": "Mar 13, 2023 \u003cb\u003e...\u003c/b\u003e лиц от 16 до 18 лет, инвалидов I и II группы – до 35 \u003cb\u003eчасов\u003c/b\u003e;. для «вредников» (3 и 4 класс условий труда) – до 36 \u003cb\u003eчасов\u003c/b\u003e. В ст. 94 ТК РФ прописана&nbsp;...",
+                    "cacheId": "X_XJGwN8Tl0J",
+                    "formattedUrl": "https://www.klerk.ru/blogs/moedelo/566172/",
+                    "htmlFormattedUrl": "https://www.klerk.ru/blogs/moedelo/566172/",
+                    "pagemap": {
+                        "cse_thumbnail": [
+                            {
+                                "src": "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcRQtMt2mbatsxduqhUtfDwWqNHN5Cqlqb5S0Kk8EbpONIdNfsnoHIPu1rrN",
+                                "width": "300",
+                                "height": "168"
+                            }
+                        ],
+                        "metatags": [
+                            {
+                                "og:image": "https://www.klerk.ru/yindex.php/og?id=566172&entity=company_blogpost",
+                                "twitter:title": "Как вести суммированный учёт рабочего времени",
+                                "twitter:card": "summary_large_image",
+                                "og:image:width": "1200",
+                                "og:image:alt": "Как вести суммированный учёт рабочего времени",
+                                "og:site_name": "Клерк",
+                                "mailru-verification": "63a469313f472589",
+                                "og:title": "Как вести суммированный учёт рабочего времени",
+                                "og:image:height": "627",
+                                "vk:app_id": "7777142",
+                                "fb:pages": "115964055094828",
+                                "twitter:creator": "@klerk_ru",
+                                "og:description": "Не все работают по стандартной пятидневке с восьмичасовым рабочим днём и выходными в субботу-воскресенье. В таких случаях применяют суммированный учёт рабочего времени, чтобы не переплачивать за сверхурочную работу. Рассказываем, когда можно применять такой учёт и как его наладить.",
+                                "twitter:image": "https://www.klerk.ru/yindex.php/og?id=566172&entity=company_blogpost",
+                                "og:image:secure_url": "https://www.klerk.ru/yindex.php/og?id=566172&entity=company_blogpost",
+                                "fb:app_id": "111067065633348",
+                                "twitter:site": "@klerk_ru",
+                                "viewport": "width=device-width, initial-scale=1.0, maximum-scale=1.0",
+                                "twitter:description": "Не все работают по стандартной пятидневке с восьмичасовым рабочим днём и выходными в субботу-воскресенье. В таких случаях применяют суммированный учёт рабочего времени, чтобы не переплачивать за сверхурочную работу. Рассказываем, когда можно применять такой учёт и как его наладить.",
+                                "og:url": "https://www.klerk.ru/blogs/moedelo/566172/",
+                                "google-play-app": "app-id=ru.klerk"
+                            }
+                        ],
+                        "cse_image": [
+                            {
+                                "src": "https://i.klerk.ru/1RJ3TjuITLvYBfZogStrPZpprSR8Ql8YKwdjx7VIM3Q/w:1500/aHR0cHM6Ly93d3cu/a2xlcmsucnUvdWdj/L2Jsb2dQb3N0LzI1/OTViN2E0NGU4MmI4/ZTE5ZDE1ZTFjZWQ3/NjQwYmE4LmpwZw.webp"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "kind": "customsearch#result",
+                    "title": "Суммированный учет рабочего времени от а до я – Кадровое ...",
+                    "htmlTitle": "\u003cb\u003eСуммированный учет рабочего времени\u003c/b\u003e от а до я – Кадровое ...",
+                    "link": "https://e.kdelo.ru/230851",
+                    "displayLink": "e.kdelo.ru",
+                    "snippet": "258 ТК РФ);; иные периоды, отнесенные Трудовым кодексом, другими федеральными законами или иными нормативными актами РФ к рабочему времени. Вести учет рабочего ...",
+                    "htmlSnippet": "258 ТК РФ);; иные периоды, отнесенные Трудовым кодексом, другими федеральными законами или иными нормативными актами РФ к рабочему \u003cb\u003eвремени\u003c/b\u003e. \u003cb\u003eВести учет рабочего\u003c/b\u003e&nbsp;...",
+                    "cacheId": "BehG0vHVDP4J",
+                    "formattedUrl": "https://e.kdelo.ru/230851",
+                    "htmlFormattedUrl": "https://e.kdelo.ru/230851",
+                    "pagemap": {
+                        "cse_thumbnail": [
+                            {
+                                "src": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQMjgostw4JijU2XbJqpAIiXJFWHMF0_xocLW3NCao2Pc7ffeywkiJYyhw",
+                                "width": "206",
+                                "height": "244"
+                            }
+                        ],
+                        "metatags": [
+                            {
+                                "apple-itunes-app": "app-id=672155259",
+                                "og:image": "/favicon.ico",
+                                "theme-color": "#ffffff",
+                                "og:site_name": "Электронный журнал «Кадровое дело»",
+                                "viewport": "width=device-width, initial-scale=1",
+                                "og:title": "Суммированный учет рабочего времени от а до я",
+                                "yandex-verification": "7edf680d2681cdb6",
+                                "og:article:published_time": "2008-10-01T04:00:00.000+04:00",
+                                "lang": "ru-RU",
+                                "og:description": "Продолжение. Начало в № 9, 2008. Коротко о главном. Итак, согласно части первой статьи 91 Трудового кодекса, рабочее время – это время, в течение которого работник в соответствии с правилами внутреннего трудового распорядка и условиями трудового договора должен исполнять трудовые обязанности. В рабочее время также включаются: Вести учет рабочего времени – обязанность работодателя (ч. третья ст.",
+                                "og:article:tag": "Кадровое делопроизводство / Образцы и комментарии",
+                                "format-detection": "telephone=no"
+                            }
+                        ],
+                        "cse_image": [
+                            {
+                                "src": "https://e.profkiosk.ru/service_tbn2/resize/zoom/600x0/cswibx.jpg"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "kind": "customsearch#result",
+                    "title": "Суммированный учет рабочего времени по ТК РФ: как правильно ...",
+                    "htmlTitle": "\u003cb\u003eСуммированный учет рабочего времени\u003c/b\u003e по ТК РФ: как правильно ...",
+                    "link": "https://www.kdelo.ru/art/384305-summirovannyy-uchet-rabochego-vremeni-17-m9",
+                    "displayLink": "www.kdelo.ru",
+                    "snippet": "Jun 24, 2022 ... Узнайте, что такое суммированный учет рабочего времени: общие правила и отдельные тонкости. Эксперты расскажут, как правильно установить ...",
+                    "htmlSnippet": "Jun 24, 2022 \u003cb\u003e...\u003c/b\u003e Узнайте, что такое \u003cb\u003eсуммированный учет рабочего времени\u003c/b\u003e: общие правила и отдельные тонкости. Эксперты расскажут, как правильно установить&nbsp;...",
+                    "formattedUrl": "https://www.kdelo.ru/.../384305-summirovannyy-uchet-rabochego-vremeni- 17-m9",
+                    "htmlFormattedUrl": "https://www.kdelo.ru/.../384305-summirovannyy-uchet-rabochego-vremeni- 17-m9",
+                    "pagemap": {
+                        "cse_thumbnail": [
+                            {
+                                "src": "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcRvFKZ7Z5Ndxx9ogqB7WDq3BaHvAOb9plZOLHYlrG1b3Er9HMCs0wfNV7iz",
+                                "width": "340",
+                                "height": "148"
+                            }
+                        ],
+                        "imageobject": [
+                            {
+                                "contenturl": "https://www.kdelo.ru/assets/cab741e/assets/frontend/images/empty140x95.gif",
+                                "url": "https://www.kdelo.ru/assets/cab741e/assets/frontend/images/empty140x95.gif"
+                            },
+                            {
+                                "contenturl": "https://www.kdelo.ru/assets/cab741e/assets/frontend/images/empty140x95.gif",
+                                "width": "216",
+                                "url": "https://www.kdelo.ru/assets/cab741e/assets/frontend/images/empty140x95.gif",
+                                "height": "60"
+                            }
+                        ],
+                        "person": [
+                            {
+                                "name": "Рудакова Анна"
+                            }
+                        ],
+                        "organization": [
+                            {
+                                "address": "-",
+                                "name": "Кадровое Дело",
+                                "telephone": "-"
+                            }
+                        ],
+                        "metatags": [
+                            {
+                                "msapplication-tilecolor": "#284b89",
+                                "og:image": "https://www.kdelo.ru/themes/kdelo_ru/assets/frontend/images/fblogo.png",
+                                "og:type": "article",
+                                "theme-color": "#284b89",
+                                "article:published_time": "2022-06-24T11:00:00+03:00",
+                                "og:site_name": "Кадровое Дело",
+                                "og:title": "Суммированный учет рабочего времени по ТК РФ: как правильно вести",
+                                "og:article:published_time": "2022-06-24T11:00:00+03:00",
+                                "yandex-verification": "1754bfa33a68adce",
+                                "msapplication-tileimage": "/themes/kdelo_ru/mstile-150x150.png",
+                                "og:description": "Узнайте, что такое суммированный учет рабочего времени: общие правила и отдельные тонкости. Эксперты расскажут, как правильно установить учетный период и считать переработки. Документы, необходимые для установления суммированного учета рабочего времени, скачайте в статье.",
+                                "article:author": "https://www.kdelo.ru/person/6-rudakova",
+                                "article:tag": "Рабочее время",
+                                "og:article:tag": "Рабочее время",
+                                "referrer": "unsafe-url",
+                                "viewport": "width=device-width, initial-scale=1, maximum-scale=5",
+                                "og:url": "https://www.kdelo.ru/art/384305-summirovannyy-uchet-rabochego-vremeni-17-m9",
+                                "wmail-verification": "8fef530f06778cabc0d1d6b17159a843"
+                            }
+                        ],
+                        "cse_image": [
+                            {
+                                "src": "https://www.kdelo.ru/images/letter/2020/Sum_uchet.jpg"
+                            }
+                        ],
+                        "article": [
+                            {
+                                "image": "https://www.kdelo.ru/images/letter/2020/Sum_uchet.jpg",
+                                "articlebody": "Узнайте, что такое суммированный учет рабочего времени: общие правила и отдельные тонкости. Эксперты расск...",
+                                "datemodified": "2022-07-22 10:41:46",
+                                "articlesection": "Рабочее время",
+                                "name": "Суммированный учет рабочего времени: общие правила и отдельные тонкости",
+                                "headline": "Суммированный учет рабочего времени: общие правила и отдельные тонкости",
+                                "datepublished": "2022-06-24",
+                                "mainentityofpage": "https://www.kdelo.ru/art/384305-summirovannyy-uchet-rabochego-vremeni-17-m9"
+                            }
+                        ],
+                        "listitem": [
+                            {
+                                "item": "https://www.kdelo.ru/",
+                                "name": "https://www.kdelo.ru/",
+                                "position": "1"
+                            },
+                            {
+                                "item": "Статьи",
+                                "name": "Статьи",
+                                "position": "2"
+                            },
+                            {
+                                "item": "Рабочее время",
+                                "name": "Рабочее время",
+                                "position": "3"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "kind": "customsearch#result",
+                    "title": "Суммарный учет рабочего времени - примеры расчета - nalog ...",
+                    "htmlTitle": "Суммарный \u003cb\u003eучет рабочего времени\u003c/b\u003e - примеры расчета - nalog ...",
+                    "link": "https://nalog-nalog.ru/rabochee_vremya_i_rezhim_truda/summarnyj_uchet_rabochego_vremeni_primery_rascheta/",
+                    "displayLink": "nalog-nalog.ru",
+                    "snippet": "Итак, суммированный учет рабочего времени целесообразно вести в тех сферах труда, ... Эксперты «КонсультантПлюс» привели мнение Минздравсоцразвития России, ...",
+                    "htmlSnippet": "Итак, \u003cb\u003eсуммированный учет рабочего времени\u003c/b\u003e целесообразно \u003cb\u003eвести\u003c/b\u003e в тех сферах труда, ... Эксперты «КонсультантПлюс» привели мнение Минздравсоцразвития \u003cb\u003eРоссии\u003c/b\u003e,&nbsp;...",
+                    "cacheId": "pKqkGGchKpMJ",
+                    "formattedUrl": "https://nalog-nalog.ru/.../summarnyj_uchet_rabochego_vremeni_primery_ rascheta/",
+                    "htmlFormattedUrl": "https://nalog-nalog.ru/.../summarnyj_uchet_rabochego_vremeni_primery_ rascheta/",
+                    "pagemap": {
+                        "cse_thumbnail": [
+                            {
+                                "src": "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcTp6aA6XjPihBQj7CrtgL5RC_BHnK_qVrUljcWEQeP-p-Ucy9384AFNCUs",
+                                "width": "300",
+                                "height": "168"
+                            }
+                        ],
+                        "imageobject": [
+                            {
+                                "width": "202",
+                                "url": "https://nalog-nalog.ru/images/logo.png",
+                                "height": "34"
+                            }
+                        ],
+                        "person": [
+                            {
+                                "name": "Сивова Марина"
+                            }
+                        ],
+                        "organization": [
+                            {
+                                "name": "Налог-налог.ру"
+                            }
+                        ],
+                        "metatags": [
+                            {
+                                "msapplication-tilecolor": "#f3f3f3",
+                                "twitter:title": "Суммарный учет рабочего времени - примеры расчета",
+                                "theme-color": "#ffffff",
+                                "viewport": "width=device-width, initial-scale=1, shrink-to-fit=no",
+                                "twitter:description": "Суммарный учет рабочего времени (точный термин в Трудовом кодексе «суммированный учет рабочего времени») используется в случаях, когда в силу объективных причин не соблюдается нормальная длительность рабочей недели, например, при сменном режиме труда. Нюансы подсчета отработанного времени и",
+                                "og:title": "Суммарный учет рабочего времени - примеры расчета",
+                                "csrf-token": "QSy20AnJl2ahLh42vevHiaePNIoXdp0BQvp17bOj",
+                                "og:description": "Суммарный учет рабочего времени (точный термин в Трудовом кодексе «суммированный учет рабочего времени») используется в случаях, когда в силу объективных причин не соблюдается нормальная длительность рабочей недели, например, при сменном режиме труда. Нюансы подсчета отработанного времени и"
+                            }
+                        ],
+                        "comment": [
+                            {
+                                "author": "Антон",
+                                "text": "Здравствуйте! Работаю на предприятии с вредными и опасными условиями труда, 36 часовая рабочая неделя, сменн..."
+                            },
+                            {
+                                "author": "Сергей экономист",
+                                "text": "Антон, лично я не разделяю подход с созранением оклада на время отгула, в ст. 153 ТК РФ четко сказано, что день..."
+                            },
+                            {
+                                "author": "Нина Козлова",
+                                "text": "Работники работает 7 дней через 7 по 12 часов. График скользящий. В марте м-це один отработал 17 дней,второй..."
+                            },
+                            {
+                                "author": "Сергей экономист",
+                                "text": "Нормативно не урегулировано. Можно отталкиваться от планового количества рабочих дней по производственно..."
+                            },
+                            {
+                                "author": "Людмила Бух.",
+                                "text": "Добрый день.У нас на работе ввели график 4/2 с 8 до 17 по 8 часов. оплата по окладу. Если суммированный учёт 3..."
+                            },
+                            {
+                                "author": "Сергей экономист",
+                                "text": "Все зависит от локальных актов компании, нормативно порядок расчета не регламентирован, может быть как..."
+                            },
+                            {
+                                "author": "Людмила Бух.",
+                                "text": "Так как вся недоработка по вине работодателя (график составлен 4/2 и получилось 168 часов), то получается нужно..."
+                            },
+                            {
+                                "author": "Сергей экономист",
+                                "text": "Выбор зависит от принятой в компании методики, нормативно этот вопрос не урегулирован. Недоработку можно..."
+                            },
+                            {
+                                "author": "Людмила Бух.",
+                                "text": "Мы будем им оплачивать полный оклад по штатке (28000р) за отработанные ими 168 часов( это их норма).Да у них всегд..."
+                            },
+                            {
+                                "author": "Олег",
+                                "text": "Тогда ничего доплачивать не нужно и целесообразно брать норму по графику работ."
+                            },
+                            {
+                                "author": "Вячеслав",
+                                "text": "Добрый день, подскажите пожалуйста как рассчитать норму часов ? сотрудник работает сутки через трое , отраб..."
+                            },
+                            {
+                                "author": "Сергей экономист",
+                                "text": "Возьмите производственный календарь, уберите из него кусок с отпуском, оставшиеся часы посчитайте."
+                            },
+                            {
+                                "author": "Иван",
+                                "text": "При сменном графике (сутки через трое) ведется суммированный учет рабочего времени. на 3 дня меня отправили..."
+                            },
+                            {
+                                "author": "Сергей экономист",
+                                "text": "1. Нет, согласно ст. 203 ТК РФ время учебы не может быть больше месячной нормы рабочего времени; 2. Непонятно,..."
+                            },
+                            {
+                                "author": "Иван",
+                                "text": "на 1 и 2. Я учился в свои выходные, график сутки через трое. В свои три выходных я посещал учебу в учебном центр..."
+                            },
+                            {
+                                "author": "Сергей экономист",
+                                "text": "1. нет, причине указнной ранее, будет превышение месячной нормы рабочего времени. 2. нет."
+                            },
+                            {
+                                "author": "Лев",
+                                "text": "Добрый день, у нас на предприятии и суммированный учёт рабочего времени, работал я в ночную смену,(вахтовый..."
+                            },
+                            {
+                                "author": "Олег",
+                                "text": "Согласно ст. 100 ТК РФ режим рабочего времени предусматривает дату начала и окончания рабочего дня. его общую..."
+                            },
+                            {
+                                "author": "Ольга",
+                                "text": "Добрый день, работаю вахтой на Севере. График работы 45/45 суммированный учет времени. Учетный период-Год...."
+                            },
+                            {
+                                "author": "Евгений",
+                                "text": "Добрый день! Такой вопрос: при суммированном учёте рабочего времени включаются ли дни отпуска без сохранен..."
+                            },
+                            {
+                                "author": "Сергей экономист",
+                                "text": "Нет, все отсутствия при наличии уважительных причин исключаются из нормы рабочего времени."
+                            },
+                            {
+                                "author": "Савелий",
+                                "text": "Добрый день.У нас, на предприятии, суммированный учёт рабочего времени. А если часов не хватает за учётный..."
+                            },
+                            {
+                                "author": "Сергей экономист",
+                                "text": "Работа по графику в пределах нормы рабочего времени оплачивается в одинарном размере. Но здесь вопрос офор..."
+                            },
+                            {
+                                "author": "Надежда",
+                                "text": "Здравствуйте. Если при 12-часовом режиме работы и общей норме часов в ноябре 168 ч , человек в последний день..."
+                            },
+                            {
+                                "author": "Сергей экономист",
+                                "text": "Надежда, допустимо вести поденный и почасовой учет рабочего времени. Согласно абз.4 ст. 91 ТК РФ работодатель..."
+                            },
+                            {
+                                "author": "Максим",
+                                "text": "День добрый! Подскажите, а с какого времени оклад привязывается к производственным часам и законно ли это?..."
+                            },
+                            {
+                                "author": "Сергей экономист",
+                                "text": "Максим, описываемый Вами вариант непонятен, Вы скорее всего чего-то недопоняли. Поясните по-другому, лкчше..."
+                            },
+                            {
+                                "author": "Максим НЛМК",
+                                "text": "На форуме вроде подробно описал ситуацию."
+                            },
+                            {
+                                "author": "Алексей",
+                                "text": "Здравствуйте. У нас на предприятии используется вахтовый метод (Месяц на месяц). Рабочее время работников..."
+                            },
+                            {
+                                "author": "Владимир",
+                                "text": "Вычитаются ли часы за время нахождения в отпуске при сумированном учёте рабочего времени сторожам из часов..."
+                            },
+                            {
+                                "author": "Николай",
+                                "text": "Работаю сторожем госпредприятие с сумированным рабочим времени с учетным периодом пол года за второе полу..."
+                            },
+                            {
+                                "author": "Елена",
+                                "text": "Добрый вечер. Я работаю сутками медсестрой В ноябре я отработала 183 часа, но за 6,7 ноября попросили написать..."
+                            },
+                            {
+                                "author": "Татьяна",
+                                "text": "Здравствуйте. В трудовом договоре написано: работнику устанавливается з/п в размере 100000 р., оплата производ..."
+                            },
+                            {
+                                "author": "Олеся",
+                                "text": "Добрый день, как правильно составить график работы водителя? если у него сменный график работы 2/2 по 11ч...."
+                            },
+                            {
+                                "author": "Сергей экономист",
+                                "text": "Олеся, режим работы закрепляется в трудовом договоре или локальном акте. Если вы в них зафиксировали время..."
+                            },
+                            {
+                                "author": "Лиза",
+                                "text": "Добрый вечер! Подскажите, пожалуйста в организации учётный период 6 месяцев график 2 через 2 по 11 часов. Напри..."
+                            },
+                            {
+                                "author": "Сергей экономист",
+                                "text": "Вам нужно было сформулировать конкретнее: 6 календарных месяцев, составляющих полугодие в календарном..."
+                            },
+                            {
+                                "author": "Ольга",
+                                "text": "Здравствуйте! Может я не права, но ваши ответы от 01.10.2020 года и от 15.07.2021 года не совпадают, хотя речь и обоих..."
+                            },
+                            {
+                                "author": "Сергей экономист",
+                                "text": "Ольга в вопросе от 01.10.2020 не уточняется входят ли 89 часов в составе 100 часов, если входят, то работодатель..."
+                            },
+                            {
+                                "author": "Николай",
+                                "text": "Добрый день. Меня перевели с октября месяца из южной локации на северную РКС в рамках одной компании, и изме..."
+                            },
+                            {
+                                "author": "Ольга",
+                                "text": "добрый день! Производственный календарь учета рабочего времени рассчитан на стандартный режим работы..."
+                            },
+                            {
+                                "author": "Сергей экономист",
+                                "text": "Допустимый и более правильный второй вариант, но для него нужно ввести суммированный учет рабочего времени..."
+                            },
+                            {
+                                "author": "Анна",
+                                "text": "ДД. В организации ведется суммированный учет, учетный период полугодие. Подскажите как считать сверхурочны..."
+                            },
+                            {
+                                "author": "Сергей экономист",
+                                "text": "\"Подскажите как считать сверхурочные за второе полугодие?\" - По формуле, только за период 2-го полугодия:..."
+                            },
+                            {
+                                "author": "Анна",
+                                "text": "Спасибо за ответ. Со след.года поменяем учетный период."
+                            },
+                            {
+                                "author": "husky",
+                                "text": "Здравствуйте! Работникам установлен суммированный учет рабочего времени, учетный период -- год, оплата..."
+                            },
+                            {
+                                "author": "Сергей экономист",
+                                "text": "Добрый день. Не совсем понятно, что подразумевается под работой в выходной день? Это может быть: - нерабочий..."
+                            },
+                            {
+                                "author": "Вера",
+                                "text": "График сменности – со 2 января 2/2 дневной работы с 11 часовой рабочей смены, 182 рабочих дня в год х 11ч.=2002 ч/в..."
+                            },
+                            {
+                                "author": "Сергей экономист",
+                                "text": "Добрый день. Да это верно, ознакомьтесь с ч.3 ст. 152 ТК РФ согласно которой: \"Работа, произведенная сверх нормы..."
+                            },
+                            {
+                                "author": "Юрий",
+                                "text": "Добрый день, хочу поинтересоваться начислением зарплаты для охранника: у них сумированный учет рабочего..."
+                            },
+                            {
+                                "author": "Эльмира",
+                                "text": "У Вас в примере работник отработал в мае 115 часов, в июне 172. Тогда почему вы делите на 129 часов и на 173 ?"
+                            },
+                            {
+                                "author": "Вика.",
+                                "text": "Добрый день, это опечатка. администрация сайта должна поправить."
+                            },
+                            {
+                                "author": "Андрей",
+                                "text": "Работаю по графику сутки через 2. В месяце получилось 10 дежурств декабрь 2020. На первое и последнее число..."
+                            },
+                            {
+                                "author": "Валентина",
+                                "text": "Здравствуйте. Я работаю сторожем на госпредприятии, за год получилась переработка 100 часов, а праздничные..."
+                            },
+                            {
+                                "author": "Андрей",
+                                "text": "нет, не правильно"
+                            },
+                            {
+                                "author": "Владимир",
+                                "text": "Добрый день. Подскажите пожалуйста я работаю в организации где у меня стоит разъездной график работы с..."
+                            },
+                            {
+                                "author": "Святослав",
+                                "text": "Здравствуйте. Каким образом определяется 40 часовая рабочая неделя или 36 часовая по итогам года при суммиро..."
+                            },
+                            {
+                                "author": "Аркадий",
+                                "text": "Работаю по суммированому учету рабочего времени, в январе 2020 года норма времени -136 часов: по календарю граф..."
+                            },
+                            {
+                                "author": "Арсен",
+                                "text": "Переработка платится по итогам учетного периода. Очень маловероятно, что у вас учетный период 1 месяц, скоре..."
+                            },
+                            {
+                                "author": "ольга",
+                                "text": "Добрый день! На предприятии у сдельщиков установлен суммированный учет рабочего времени, расчетный период..."
+                            },
+                            {
+                                "author": "Павел",
+                                "text": "Ольга, вопрос мягко, говоря объемный, попробуйте для начала посмотреть вот эту ветку на форуме Если останут..."
+                            },
+                            {
+                                "author": "Мария",
+                                "text": "Добрый день, подскажите, пож., каким образом рассчитывается заработная плата работника при следующих услов..."
+                            },
+                            {
+                                "author": "Сергей экономист",
+                                "text": "Мария добрый день. Во время простоя сотрудник не выполнял свои должностные обязанности пусть и по вине..."
+                            },
+                            {
+                                "author": "Ольга",
+                                "text": "Добрый день, подскажите пожалуйста, при суммированном учете рабочего времени (учетный период год), как посч..."
+                            },
+                            {
+                                "author": "Сергей экономист",
+                                "text": "Добрый день, если вы фактически платили оклад пропорционально норме 40-часовой рабочей недели, то верно...."
+                            },
+                            {
+                                "author": "Андрей",
+                                "text": "Здравствуйте. Я отработал в организации с 05.12.2018 по 12.07.2019 г. При постановке на учет в службе занятости мне..."
+                            },
+                            {
+                                "author": "Сергей экономист",
+                                "text": "Согласно п.1 ст. 34 Закона РФ от 19.04.1991 N 1032-1 \"О занятости населения в Российской Федерации\" гражданам, уволенны..."
+                            },
+                            {
+                                "author": "Владислав",
+                                "text": "Добрый день! Присоединяюсь к вопросу Александра от 17 февраля 2020 19:09. Работаю в смену, в шахте - суммарный..."
+                            },
+                            {
+                                "author": "Сергей экономист",
+                                "text": "Владислав , присоединитесь к ответу Александра ниже."
+                            },
+                            {
+                                "author": "Александр",
+                                "text": "Добрый вечер! Работаю в смену, суммарный учёт рабочего времени 1 год. В корешке о зп, норма времени для расчёт..."
+                            },
+                            {
+                                "author": "Сергей экономист",
+                                "text": "Александр в целях расчета среднечасовой ставки уменьшение нормы не предусмотрено поясню. Ваш оклад устана..."
+                            },
+                            {
+                                "author": "Александр",
+                                "text": "А как же приказ минтруда 588н от 13.08.2009, а также Роструд в письмах от 18.05.2011 № 1353-6-1, от 01.03.2010 № 550-6-1, и письмо..."
+                            },
+                            {
+                                "author": "Сергей экономист",
+                                "text": "Александр указанные Вами письма касаются совершенно иного случая, но никак не расчета часовой ставки для..."
+                            },
+                            {
+                                "author": "Александр",
+                                "text": "Получается, что работодатель предлагает мне вырабатывать годовую норму полностью, нежели каждодневники...."
+                            },
+                            {
+                                "author": "Сергей экономист",
+                                "text": "Александр - на форум У вас уже отпуск, выплата оклада перемешался с графиком работ, все нужно рассматривать..."
+                            },
+                            {
+                                "author": "Сергей",
+                                "text": "Подскажите, пожалуйста: у меня суммированный учёт. С нового года изменили метод расчёта с месячного оклада..."
+                            },
+                            {
+                                "author": "Илья",
+                                "text": "Сергей в данном случае изменились условия оплаты труда, которые являются обязательным условием трудового..."
+                            },
+                            {
+                                "author": "Татьяна5710",
+                                "text": "Добрый день, я работаю по сменному графику оперативным дежурным ЕДДС. Сейчас нас перевели в другую организа..."
+                            },
+                            {
+                                "author": "Сергей экономист",
+                                "text": "Насколько я понял, вам оформили внутреннее совместительство. Это не запрещено никаких потерь по зарплате..."
+                            },
+                            {
+                                "author": "Людмила",
+                                "text": "Добрый день! У продавцов скользящий график работы 2 через 2, тарифная часовая ставка. Один продавец на полную..."
+                            },
+                            {
+                                "author": "Сергей экономист",
+                                "text": "Нужно на основании ст. 155 ТК РФ выплачивать средний заработок за часы недоработки."
+                            },
+                            {
+                                "author": "Ольга",
+                                "text": "Добрый день! В организации установлен суммированный учет рабочего времени.Учетный период - год. В январе..."
+                            },
+                            {
+                                "author": "Сергей экономист",
+                                "text": "Ольга возможны оба варианта, все зависит от того, что записано в ваших локальных актах. К сожалению законода..."
+                            },
+                            {
+                                "author": "Пётр",
+                                "text": "Добрый день! Подскажите пожалуйста, я работаю по 5 дневной рабочей неделе в бюджетной организации.Зарплата..."
+                            },
+                            {
+                                "author": "Олег",
+                                "text": "Статья 153 ТК РФ предписывает оплачивать только тарифную часть в повышенном размере, про стимулирующие выпл..."
+                            },
+                            {
+                                "author": "Пётр",
+                                "text": "Выход в выходной - дело добровольное, как же так? Если был приказ по предприятию и согласно ст.153 ТК РФ п.1(для..."
+                            },
+                            {
+                                "author": "Сергей экономист",
+                                "text": "\"для предотвращения катострофы,производственной аварии и т.д\". - это отдельный случай исключений - в этом..."
+                            },
+                            {
+                                "author": "Ольга",
+                                "text": "Добрый день! Возникла такая ситуация, в учреждении переводим санитарок на суммированный учет, дневные 2/2,..."
+                            },
+                            {
+                                "author": "Сергей экономист",
+                                "text": "Ольга оптимальным было бы составить график на год и попытаться в нем предварительно отрегулировать эту..."
+                            },
+                            {
+                                "author": "Мстислав",
+                                "text": "Добрый день. По суммированному учёту отработал годовую норму по графику в ноябре. Нахожусь на окладе и все..."
+                            },
+                            {
+                                "author": "Сергей экономист",
+                                "text": "Добрый день. Правомерно, так как: 1. Работодатель дал вам возможность за учетный период выработать норму..."
+                            },
+                            {
+                                "author": "Свтлана",
+                                "text": "Работаю 2/2 по 12 часов, расчетный период квартал , в январе у меня 192 часа а мне оплачивают 136 как по 5 дневной..."
+                            },
+                            {
+                                "author": "Сергей экономист",
+                                "text": "Светлана, я не видел ваших локальных актов по оплате труда, поэтому сказать с уверенностью насколько у Вас..."
+                            },
+                            {
+                                "author": "Светлана",
+                                "text": "да я это понимаю, но что делать с тем если говорят что не будут оплачивать , я эти дни отработала по графику."
+                            },
+                            {
+                                "author": "Сергей экономист",
+                                "text": "Жалуйтесь в органы по надзору за соблюдением законодательства в сфере трудового права6 ГИТ, Прокуратура."
+                            },
+                            {
+                                "author": "Лютфия",
+                                "text": "Здравствуйте! Как расчитать суммированное рабочее время при 12 часовой сменной работе санитаров, (включая..."
+                            },
+                            {
+                                "author": "Сергей экономист",
+                                "text": "Лютфия, не очень понятно о чем вы спрашиваете, посмотрите вот эту тему В ней же можете задать развернутый..."
+                            },
+                            {
+                                "author": "Наталья",
+                                "text": "Здравствуйте. Подскажите правильный ли расчет переработки за 2019 год при смене 22 часа (15 дн +7 н.) Норма часы..."
+                            },
+                            {
+                                "author": "Наталья",
+                                "text": "Здравствуйте! В организации установлен суммарный учет рабочего времени с учетным периодом год. С 1 октября..."
+                            },
+                            {
+                                "author": "Наталья",
+                                "text": "Здравствуйте. Подскажите пожалуйста как мне рассчитают средний заработок для оплаты больничного листа,..."
+                            },
+                            {
+                                "author": "Сергей экономист",
+                                "text": "Поскольку данных о заработке за 2 года, предшествующих году наступления страхового случая нет, а общий стаж..."
+                            },
+                            {
+                                "author": "Ирина",
+                                "text": "Фельдшер работает по суммированному учету рабочего времени . В октябре месяце он с 01.10 по 16.10 работал на..."
+                            },
+                            {
+                                "author": "Сергей экономист",
+                                "text": "Добрый день. Поскольку сотрудник работал неполный рабочий день его недельная норма равна 40 х 0,5 = 20 часов...."
+                            },
+                            {
+                                "author": "Ирина",
+                                "text": "Спасибо!!!!!"
+                            },
+                            {
+                                "author": "Сергей.",
+                                "text": "Доброе утро! Что Входит из этого (Отпускные дни, больничные дни, праздничные, ночные) прибавляется, а что..."
+                            },
+                            {
+                                "author": "Сергей экономист",
+                                "text": "Переформулируйте пож. вопрос не совсем понятно о чем речь и что Вам нужно. Лучше всего на форуме, например..."
+                            },
+                            {
+                                "author": "Лейла",
+                                "text": "Здравствуйте помогите рассчитать з/плату сторожа за сентябрь, он отработал 90 часов и как правельно расчита..."
+                            },
+                            {
+                                "author": "Игорь",
+                                "text": "ЗП = ОКЛАД/168 Х 90 или часовая тарифная ставка х 90 МРОТ = 11280/168Х90"
+                            },
+                            {
+                                "author": "Александр",
+                                "text": "Здравствуйте! Работаю по 5-дневке. Но кроме этого дежурю 2 недели в месяц поскольку производство круглосуточ..."
+                            },
+                            {
+                                "author": "Сергей экономист",
+                                "text": "Александр, варианты: 1. Собирайте документальные доказательства привлечения вас к работе за пределами норм..."
+                            },
+                            {
+                                "author": "Ирина",
+                                "text": "Если отработано 13 дней с 19 декабря по 31 , 125 часов вахтовым методом работы, как будет это считаться ? В соответ..."
+                            },
+                            {
+                                "author": "Сергей экономист",
+                                "text": "Ирина, добрый день. Не совсем понятен ваш вопрос, вы отработали 13 дней и уволились? Или у вас иная ситуация...."
+                            },
+                            {
+                                "author": "Ирина",
+                                "text": "Так времени сколько прошло , уже не актуально. А межвахтовый отдых предоставляется за работу сверхнорматив..."
+                            },
+                            {
+                                "author": "Ирина",
+                                "text": "Здравствуйте. Как это межвахтовый отдых иключается? это трудовой стаж. Уволилась 1 апреля. За 2018 г. за 13 дней..."
+                            },
+                            {
+                                "author": "Сергей экономист",
+                                "text": "Ирина данный вопрос спорный, настоятельно рекомендую вам попробовать подробно изложить свою позицию по..."
+                            },
+                            {
+                                "author": "Светлана",
+                                "text": "Добрый день! К примеру, работник принимается на работу 01.12.2019 на СУРВ. Можем ли мы ему установить в данном..."
+                            },
+                            {
+                                "author": "Сергей экономист",
+                                "text": "К сожалению, в ст. 104 ТК РФ не урегулирован вопрос в части определения максимальной длительности учетного..."
+                            },
+                            {
+                                "author": "дмитрий",
+                                "text": "как влияет суммированный учет рабочего времени по трудовому договору на учет заработанного северного..."
+                            },
+                            {
+                                "author": "Сергей экономист",
+                                "text": "Добрый день. Никак. Исключение - льготный стаж во вредных условиях труда для пенсии. Подробнее на форуме тут"
+                            },
+                            {
+                                "author": "татьяна",
+                                "text": "Добрый день. В организации установлен суммированный учет рабочего времени с учетным периодом квартал,..."
+                            },
+                            {
+                                "author": "Олег",
+                                "text": "Добрый день. Если буквально читать приведенную вами статью, то основной причиной указанного вами шага долж..."
+                            },
+                            {
+                                "author": "Олег",
+                                "text": "Добрый день. Предлогают работу вахтовым методом на севере , 45 дней на 45. Подскажите как насчитываются часы..."
+                            },
+                            {
+                                "author": "Светлана",
+                                "text": "Добрый день. В вашем случае фактически отработанные часы за учетный период, год или квартал (вы не уточнили,..."
+                            },
+                            {
+                                "author": "Наталья",
+                                "text": "Добрый день. Помогите разобраться с начислением зарплаты сторожам в бюджетной организации при суммированн..."
+                            },
+                            {
+                                "author": "Сергей",
+                                "text": "Добрый день, расчет в целом корректен, однако формат комментария не позволяет давать слишком развернутый..."
+                            },
+                            {
+                                "author": "евгений",
+                                "text": "я отработал 330 часов в месяц и мне заплатили МРОТ,прав ли работодатель,?"
+                            },
+                            {
+                                "author": "Мария",
+                                "text": "Нет не прав, подобнее можете посмотреть вот в этой ветке форума здесь"
+                            },
+                            {
+                                "author": "Евгений",
+                                "text": "Здравствуйте. Я работаю вахтовым методом. работодатель за отработанные в месяц без выходных 30 дней 330 часов..."
+                            },
+                            {
+                                "author": "Алла",
+                                "text": "Добрый день. В вашем случае однозначно наблюдается нарушение норм трудового права, но хотелось бы больше..."
+                            },
+                            {
+                                "author": "Ольга",
+                                "text": "Работник в январе 2019 года отработал в сменном графике 154 часа, 2 и 3 января брал ДО (в эти дни была его смена)...."
+                            },
+                            {
+                                "author": "Сергей",
+                                "text": "Добрый день. По моему мнению не нужно, это и так выходные/праздничные дни по пятидневке, которые вы оплатили..."
+                            },
+                            {
+                                "author": "Татьяна",
+                                "text": "Добрый день! Подскажите пожалуйста,если работник по графику должен был отработать 164 часа при норме 159 часов..."
+                            },
+                            {
+                                "author": "Алексей",
+                                "text": "Добрый день. Вы должны обеспечить сотруднику отработку нормы рабочего времени за год, формально доплачиват..."
+                            },
+                            {
+                                "author": "Татьяна",
+                                "text": "Добрый день, Алексей ! Здесь самое главное знать каким документом это можно подтвердить . То есть это все..."
+                            }
+                        ],
+                        "cse_image": [
+                            {
+                                "src": "https://i.ytimg.com/vi/Go5eBPMsKr0/maxresdefault.jpg"
+                            }
+                        ],
+                        "article": [
+                            {
+                                "articlebody": "Суммированный учет рабочего времени по ТК РФ Законодатель нормирует длительность труда работника. Основны...",
+                                "name": "Суммарный учет рабочего времени - примеры расчета",
+                                "headline": "Суммарный учет рабочего времени - примеры расчета",
+                                "datepublished": "2023-01-14T13:10:57+03:00"
+                            }
+                        ],
+                        "listitem": [
+                            {
+                                "item": "Главная",
+                                "name": "Главная",
+                                "position": "1"
+                            },
+                            {
+                                "item": "Рабочее время и режим труда",
+                                "name": "Рабочее время и режим труда",
+                                "position": "2"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "kind": "customsearch#result",
+                    "title": "ТК РФ Статья 104. Суммированный учет рабочего времени ...",
+                    "htmlTitle": "ТК РФ Статья 104. \u003cb\u003eСуммированный учет рабочего времени\u003c/b\u003e ...",
+                    "link": "https://www.consultant.ru/document/cons_doc_LAW_34683/c766865a1d47b422da9cbd77354b410b3d7f4a86/",
+                    "displayLink": "www.consultant.ru",
+                    "snippet": "ТК РФ Статья 104. Суммированный учет рабочего времени. Подборка форм: Оформление суммированного учета рабочего времени ... Учетный период не может превышать один ...",
+                    "htmlSnippet": "ТК РФ Статья 104. \u003cb\u003eСуммированный учет рабочего времени\u003c/b\u003e. Подборка форм: Оформление \u003cb\u003eсуммированного учета рабочего времени\u003c/b\u003e ... Учетный период не может превышать один&nbsp;...",
+                    "formattedUrl": "https://www.consultant.ru/.../ c766865a1d47b422da9cbd77354b410b3d7f4a86/",
+                    "htmlFormattedUrl": "https://www.consultant.ru/.../ c766865a1d47b422da9cbd77354b410b3d7f4a86/",
+                    "pagemap": {
+                        "metatags": [
+                            {
+                                "theme-color": "#ffffff",
+                                "viewport": "width=device-width, initial-scale=1",
+                                "csrf-token": "AwNWghIOD_3gJDS2XfZKOgY_Djcfs6aWv3y55JQ046FqXDT7I1lV0IUTQI4Rsg12Vgd2dnbf_u_rDsyc_GfWkg==",
+                                "csrf-param": "_csrf",
+                                "backend-number": "2",
+                                "format-detection": "telephone=no",
+                                "app-version": "release-2023.2.3.635107"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "kind": "customsearch#result",
+                    "title": "Особенности учета рабочего времени водителей автомобилей",
+                    "htmlTitle": "Особенности \u003cb\u003eучета рабочего времени\u003c/b\u003e водителей автомобилей",
+                    "link": "https://www.asmap.ru/detail/35114Osobennosti-ucheta-rabochego-vremeni-voditelej-avtomobilej",
+                    "displayLink": "www.asmap.ru",
+                    "snippet": "Как следует из ст. 104 ТК РФ, основанием для введения суммированного учета рабочего времени являются условия работы, которые не позволяют соблюдать ...",
+                    "htmlSnippet": "Как следует из ст. 104 ТК РФ, основанием для введения \u003cb\u003eсуммированного учета рабочего времени\u003c/b\u003e являются условия работы, которые не позволяют соблюдать&nbsp;...",
+                    "cacheId": "mIkA4v80dWYJ",
+                    "formattedUrl": "https://www.asmap.ru/.../35114Osobennosti-ucheta-rabochego-vremeni- voditelej-avtomobilej",
+                    "htmlFormattedUrl": "https://www.asmap.ru/.../35114Osobennosti-ucheta-rabochego-vremeni- voditelej-avtomobilej",
+                    "pagemap": {
+                        "cse_thumbnail": [
+                            {
+                                "src": "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcSQ6qG1Vuy9v4Y5uudALDsHJPhYLHLNWql_x1ozzTMWClnHIOUiXf6Fx-w",
+                                "width": "188",
+                                "height": "94"
+                            }
+                        ],
+                        "breadcrumb": [
+                            {
+                                "title": "АСМАП",
+                                "url": "АСМАП"
+                            },
+                            {
+                                "title": "Финансы и налоги",
+                                "url": "Финансы и налоги"
+                            },
+                            {
+                                "title": "Оплата труда и страховые взносы",
+                                "url": "Оплата труда и страховые взносы"
+                            }
+                        ],
+                        "metatags": [
+                            {
+                                "viewport": "width=device-width, initial-scale=1"
+                            }
+                        ],
+                        "cse_image": [
+                            {
+                                "src": "https://www.asmap.ru/bitrix/templates/asmap/images/logoDev.gif"
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+    },
+    {
+        "request": "Правила ведения табеля учета рабочего времени в РФ",
+        "response": {
+            "kind": "customsearch#search",
+            "url": {
+                "type": "application/json",
+                "template": "https://www.googleapis.com/customsearch/v1?q={searchTerms}&num={count?}&start={startIndex?}&lr={language?}&safe={safe?}&cx={cx?}&sort={sort?}&filter={filter?}&gl={gl?}&cr={cr?}&googlehost={googleHost?}&c2coff={disableCnTwTranslation?}&hq={hq?}&hl={hl?}&siteSearch={siteSearch?}&siteSearchFilter={siteSearchFilter?}&exactTerms={exactTerms?}&excludeTerms={excludeTerms?}&linkSite={linkSite?}&orTerms={orTerms?}&relatedSite={relatedSite?}&dateRestrict={dateRestrict?}&lowRange={lowRange?}&highRange={highRange?}&searchType={searchType}&fileType={fileType?}&rights={rights?}&imgSize={imgSize?}&imgType={imgType?}&imgColorType={imgColorType?}&imgDominantColor={imgDominantColor?}&alt=json"
+            },
+            "queries": {
+                "request": [
+                    {
+                        "title": "Google Custom Search - Правила ведения табеля учета рабочего времени в РФ",
+                        "totalResults": "256000",
+                        "searchTerms": "Правила ведения табеля учета рабочего времени в РФ",
+                        "count": 10,
+                        "startIndex": 1,
+                        "inputEncoding": "utf8",
+                        "outputEncoding": "utf8",
+                        "safe": "off",
+                        "cx": "86165028723124a88"
+                    }
+                ],
+                "nextPage": [
+                    {
+                        "title": "Google Custom Search - Правила ведения табеля учета рабочего времени в РФ",
+                        "totalResults": "256000",
+                        "searchTerms": "Правила ведения табеля учета рабочего времени в РФ",
+                        "count": 10,
+                        "startIndex": 11,
+                        "inputEncoding": "utf8",
+                        "outputEncoding": "utf8",
+                        "safe": "off",
+                        "cx": "86165028723124a88"
+                    }
+                ]
+            },
+            "context": {
+                "title": "tadateam"
+            },
+            "searchInformation": {
+                "searchTime": 0.53888,
+                "formattedSearchTime": "0.54",
+                "totalResults": "256000",
+                "formattedTotalResults": "256,000"
+            },
+            "items": [
+                {
+                    "kind": "customsearch#result",
+                    "title": "Скачать бланк табеля учета рабочего времени 2023 года",
+                    "htmlTitle": "Скачать бланк \u003cb\u003eтабеля учета рабочего времени\u003c/b\u003e 2023 года",
+                    "link": "https://ppt.ru/rabochee-vremia/zapolnenie-tabelya",
+                    "displayLink": "ppt.ru",
+                    "snippet": "По нормативам обязанность ведения табеля учета рабочего времени работников установлена Трудовым кодексом РФ (ст. 91 ТК РФ).",
+                    "htmlSnippet": "По нормативам обязанность \u003cb\u003eведения табеля учета рабочего времени\u003c/b\u003e работников установлена Трудовым кодексом \u003cb\u003eРФ\u003c/b\u003e (ст. 91 ТК \u003cb\u003eРФ\u003c/b\u003e).",
+                    "cacheId": "vGL3RbgOh9wJ",
+                    "formattedUrl": "https://ppt.ru/rabochee-vremia/zapolnenie-tabelya",
+                    "htmlFormattedUrl": "https://ppt.ru/rabochee-vremia/zapolnenie-tabelya",
+                    "pagemap": {
+                        "hcard": [
+                            {
+                                "fn": "Дидух Юлия",
+                                "photo": "https://ppt.ru/images/team/small/didukh-yuliya.jpg?v=22.4.4",
+                                "title": "бухгалтер, юрист",
+                                "url": "https://ppt.ru/team/didukh-yuliya"
+                            }
+                        ],
+                        "cse_thumbnail": [
+                            {
+                                "src": "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcRb1XUmLfhLrmMc028RurewsSNOBW3AzSJQeeCuwh3tAlpCtYQYzLS_Src",
+                                "width": "280",
+                                "height": "180"
+                            }
+                        ],
+                        "person": [
+                            {
+                                "role": "бухгалтер, юрист"
+                            },
+                            {
+                                "name": "Дидух Юлия",
+                                "url": "/team/didukh-yuliya"
+                            },
+                            {
+                                "image": "https://ppt.ru/images/team/small/didukh-yuliya.jpg?v=22.4.4",
+                                "jobtitle": "бухгалтер, юрист",
+                                "name": "Дидух Юлия",
+                                "url": "Все статьи автора"
+                            }
+                        ],
+                        "metatags": [
+                            {
+                                "og:image": "https://img.ppt.ru/img/ad8e9edeaa70856e16ec918694153213.jpg",
+                                "og:type": "article",
+                                "viewport": "width=device-width,initial-scale=1.0,user-scalable=yes",
+                                "csrf-token": "5ReNTaDG8h0w7OtUnbOSCh774G534Q2V-cQzWaLEj1uEXdkb75DfUG-khxHP5fkyLMysCRDZR8Wq9gdslpWiFQ==",
+                                "og:title": "Табель учета рабочего времени: заполняем правильно",
+                                "csrf-param": "_csrf-frontend",
+                                "og:description": "Табель учета рабочего времени — это документ, в котором отражается фактическая отработка каждого сотрудника. Составляют его ежемесячно. Но нужно учитывать и все отклонения.",
+                                "format-detection": "telephone=no"
+                            }
+                        ],
+                        "comment": [
+                            {
+                                "datecreated": "2021-12-30 08:33:27",
+                                "text": "Обычно ведение табеля учета рабочего времени работников — задача кадровика или бухгалтера. Вручную его..."
+                            },
+                            {
+                                "datecreated": "2022-04-28 14:18:49",
+                                "text": "Не понимаю как заполнить табель за апрель при шестидневной рабочей неделе по календарю 151,2 по факту получае..."
+                            },
+                            {
+                                "datecreated": "2022-11-10 15:37:52",
+                                "text": "Если ваша организация работает по пятидневке и окладной системе, то табель Т-13 можно ежемесячно распечатыв..."
+                            },
+                            {
+                                "datecreated": "2023-02-03 07:58:45",
+                                "text": "Здравствуйте. У нас сотрудники работали в выходной день. Нужно ли суммировать итог в табеле с выходными..."
+                            }
+                        ],
+                        "cse_image": [
+                            {
+                                "src": "https://img.ppt.ru/img/ad8e9edeaa70856e16ec918694153213.jpg"
+                            }
+                        ],
+                        "newsarticle": [
+                            {
+                                "image": "https://img.ppt.ru/img/ad8e9edeaa70856e16ec918694153213.jpg",
+                                "articlebody": "Табель учета рабочего времени — это документ, в котором отражается фактическая отработка каждого сотрудни...",
+                                "headline": "Табель учета рабочего времени: заполняем правильно",
+                                "datepublished": "2023-05-12"
+                            }
+                        ],
+                        "listitem": [
+                            {
+                                "item": "Главная",
+                                "name": "Главная",
+                                "position": "1"
+                            },
+                            {
+                                "item": "Кадровику",
+                                "name": "Кадровику",
+                                "position": "2"
+                            },
+                            {
+                                "item": "Рабочее время: все статьи о распорядке рабочего времени",
+                                "name": "Рабочее время: все статьи о распорядке рабочего времени",
+                                "position": "3"
+                            },
+                            {
+                                "name": "Табель учета рабочего времени: заполняем правильно",
+                                "position": "4"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "kind": "customsearch#result",
+                    "title": "Роль и правила ведения табеля учета рабочего времени в 2023 ...",
+                    "htmlTitle": "Роль и \u003cb\u003eправила ведения табеля учета рабочего времени\u003c/b\u003e в 2023 ...",
+                    "link": "https://xn--b1aasedeuba5ai.xn--p1ai/blog/rol-i-pravila-vedeniya-tabelya-ucheta-rabochego-vremeni/",
+                    "displayLink": "xn--b1aasedeuba5ai.xn--p1ai",
+                    "snippet": "Mar 31, 2022 ... Первое в России готовое решение для учёта товара по RFID-меткам на каждом из этапов цепочки поставок. Исключи ошибки сопоставления и считывания ...",
+                    "htmlSnippet": "Mar 31, 2022 \u003cb\u003e...\u003c/b\u003e Первое в \u003cb\u003eРоссии\u003c/b\u003e готовое решение для \u003cb\u003eучёта\u003c/b\u003e товара по RFID-меткам на каждом из этапов цепочки поставок. Исключи ошибки сопоставления и считывания&nbsp;...",
+                    "cacheId": "5ltO56vvB8UJ",
+                    "formattedUrl": "https://волотовский.рф/.../rol-i-pravila-vedeniya-tabelya-ucheta-rabochego- vremeni/",
+                    "htmlFormattedUrl": "https://волотовский.\u003cb\u003eрф\u003c/b\u003e/.../rol-i-pravila-vedeniya-tabelya-ucheta-rabochego- vremeni/",
+                    "pagemap": {
+                        "hcard": [
+                            {
+                                "fn": "Петр Кузнецов"
+                            }
+                        ],
+                        "cse_thumbnail": [
+                            {
+                                "src": "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQUJBh9GvARX5c9mIkolO2b6Oh9Uq5xI3oLhcOLV7LPeSXm4EY7GBj8p14",
+                                "width": "217",
+                                "height": "232"
+                            }
+                        ],
+                        "imageobject": [
+                            {
+                                "image": "https://xn--b1aasedeuba5ai.xn--p1ai/images/2/rol-pravila-vedeniya-E6FB631.png",
+                                "width": "720",
+                                "url": "https://xn--b1aasedeuba5ai.xn--p1ai/images/2/rol-pravila-vedeniya-E6FB631.png",
+                                "height": "720"
+                            },
+                            {
+                                "image": "https://xn--b1aasedeuba5ai.xn--p1ai/images/2/rol-pravila-vedeniya-5796D.jpeg",
+                                "width": "768",
+                                "url": "https://xn--b1aasedeuba5ai.xn--p1ai/images/2/rol-pravila-vedeniya-5796D.jpeg",
+                                "height": "512"
+                            },
+                            {
+                                "image": "https://xn--b1aasedeuba5ai.xn--p1ai/images/2/rol-pravila-vedeniya-EE4B87A.png",
+                                "width": "272",
+                                "url": "https://xn--b1aasedeuba5ai.xn--p1ai/images/2/rol-pravila-vedeniya-EE4B87A.png",
+                                "height": "291"
+                            },
+                            {
+                                "image": "https://xn--b1aasedeuba5ai.xn--p1ai/images/2/rol-pravila-vedeniya-A544.jpeg",
+                                "width": "917",
+                                "url": "https://xn--b1aasedeuba5ai.xn--p1ai/images/2/rol-pravila-vedeniya-A544.jpeg",
+                                "height": "346"
+                            },
+                            {
+                                "image": "https://xn--b1aasedeuba5ai.xn--p1ai/images/2/rol-pravila-vedeniya-8A30B.jpeg",
+                                "width": "810",
+                                "url": "https://xn--b1aasedeuba5ai.xn--p1ai/images/2/rol-pravila-vedeniya-8A30B.jpeg",
+                                "height": "301"
+                            },
+                            {
+                                "image": "https://xn--b1aasedeuba5ai.xn--p1ai/images/2/rol-pravila-vedeniya-9454A.jpeg",
+                                "width": "805",
+                                "url": "https://xn--b1aasedeuba5ai.xn--p1ai/images/2/rol-pravila-vedeniya-9454A.jpeg",
+                                "height": "299"
+                            },
+                            {
+                                "image": "https://xn--b1aasedeuba5ai.xn--p1ai/images/2/rol-pravila-vedeniya-9C8A94D.jpeg",
+                                "width": "725",
+                                "url": "https://xn--b1aasedeuba5ai.xn--p1ai/images/2/rol-pravila-vedeniya-9C8A94D.jpeg",
+                                "height": "268"
+                            },
+                            {
+                                "image": "https://xn--b1aasedeuba5ai.xn--p1ai/images/2/rol-pravila-vedeniya-4BF64.jpeg",
+                                "width": "734",
+                                "url": "https://xn--b1aasedeuba5ai.xn--p1ai/images/2/rol-pravila-vedeniya-4BF64.jpeg",
+                                "height": "262"
+                            },
+                            {
+                                "image": "https://xn--b1aasedeuba5ai.xn--p1ai/images/2/rol-pravila-vedeniya-3C3B78.jpeg",
+                                "width": "811",
+                                "url": "https://xn--b1aasedeuba5ai.xn--p1ai/images/2/rol-pravila-vedeniya-3C3B78.jpeg",
+                                "height": "293"
+                            },
+                            {
+                                "image": "https://xn--b1aasedeuba5ai.xn--p1ai/images/2/rol-pravila-vedeniya-D31030.jpeg",
+                                "width": "768",
+                                "url": "https://xn--b1aasedeuba5ai.xn--p1ai/images/2/rol-pravila-vedeniya-D31030.jpeg",
+                                "height": "495"
+                            },
+                            {
+                                "image": "https://xn--b1aasedeuba5ai.xn--p1ai/images/2/rol-pravila-vedeniya-EE4B87A.png",
+                                "width": "272",
+                                "url": "https://xn--b1aasedeuba5ai.xn--p1ai/images/2/rol-pravila-vedeniya-EE4B87A.png",
+                                "height": "291"
+                            },
+                            {
+                                "image": "https://xn--b1aasedeuba5ai.xn--p1ai/images/2/rol-pravila-vedeniya-2F64B05.png",
+                                "width": "792",
+                                "url": "https://xn--b1aasedeuba5ai.xn--p1ai/images/2/rol-pravila-vedeniya-2F64B05.png",
+                                "height": "530"
+                            },
+                            {
+                                "image": "https://xn--b1aasedeuba5ai.xn--p1ai/images/2/rol-pravila-vedeniya-2E7D5F8.png",
+                                "width": "773",
+                                "url": "https://xn--b1aasedeuba5ai.xn--p1ai/images/2/rol-pravila-vedeniya-2E7D5F8.png",
+                                "height": "563"
+                            },
+                            {
+                                "image": "https://xn--b1aasedeuba5ai.xn--p1ai/images/2/rol-pravila-vedeniya-AE0BE7.jpeg",
+                                "width": "768",
+                                "url": "https://xn--b1aasedeuba5ai.xn--p1ai/images/2/rol-pravila-vedeniya-AE0BE7.jpeg",
+                                "height": "512"
+                            },
+                            {
+                                "image": "https://xn--b1aasedeuba5ai.xn--p1ai/images/2/rol-pravila-vedeniya-9E1C.png",
+                                "width": "1105",
+                                "url": "https://xn--b1aasedeuba5ai.xn--p1ai/images/2/rol-pravila-vedeniya-9E1C.png",
+                                "height": "784"
+                            },
+                            {
+                                "image": "https://xn--b1aasedeuba5ai.xn--p1ai/images/2/rol-pravila-vedeniya-A0FD68C.jpg",
+                                "width": "1920",
+                                "url": "https://xn--b1aasedeuba5ai.xn--p1ai/images/2/rol-pravila-vedeniya-A0FD68C.jpg",
+                                "height": "1275"
+                            },
+                            {
+                                "image": "https://xn--b1aasedeuba5ai.xn--p1ai/images/2/rol-pravila-vedeniya-36A38.jpg",
+                                "width": "1920",
+                                "url": "https://xn--b1aasedeuba5ai.xn--p1ai/images/2/rol-pravila-vedeniya-36A38.jpg",
+                                "height": "1280"
+                            },
+                            {
+                                "image": "https://xn--b1aasedeuba5ai.xn--p1ai/images/2/rol-pravila-vedeniya-8721.png",
+                                "width": "1908",
+                                "url": "https://xn--b1aasedeuba5ai.xn--p1ai/images/2/rol-pravila-vedeniya-8721.png",
+                                "height": "790"
+                            },
+                            {
+                                "image": "https://xn--b1aasedeuba5ai.xn--p1ai/images/2/rol-pravila-vedeniya-78B849A.jpg",
+                                "width": "1920",
+                                "url": "https://xn--b1aasedeuba5ai.xn--p1ai/images/2/rol-pravila-vedeniya-78B849A.jpg",
+                                "height": "1280"
+                            },
+                            {
+                                "image": "https://xn--b1aasedeuba5ai.xn--p1ai/images/2/rol-pravila-vedeniya-5CC4D.jpg",
+                                "width": "1920",
+                                "url": "https://xn--b1aasedeuba5ai.xn--p1ai/images/2/rol-pravila-vedeniya-5CC4D.jpg",
+                                "height": "1280"
+                            }
+                        ],
+                        "person": [
+                            {
+                                "image": "https://xn--b1aasedeuba5ai.xn--p1ai/blog/wp-content/uploads/2022/11/Petr-Kuznecov.jpg",
+                                "name": "Петр Кузнецов",
+                                "url": "Петр Кузнецов"
+                            }
+                        ],
+                        "organization": [
+                            {
+                                "address": "https://xn--b1aasedeuba5ai.xn--p1ai/blog",
+                                "name": "Юридическая поддержка",
+                                "telephone": "Юридическая поддержка"
+                            }
+                        ],
+                        "metatags": [
+                            {
+                                "og:type": "article",
+                                "article:published_time": "2022-03-31T17:58:35+00:00",
+                                "twitter:card": "summary_large_image",
+                                "og:site_name": "Юридическая поддержка",
+                                "author": "Петр Кузнецов",
+                                "og:title": "Роль и правила ведения табеля учета рабочего времени в 2023 году – Юридическая поддержка",
+                                "twitter:label1": "Написано автором",
+                                "msapplication-tileimage": "https://xn--b1aasedeuba5ai.xn--p1ai/blog/wp-content/uploads/2022/11/cropped-fav1-270x270.png",
+                                "og:description": "Все что нужно знать по теме: \"Роль и правила ведения табеля учета рабочего времени\" вы узнаете на страницах нашего блога",
+                                "twitter:data1": "Петр Кузнецов",
+                                "viewport": "width=device-width, initial-scale=1",
+                                "og:locale": "ru_RU",
+                                "og:url": "https://xn--b1aasedeuba5ai.xn--p1ai/blog/rol-i-pravila-vedeniya-tabelya-ucheta-rabochego-vremeni/"
+                            }
+                        ],
+                        "cse_image": [
+                            {
+                                "src": "https://xn--b1aasedeuba5ai.xn--p1ai/images/2/rol-pravila-vedeniya-5C4BA1.png"
+                            }
+                        ],
+                        "article": [
+                            {
+                                "articlebody": "Содержание Как заполнить табель учета рабочего времени: как правильно его составить и оформить — инструкц...",
+                                "datemodified": "2022-03-31",
+                                "headline": "Роль и правила ведения табеля учета рабочего времени",
+                                "datepublished": "2022-03-31"
+                            }
+                        ],
+                        "listitem": [
+                            {
+                                "item": "Главная",
+                                "name": "Главная",
+                                "position": "0"
+                            },
+                            {
+                                "item": "Документы",
+                                "name": "Документы",
+                                "position": "1"
+                            },
+                            {
+                                "name": "Роль и правила ведения табеля учета рабочего времени",
+                                "position": "2"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "kind": "customsearch#result",
+                    "title": "Табель учета рабочего времени",
+                    "htmlTitle": "\u003cb\u003eТабель учета рабочего времени\u003c/b\u003e",
+                    "link": "https://glavkniga.ru/situations/k504971",
+                    "displayLink": "glavkniga.ru",
+                    "snippet": "Feb 2, 2022 ... Табель учета рабочего времени: правила заполнения, бланки и образцы. В обязанности работодателя входит ведение учета времени, ...",
+                    "htmlSnippet": "Feb 2, 2022 \u003cb\u003e...\u003c/b\u003e \u003cb\u003eТабель учета рабочего времени\u003c/b\u003e: \u003cb\u003eправила\u003c/b\u003e заполнения, бланки и образцы. В обязанности работодателя входит \u003cb\u003eведение\u003c/b\u003e учета времени,&nbsp;...",
+                    "cacheId": "KVCE4cU1FUwJ",
+                    "formattedUrl": "https://glavkniga.ru/situations/k504971",
+                    "htmlFormattedUrl": "https://glavkniga.ru/situations/k504971",
+                    "pagemap": {
+                        "cse_thumbnail": [
+                            {
+                                "src": "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTrqqEN0KbOFP97k3b7RmnXl3YbkSxIMh2iR_Xc8MUHqQ",
+                                "width": "225",
+                                "height": "225"
+                            }
+                        ],
+                        "metatags": [
+                            {
+                                "og:image": "/template/images/meta_image_tc.jpg",
+                                "og:type": "website",
+                                "og:image:width": "300",
+                                "og:site_name": "Главная книга",
+                                "author": "Издательство «Главная книга», © 2023 г.",
+                                "og:title": "Табель учета рабочего времени",
+                                "og:image:height": "300",
+                                "yandex-verification": "55c7941609dda72d",
+                                "title": "Табель учета рабочего времени",
+                                "og:description": "Табель учёта рабочего времени используется для сведений о фактически отработанном сотрудниками рабочем времени. Формы табеля Т-12 и Т-13 разработаны Госкомстатом, при этом являются рекомендательными. Образец и формат заполнения табеля рабочего времени, бланки табеля по форме Т-12 и Т13 для скачивания",
+                                "viewport": "width=device-width,minimum-scale=1,initial-scale=1",
+                                "og:author": "Издательство «Главная книга», © 2023 г.",
+                                "og:url": "https://glavkniga.ru/situations/k504971",
+                                "format-detection": "telephone=no"
+                            }
+                        ],
+                        "cse_image": [
+                            {}
+                        ]
+                    }
+                },
+                {
+                    "kind": "customsearch#result",
+                    "title": "Как вести учет рабочего времени сотрудников 2023 по ТК РФ",
+                    "htmlTitle": "Как вести \u003cb\u003eучет рабочего времени\u003c/b\u003e сотрудников 2023 по ТК \u003cb\u003eРФ\u003c/b\u003e",
+                    "link": "https://www.kdelo.ru/art/383024-uchet-rabochego-vremeni-sotrudnikov-17-m11",
+                    "displayLink": "www.kdelo.ru",
+                    "snippet": "Jul 2, 2022 ... Ответственность за ведение табеля учета рабочего времени в больших организациях, как правило, возлагается на отдельного специалиста ...",
+                    "htmlSnippet": "Jul 2, 2022 \u003cb\u003e...\u003c/b\u003e Ответственность за \u003cb\u003eведение табеля учета рабочего времени\u003c/b\u003e в больших организациях, как \u003cb\u003eправило\u003c/b\u003e, возлагается на отдельного специалиста&nbsp;...",
+                    "formattedUrl": "https://www.kdelo.ru/.../383024-uchet-rabochego-vremeni-sotrudnikov-17- m11",
+                    "htmlFormattedUrl": "https://www.kdelo.ru/.../383024-uchet-rabochego-vremeni-sotrudnikov-17- m11",
+                    "pagemap": {
+                        "cse_thumbnail": [
+                            {
+                                "src": "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcRK5XSQuhpOAnCIboj9tpOkStcFW44N53P4Cj5F0AZu2pwVY0wYJBjNOjpG",
+                                "width": "321",
+                                "height": "157"
+                            }
+                        ],
+                        "imageobject": [
+                            {
+                                "contenturl": "https://www.kdelo.ru/assets/e1f446c7/assets/frontend/images/empty140x95.gif",
+                                "url": "https://www.kdelo.ru/assets/e1f446c7/assets/frontend/images/empty140x95.gif"
+                            },
+                            {
+                                "contenturl": "https://www.kdelo.ru/assets/e1f446c7/assets/frontend/images/empty140x95.gif",
+                                "width": "216",
+                                "url": "https://www.kdelo.ru/assets/e1f446c7/assets/frontend/images/empty140x95.gif",
+                                "height": "60"
+                            }
+                        ],
+                        "person": [
+                            {
+                                "name": "Кондратюк Роман"
+                            }
+                        ],
+                        "organization": [
+                            {
+                                "address": "-",
+                                "name": "Кадровое Дело",
+                                "telephone": "-"
+                            }
+                        ],
+                        "metatags": [
+                            {
+                                "msapplication-tilecolor": "#284b89",
+                                "og:image": "https://www.kdelo.ru/themes/kdelo_ru/assets/frontend/images/fblogo.png",
+                                "og:type": "article",
+                                "theme-color": "#284b89",
+                                "article:published_time": "2022-07-02T15:00:00+03:00",
+                                "og:site_name": "Кадровое Дело",
+                                "og:title": "Как вести учет рабочего времени сотрудников 2023 по ТК РФ",
+                                "og:article:published_time": "2022-07-02T15:00:00+03:00",
+                                "yandex-verification": "1754bfa33a68adce",
+                                "msapplication-tileimage": "/themes/kdelo_ru/mstile-150x150.png",
+                                "og:description": "В ТК РФ закреплено, сколько может работать и отдыхать сотрудник. При этом за нормированием часов обязан следить руководитель. Расскажем, как правильно вести учет рабочего времени в условиях любого режима работы — от пяти- или шестидневной недели с фиксированными выходными до гибкого графика и ненормированного рабочего дня.",
+                                "article:author": "https://www.kdelo.ru/person/29-kondratyuk",
+                                "article:tag": "Трудовое законодательство",
+                                "og:article:tag": "Трудовое законодательство",
+                                "referrer": "unsafe-url",
+                                "viewport": "width=device-width, initial-scale=1, maximum-scale=5",
+                                "og:url": "https://www.kdelo.ru/art/383024-uchet-rabochego-vremeni-sotrudnikov-17-m11",
+                                "wmail-verification": "8fef530f06778cabc0d1d6b17159a843"
+                            }
+                        ],
+                        "cse_image": [
+                            {
+                                "src": "https://www.kdelo.ru/images/Kulagina/3/26.jpg"
+                            }
+                        ],
+                        "article": [
+                            {
+                                "image": "https://www.kdelo.ru/images/Kulagina/3/26.jpg",
+                                "articlebody": "В ТК РФ закреплено, сколько может работать и отдыхать сотрудник. При этом за нормированием часов обязан...",
+                                "datemodified": "2023-04-05 18:24:50",
+                                "articlesection": "Трудовое законодательство",
+                                "name": "Учет рабочего времени сотрудников: требования ТК РФ",
+                                "headline": "Учет рабочего времени сотрудников: требования ТК РФ",
+                                "datepublished": "2022-07-02",
+                                "mainentityofpage": "https://www.kdelo.ru/art/383024-uchet-rabochego-vremeni-sotrudnikov-17-m11"
+                            }
+                        ],
+                        "listitem": [
+                            {
+                                "item": "https://www.kdelo.ru/",
+                                "name": "https://www.kdelo.ru/",
+                                "position": "1"
+                            },
+                            {
+                                "item": "Статьи",
+                                "name": "Статьи",
+                                "position": "2"
+                            },
+                            {
+                                "item": "Рабочее время",
+                                "name": "Рабочее время",
+                                "position": "3"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "kind": "customsearch#result",
+                    "title": "Табель учета рабочего времени: для чего нужен, кто и по какой ...",
+                    "htmlTitle": "\u003cb\u003eТабель учета рабочего времени\u003c/b\u003e: для чего нужен, кто и по какой ...",
+                    "link": "https://www.audit-it.ru/terms/trud/tabel_ucheta_rabochego_vremeni.html",
+                    "displayLink": "www.audit-it.ru",
+                    "snippet": "Jan 25, 2019 ... Табель учета рабочего времени, как правило, ведется в электронном и ... Отчетный период - т.е. месяц с датами начала и окончания ведения ...",
+                    "htmlSnippet": "Jan 25, 2019 \u003cb\u003e...\u003c/b\u003e \u003cb\u003eТабель учета рабочего времени\u003c/b\u003e, как \u003cb\u003eправило\u003c/b\u003e, ведется в электронном и ... Отчетный период - т.е. месяц с датами начала и окончания \u003cb\u003eведения\u003c/b\u003e&nbsp;...",
+                    "cacheId": "J58MVUZwOl4J",
+                    "formattedUrl": "https://www.audit-it.ru/terms/trud/tabel_ucheta_rabochego_vremeni.html",
+                    "htmlFormattedUrl": "https://www.audit-it.ru/terms/trud/tabel_ucheta_rabochego_vremeni.html",
+                    "pagemap": {
+                        "cse_thumbnail": [
+                            {
+                                "src": "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcRoibE-bCeZBxzJrgKu_ckKlhC4xn6ybzu5ikhWVLTk4La9p19PssqrmYA1",
+                                "width": "318",
+                                "height": "159"
+                            }
+                        ],
+                        "metatags": [
+                            {
+                                "og:image": "https://www.audit-it.ru/og-icon-2.png",
+                                "fb:app_id": "588154041216256",
+                                "twitter:title": "Табель учета рабочего времени",
+                                "viewport": "width=device-width, initial-scale=1, maximum-scale=1",
+                                "twitter:url": "https://www.audit-it.ru/terms/trud/tabel_ucheta_rabochego_vremeni.html",
+                                "twitter:description": "Табель учета рабочего времени – это поименный список работников организации с отметками об использовании рабочего времени в течение учетного периода.",
+                                "og:title": "Табель учета рабочего времени",
+                                "og:url": "https://www.audit-it.ru/terms/trud/tabel_ucheta_rabochego_vremeni.html",
+                                "og:description": "Табель учета рабочего времени – это поименный список работников организации с отметками об использовании рабочего времени в течение учетного периода."
+                            }
+                        ],
+                        "cse_image": [
+                            {
+                                "src": "https://www.audit-it.ru/og-icon-2.png"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "kind": "customsearch#result",
+                    "title": "Табель учета рабочего времени: образец",
+                    "htmlTitle": "\u003cb\u003eТабель учета рабочего времени\u003c/b\u003e: образец",
+                    "link": "https://www.kdelo.ru/art/384346-tabel-ucheta-vremeni-rabotnikov-17-m10",
+                    "displayLink": "www.kdelo.ru",
+                    "snippet": "Sep 28, 2022 ... Правила заполнения табеля учета рабочего времени не претерпели изменений, поэтому можно придерживаться ранее разработанных норм. Виды рабочего ...",
+                    "htmlSnippet": "Sep 28, 2022 \u003cb\u003e...\u003c/b\u003e \u003cb\u003eПравила\u003c/b\u003e заполнения \u003cb\u003eтабеля учета рабочего времени\u003c/b\u003e не претерпели изменений, поэтому можно придерживаться ранее разработанных норм. Виды рабочего&nbsp;...",
+                    "formattedUrl": "https://www.kdelo.ru/art/384346-tabel-ucheta-vremeni-rabotnikov-17-m10",
+                    "htmlFormattedUrl": "https://www.kdelo.ru/art/384346-tabel-ucheta-vremeni-rabotnikov-17-m10",
+                    "pagemap": {
+                        "cse_thumbnail": [
+                            {
+                                "src": "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcQ2dJHlYMyeH3ZzUswEfoHY7ht7KpcugoKiXsHAy8sTvB5YTc2GGYV_hAo",
+                                "width": "409",
+                                "height": "123"
+                            }
+                        ],
+                        "imageobject": [
+                            {
+                                "contenturl": "https://www.kdelo.ru/assets/cab741e/assets/frontend/images/empty140x95.gif",
+                                "url": "https://www.kdelo.ru/assets/cab741e/assets/frontend/images/empty140x95.gif"
+                            },
+                            {
+                                "contenturl": "https://www.kdelo.ru/assets/cab741e/assets/frontend/images/empty140x95.gif",
+                                "width": "216",
+                                "url": "https://www.kdelo.ru/assets/cab741e/assets/frontend/images/empty140x95.gif",
+                                "height": "60"
+                            }
+                        ],
+                        "person": [
+                            {
+                                "name": "Рудакова Анна"
+                            }
+                        ],
+                        "organization": [
+                            {
+                                "address": "-",
+                                "name": "Кадровое Дело",
+                                "telephone": "-"
+                            }
+                        ],
+                        "metatags": [
+                            {
+                                "msapplication-tilecolor": "#284b89",
+                                "og:image": "https://www.kdelo.ru/themes/kdelo_ru/assets/frontend/images/fblogo.png",
+                                "og:type": "article",
+                                "theme-color": "#284b89",
+                                "article:published_time": "2022-09-28T11:00:00+03:00",
+                                "og:site_name": "Кадровое Дело",
+                                "og:title": "Табель учета рабочего времени: образец",
+                                "og:article:published_time": "2022-09-28T11:00:00+03:00",
+                                "yandex-verification": "1754bfa33a68adce",
+                                "msapplication-tileimage": "/themes/kdelo_ru/mstile-150x150.png",
+                                "og:description": "Работодатель должен учитывать время, фактически отработанное каждым сотрудником, чтобы правильно рассчитать зарплату. Поэтому кадровик обязан вести табель учета рабочего времени. Скачать чистый бланк и образцы заполнения, узнать, какую форму документа выбрать и как ее правильно заполнять, можете в статье.",
+                                "article:author": "https://www.kdelo.ru/person/6-rudakova",
+                                "article:tag": "Рабочее время",
+                                "og:article:tag": "Рабочее время",
+                                "referrer": "unsafe-url",
+                                "viewport": "width=device-width, initial-scale=1, maximum-scale=5",
+                                "og:url": "https://www.kdelo.ru/art/384346-tabel-ucheta-vremeni-rabotnikov-17-m10",
+                                "wmail-verification": "8fef530f06778cabc0d1d6b17159a843"
+                            }
+                        ],
+                        "cse_image": [
+                            {
+                                "src": "https://www.kdelo.ru/files/2020/Katya/tabel.jpg"
+                            }
+                        ],
+                        "article": [
+                            {
+                                "image": "https://www.kdelo.ru/files/2020/Katya/tabel.jpg",
+                                "articlebody": "Работодатель должен учитывать время, фактически отработанное каждым сотрудником, чтобы правильно рассчит...",
+                                "datemodified": "2022-09-28 12:26:50",
+                                "articlesection": "Рабочее время",
+                                "name": "Табель учёта рабочего времени: как правильно заполнять",
+                                "headline": "Табель учёта рабочего времени: как правильно заполнять",
+                                "datepublished": "2022-09-28",
+                                "mainentityofpage": "https://www.kdelo.ru/art/384346-tabel-ucheta-vremeni-rabotnikov-17-m10"
+                            }
+                        ],
+                        "listitem": [
+                            {
+                                "item": "https://www.kdelo.ru/",
+                                "name": "https://www.kdelo.ru/",
+                                "position": "1"
+                            },
+                            {
+                                "item": "Статьи",
+                                "name": "Статьи",
+                                "position": "2"
+                            },
+                            {
+                                "item": "Кадровое делопроизводство",
+                                "name": "Кадровое делопроизводство",
+                                "position": "3"
+                            },
+                            {
+                                "item": "Табель учета рабочего времени",
+                                "name": "Табель учета рабочего времени",
+                                "position": "4"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "kind": "customsearch#result",
+                    "title": "Табель учета рабочего времени на 2022 год: образец заполнения",
+                    "htmlTitle": "\u003cb\u003eТабель учета рабочего времени\u003c/b\u003e на 2022 год: образец заполнения",
+                    "link": "https://www.buhonline.ru/pub/beginner/2019/11/15212_tabel-ucheta-rabochego-vremeni-kak-zapolnit",
+                    "displayLink": "www.buhonline.ru",
+                    "snippet": "May 20, 2022 ... Организация-работодатель в этом случае может быть оштрафована на 50 тыс. рублей (ч. 1 ст. 5.27 КоАП РФ). Бухгалтерия Ведите табель и ...",
+                    "htmlSnippet": "May 20, 2022 \u003cb\u003e...\u003c/b\u003e Организация-работодатель в этом случае может быть оштрафована на 50 тыс. рублей (ч. 1 ст. 5.27 КоАП \u003cb\u003eРФ\u003c/b\u003e). Бухгалтерия Ведите \u003cb\u003eтабель\u003c/b\u003e и&nbsp;...",
+                    "cacheId": "0AvNYtr-BiAJ",
+                    "formattedUrl": "https://www.buhonline.ru/.../15212_tabel-ucheta-rabochego-vremeni-kak- zapolnit",
+                    "htmlFormattedUrl": "https://www.buhonline.ru/.../15212_tabel-ucheta-rabochego-vremeni-kak- zapolnit",
+                    "pagemap": {
+                        "cse_thumbnail": [
+                            {
+                                "src": "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTwcC55iiiUn-JTmhKLWiIX_Z-_3WFlFComkl_MnPCWqfyW_JXWAxr1Hdg",
+                                "width": "275",
+                                "height": "183"
+                            }
+                        ],
+                        "metatags": [
+                            {
+                                "og:image": "https://www.buhonline.ru/Files/Modules/Publication/15212_o_l_1x.png?t=1573807543",
+                                "theme-color": "#0768d4",
+                                "twitter:card": "summary",
+                                "og:type": "article",
+                                "og:site_name": "Бухонлайн",
+                                "msvalidate.01": "AB3273100D58FFB9BC112C13EE07C50C",
+                                "og:title": "Табель учета рабочего времени на 2022 год",
+                                "pmail-verification": "6a1fa6a3a1126f9de7d8440ed1c46445",
+                                "yandex-verification": "5c6f8d2f25fa28a7",
+                                "twitter:creator": "@buhonline",
+                                "og:description": "⭐ Что такое Табель учета рабочего времени? Как его правильно вести? Образец заполнения табеля учета рабочего времени в 2022 году. Экспертная статья от портала Бухонлайн.",
+                                "twitter:site": "@buhonline",
+                                "viewport": "width=device-width, initial-scale=1.0",
+                                "og:url": "https://www.buhonline.ru/pub/beginner/2019/11/15212_tabel-ucheta-rabochego-vremeni-kak-zapolnit"
+                            }
+                        ],
+                        "cse_image": [
+                            {
+                                "src": "https://www.buhonline.ru/Files/Modules/Publication/15212_o_l_1x.png?t=1573807543"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "kind": "customsearch#result",
+                    "title": "Как составить и вести табель учета рабочего времени в 2022 году",
+                    "htmlTitle": "Как составить и вести \u003cb\u003eтабель учета рабочего времени\u003c/b\u003e в 2022 году",
+                    "link": "https://school.kontur.ru/publications/2370",
+                    "displayLink": "school.kontur.ru",
+                    "snippet": "May 23, 2022 ... Ведение любого кадрового документа — дополнительная трудовая функция, которую нужно закреплять в трудовом договоре или должностной инструкции, ...",
+                    "htmlSnippet": "May 23, 2022 \u003cb\u003e...\u003c/b\u003e \u003cb\u003eВедение\u003c/b\u003e любого кадрового документа — дополнительная трудовая функция, которую нужно закреплять в трудовом договоре или должностной инструкции,&nbsp;...",
+                    "cacheId": "xCTyKzlPlJEJ",
+                    "formattedUrl": "https://school.kontur.ru/publications/2370",
+                    "htmlFormattedUrl": "https://school.kontur.ru/publications/2370",
+                    "pagemap": {
+                        "cse_thumbnail": [
+                            {
+                                "src": "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcToKuWVzDmR8L6LSMo2Tf-vdWuUVh8L5eyuXEGK9pwrIkM2lYnHxtilQYEh",
+                                "width": "340",
+                                "height": "148"
+                            }
+                        ],
+                        "metatags": [
+                            {
+                                "apple-itunes-app": "app-id=1459247576",
+                                "og:image": "https://school.kontur.ru/Files/Modules/Article/2370_bs.jpg?t=1653317707",
+                                "twitter:card": "summary",
+                                "og:type": "article",
+                                "og:site_name": "Контур.Школа",
+                                "og:title": "Как составить и вести табель учета рабочего времени в 2022 году",
+                                "zen-verification": "alsEyGbZriPHULe0kPo0gVSEjxngLDMPblK0kcJ9oytpXMMgYObCwDTAJSJg84g6",
+                                "yandex-verification": "412710cff97493c5",
+                                "twitter:creator": "@uc_SKBkontur",
+                                "og:description": "Как вести табель учета рабочего времени в 2022 году. Условные обозначения. Образец заполнения. Статья от эксперта Контур.Школы",
+                                "twitter:site": "@uc_SKBkontur",
+                                "viewport": "width=device-width, initial-scale=1.0",
+                                "og:url": "https://school.kontur.ru/publications/2370",
+                                "google-play-app": "app-id=ru.kontur.school"
+                            }
+                        ],
+                        "cse_image": [
+                            {
+                                "src": "https://school.kontur.ru/Files/Modules/Article/2370_bs.jpg?t=1653317707"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "kind": "customsearch#result",
+                    "title": "02.11.2021 Нужно ли издавать приказ о назначении лица ...",
+                    "htmlTitle": "02.11.2021 Нужно ли издавать приказ о назначении лица ...",
+                    "link": "https://its.1c.ru/db/answersstaff/content/4601/hdoc",
+                    "displayLink": "its.1c.ru",
+                    "snippet": "Nov 2, 2021 ... 91 ТК РФ). ... Как правило, обязанности по ведению табеля учета рабочего времени возлагаются на работника кадровой службы (например, ...",
+                    "htmlSnippet": "Nov 2, 2021 \u003cb\u003e...\u003c/b\u003e 91 ТК \u003cb\u003eРФ\u003c/b\u003e). ... Как \u003cb\u003eправило\u003c/b\u003e, обязанности по \u003cb\u003eведению табеля учета рабочего времени\u003c/b\u003e возлагаются на работника кадровой службы (например,&nbsp;...",
+                    "formattedUrl": "https://its.1c.ru/db/answersstaff/content/4601/hdoc",
+                    "htmlFormattedUrl": "https://its.1c.ru/db/answersstaff/content/4601/hdoc",
+                    "pagemap": {
+                        "question": [
+                            {
+                                "name": "Нужно ли издавать приказ о назначении лица, ответственного за ведение табеля учета рабочего времени?",
+                                "datecreated": "2021-11-02"
+                            }
+                        ],
+                        "answer": [
+                            {
+                                "text": "Необязательно издавать приказ о назначении лица, ответственного за ведение табеля учета рабочего времени,..."
+                            }
+                        ],
+                        "metatags": [
+                            {
+                                "theme-color": "#ffdf16",
+                                "viewport": "width=device-width, initial-scale=1.0, user-scalable=no",
+                                "format-detection": "telephone=no"
+                            }
+                        ],
+                        "listitem": [
+                            {
+                                "item": "Главная",
+                                "name": "Главная",
+                                "position": "1"
+                            },
+                            {
+                                "item": "Консультации по законодательству",
+                                "name": "Консультации по законодательству",
+                                "position": "2"
+                            },
+                            {
+                                "item": "Ответы аудиторов",
+                                "name": "Ответы аудиторов",
+                                "position": "3"
+                            },
+                            {
+                                "item": "Кадры, оплата труда и пособия",
+                                "name": "Кадры, оплата труда и пособия",
+                                "position": "4"
+                            },
+                            {
+                                "item": "Порядок ведения и хранения документов кадрового учета",
+                                "name": "Порядок ведения и хранения документов кадрового учета",
+                                "position": "5"
+                            },
+                            {
+                                "item": "Табель учета рабочего времени",
+                                "name": "Табель учета рабочего времени",
+                                "position": "6"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "kind": "customsearch#result",
+                    "title": "Табель учета рабочего времени и расчета оплаты труда (форма ...",
+                    "htmlTitle": "\u003cb\u003eТабель учета рабочего времени\u003c/b\u003e и расчета оплаты труда (форма ...",
+                    "link": "https://www.consultant.ru/document/cons_doc_LAW_47274/1cca56640af29ba59b46040648203150cd807893/",
+                    "displayLink": "www.consultant.ru",
+                    "snippet": "При раздельном ведении учета рабочего времени и расчета с персоналом по оплате труда допускается применение раздела 1 \"Учет рабочего времени\" табеля по ...",
+                    "htmlSnippet": "При раздельном \u003cb\u003eведении учета рабочего времени\u003c/b\u003e и расчета с персоналом по оплате труда допускается применение раздела 1 &quot;\u003cb\u003eУчет рабочего времени\u003c/b\u003e&quot; \u003cb\u003eтабеля\u003c/b\u003e по&nbsp;...",
+                    "formattedUrl": "https://www.consultant.ru/.../ 1cca56640af29ba59b46040648203150cd807893/",
+                    "htmlFormattedUrl": "https://www.consultant.ru/.../ 1cca56640af29ba59b46040648203150cd807893/",
+                    "pagemap": {
+                        "metatags": [
+                            {
+                                "theme-color": "#ffffff",
+                                "viewport": "width=device-width, initial-scale=1",
+                                "csrf-token": "6XPc9zuPdGux-98VhmyUgIa7h1-Sc_tWZL5U27yNvyKIBfGFVLouLfah7l7tINjx4cnmPOQYzzIBijOj8vSSTg==",
+                                "csrf-param": "_csrf",
+                                "backend-number": "2",
+                                "format-detection": "telephone=no",
+                                "app-version": "release-2023.2.3.635107"
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+    },
+    {
+        "request": "Подводные камни при ведении учета суммированного рабочего времени в России",
+        "response": {
+            "kind": "customsearch#search",
+            "url": {
+                "type": "application/json",
+                "template": "https://www.googleapis.com/customsearch/v1?q={searchTerms}&num={count?}&start={startIndex?}&lr={language?}&safe={safe?}&cx={cx?}&sort={sort?}&filter={filter?}&gl={gl?}&cr={cr?}&googlehost={googleHost?}&c2coff={disableCnTwTranslation?}&hq={hq?}&hl={hl?}&siteSearch={siteSearch?}&siteSearchFilter={siteSearchFilter?}&exactTerms={exactTerms?}&excludeTerms={excludeTerms?}&linkSite={linkSite?}&orTerms={orTerms?}&relatedSite={relatedSite?}&dateRestrict={dateRestrict?}&lowRange={lowRange?}&highRange={highRange?}&searchType={searchType}&fileType={fileType?}&rights={rights?}&imgSize={imgSize?}&imgType={imgType?}&imgColorType={imgColorType?}&imgDominantColor={imgDominantColor?}&alt=json"
+            },
+            "queries": {
+                "request": [
+                    {
+                        "title": "Google Custom Search - Подводные камни при ведении учета суммированного рабочего времени в России",
+                        "totalResults": "6890",
+                        "searchTerms": "Подводные камни при ведении учета суммированного рабочего времени в России",
+                        "count": 10,
+                        "startIndex": 1,
+                        "inputEncoding": "utf8",
+                        "outputEncoding": "utf8",
+                        "safe": "off",
+                        "cx": "86165028723124a88"
+                    }
+                ],
+                "nextPage": [
+                    {
+                        "title": "Google Custom Search - Подводные камни при ведении учета суммированного рабочего времени в России",
+                        "totalResults": "6890",
+                        "searchTerms": "Подводные камни при ведении учета суммированного рабочего времени в России",
+                        "count": 10,
+                        "startIndex": 11,
+                        "inputEncoding": "utf8",
+                        "outputEncoding": "utf8",
+                        "safe": "off",
+                        "cx": "86165028723124a88"
+                    }
+                ]
+            },
+            "context": {
+                "title": "tadateam"
+            },
+            "searchInformation": {
+                "searchTime": 0.4972,
+                "formattedSearchTime": "0.50",
+                "totalResults": "6890",
+                "formattedTotalResults": "6,890"
+            },
+            "items": [
+                {
+                    "kind": "customsearch#result",
+                    "title": "Суммированный учет рабочего времени в 2023 году: как ...",
+                    "htmlTitle": "\u003cb\u003eСуммированный учет рабочего времени\u003c/b\u003e в 2023 году: как ...",
+                    "link": "https://school.kontur.ru/publications/251",
+                    "displayLink": "school.kontur.ru",
+                    "snippet": "Jan 17, 2023 ... 8 Приказа Минтранса России от 20.08.2004 № 15). ... Почему при ведении суммированного учета рабочего времени целесообразно устанавливать не ...",
+                    "htmlSnippet": "Jan 17, 2023 \u003cb\u003e...\u003c/b\u003e 8 Приказа Минтранса \u003cb\u003eРоссии\u003c/b\u003e от 20.08.2004 № 15). ... Почему \u003cb\u003eпри ведении суммированного учета рабочего времени\u003c/b\u003e целесообразно устанавливать не&nbsp;...",
+                    "cacheId": "AJrVMujcxdEJ",
+                    "formattedUrl": "https://school.kontur.ru/publications/251",
+                    "htmlFormattedUrl": "https://school.kontur.ru/publications/251",
+                    "pagemap": {
+                        "cse_thumbnail": [
+                            {
+                                "src": "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcRM-LBHA1TFbPNBO4gds8BF0FlZg9ThQBA_FD1RLn_WpTi_YlWHPKvXPEY",
+                                "width": "340",
+                                "height": "148"
+                            }
+                        ],
+                        "metatags": [
+                            {
+                                "apple-itunes-app": "app-id=1459247576",
+                                "og:image": "https://school.kontur.ru/Files/Modules/Article/251_bs.jpg?t=1445360330",
+                                "twitter:card": "summary",
+                                "og:type": "article",
+                                "og:site_name": "Контур.Школа",
+                                "og:title": "Суммированный учет рабочего времени в 2023 году: как правильно вести (5 основных правил)",
+                                "zen-verification": "alsEyGbZriPHULe0kPo0gVSEjxngLDMPblK0kcJ9oytpXMMgYObCwDTAJSJg84g6",
+                                "yandex-verification": "412710cff97493c5",
+                                "twitter:creator": "@uc_SKBkontur",
+                                "og:description": "Вместе с экспертами Контур.Школы разберем, когда его можно ввести, как установить учетный период и оформить процедуру без ошибок. Скачайте бесплатную шпаргалку...",
+                                "twitter:site": "@uc_SKBkontur",
+                                "viewport": "width=device-width, initial-scale=1.0",
+                                "og:url": "https://school.kontur.ru/publications/251",
+                                "google-play-app": "app-id=ru.kontur.school"
+                            }
+                        ],
+                        "cse_image": [
+                            {
+                                "src": "https://school.kontur.ru/Files/Modules/Article/251_bs.jpg?t=1445360330"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "kind": "customsearch#result",
+                    "title": "Учет рабочего времени сотрудников: виды, методы, решения",
+                    "htmlTitle": "\u003cb\u003eУчет рабочего времени\u003c/b\u003e сотрудников: виды, методы, решения",
+                    "link": "https://xn--80aidjgwzd.xn--p1ai/news/uchet_rabochego_vremeni_vidy_metody_resheniya/",
+                    "displayLink": "xn--80aidjgwzd.xn--p1ai",
+                    "snippet": "Ведение таблицы не требует дополнительных расходов. Такая система привычна для многих трудящихся. tabel-v-excel. Ведение отчетов в Excel — распространенная ...",
+                    "htmlSnippet": "\u003cb\u003eВедение\u003c/b\u003e таблицы не требует дополнительных расходов. Такая система привычна для многих трудящихся. tabel-v-excel. \u003cb\u003eВедение\u003c/b\u003e отчетов в Excel — распространенная&nbsp;...",
+                    "cacheId": "iileOeTpiu8J",
+                    "formattedUrl": "https://инсайдер.рф/.../uchet_rabochego_vremeni_vidy_metody_resheniya/",
+                    "htmlFormattedUrl": "https://инсайдер.рф/.../uchet_rabochego_vremeni_vidy_metody_resheniya/",
+                    "pagemap": {
+                        "metatags": [
+                            {
+                                "og:image": "https://xn--80aidjgwzd.xn--p1ai/upload/iblock/a26/a26580c919aa8de9d5fbf2e554fff282.png",
+                                "og:type": "website",
+                                "viewport": "initial-scale=1.0, width=device-width",
+                                "og:title": "Учет рабочего времени: виды, методы, решения",
+                                "yandex-verification": "48e657c9826b81c4",
+                                "og:url": "https://xn--80aidjgwzd.xn--p1ai/news/uchet_rabochego_vremeni_vidy_metody_resheniya/",
+                                "og:description": "⭐ Что такое учет рабочего времени сотрудников. ✅ Виды и классификация, как выбрать ✅ Решения и методы учета рабочего времени,",
+                                "cmsmagazine": "79468b886bf88b23144291bf1d99aa1c"
+                            }
+                        ],
+                        "cse_image": [
+                            {
+                                "src": "https://xn--80aidjgwzd.xn--p1ai/upload/iblock/a26/a26580c919aa8de9d5fbf2e554fff282.png"
+                            }
+                        ],
+                        "article": [
+                            {
+                                "image": "https://xn--80aidjgwzd.xn--p1ai/upload/iblock/a26/a26580c919aa8de9d5fbf2e554fff282.png",
+                                "articlebody": "СодержаниеВиды учета рабочего времени Ежедневный учетЕженедельный учет рабочего времени Суммированный...",
+                                "datemodified": "2022-05-17",
+                                "name": "Учет рабочего времени: виды, методы, решения",
+                                "description": "Компаниям, которые платят за рабочий день, а не за фактически отработанное время, не обойтись без учета...",
+                                "headline": "Учет рабочего времени: виды, методы, решения",
+                                "datepublished": "2021-08-05"
+                            }
+                        ],
+                        "listitem": [
+                            {
+                                "item": "Главная",
+                                "name": "Главная",
+                                "position": "1"
+                            },
+                            {
+                                "item": "Блог",
+                                "name": "Блог",
+                                "position": "2"
+                            },
+                            {
+                                "item": "Учет рабочего времени: виды, методы, решения",
+                                "name": "Учет рабочего времени: виды, методы, решения",
+                                "position": "3"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "kind": "customsearch#result",
+                    "title": "Подводные камни при переходе на неполное рабочее время ...",
+                    "htmlTitle": "\u003cb\u003eПодводные камни при\u003c/b\u003e переходе на неполное \u003cb\u003eрабочее\u003c/b\u003e время ...",
+                    "link": "https://www.kadrovik-praktik.ru/MatKadr/Konsultacii/rabochee-vremya/podvodnye_kamni_pri_perekhode_na_nepolnoe_rabochee_vremya_chem_rabotnik_mozhet_shantazhirovat_raboto/",
+                    "displayLink": "www.kadrovik-praktik.ru",
+                    "snippet": "Бывает, работник с суммированным учетом рабочего времени (СУРВ) увольняется до окончания учетного периода. Возможно, в отработанном периоде работник трудился ...",
+                    "htmlSnippet": "Бывает, работник с \u003cb\u003eсуммированным учетом рабочего времени\u003c/b\u003e (СУРВ) увольняется до окончания учетного периода. Возможно, в отработанном периоде работник трудился&nbsp;...",
+                    "cacheId": "pikAvJ2i2yMJ",
+                    "formattedUrl": "https://www.kadrovik-praktik.ru/.../podvodnye_kamni_pri_perekhode_na_ nepolnoe_rabochee_vremya_chem_rabotnik_mozhet_shantazhirovat_rabot...",
+                    "htmlFormattedUrl": "https://www.kadrovik-praktik.ru/.../podvodnye_kamni_pri_perekhode_na_ nepolnoe_rabochee_vremya_chem_rabotnik_mozhet_shantazhirovat_rabot...",
+                    "pagemap": {
+                        "metatags": [
+                            {
+                                "og:image": "https://www.kadrovik-praktik.ru/upload/CIncorp2/410/410f4a2ccff342e75e0ae478804c92b6.png",
+                                "og:type": "website",
+                                "viewport": "width=device-width, initial-scale=1.0",
+                                "og:title": "Подводные камни при переходе на неполное рабочее время. Чем работник может шантажировать работодателя?",
+                                "og:url": "https://www.kadrovik-praktik.ru/MatKadr/Konsultacii/rabochee-vremya/podvodnye_kamni_pri_perekhode_na_nepolnoe_rabochee_vremya_chem_rabotnik_mozhet_shantazhirovat_raboto/"
+                            }
+                        ],
+                        "cse_image": [
+                            {
+                                "src": "https://www.kadrovik-praktik.ru/upload/CIncorp2/410/410f4a2ccff342e75e0ae478804c92b6.png"
+                            }
+                        ],
+                        "listitem": [
+                            {
+                                "name": "КАДРОВОЕ ДЕЛОПРОИЗВОДСТВО 2023. Справочная база (бесплатная), книги, журналы, форум, тесты по кадровой работе",
+                                "position": "1",
+                                "url": "КАДРОВОЕ ДЕЛОПРОИЗВОДСТВО 2023. Справочная база (бесплатная), книги, журналы, форум, тесты по кадровой работе"
+                            },
+                            {
+                                "name": "Материалы по кадрам",
+                                "position": "2",
+                                "url": "Материалы по кадрам"
+                            },
+                            {
+                                "name": "Консультации и статьи по кадрам",
+                                "position": "3",
+                                "url": "Консультации и статьи по кадрам"
+                            },
+                            {
+                                "name": "РАБОЧЕЕ ВРЕМЯ | Кадровик-практик",
+                                "position": "4"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "kind": "customsearch#result",
+                    "title": "Суммированный учет: как ничего не нарушить | Журнал ...",
+                    "htmlTitle": "\u003cb\u003eСуммированный учет\u003c/b\u003e: как ничего не нарушить | Журнал ...",
+                    "link": "https://glavkniga.ru/elver/2020/2/4544",
+                    "displayLink": "glavkniga.ru",
+                    "snippet": "При суммированном учете переработка по итогам учетного периода оплачивается как сверхурочная работа, что логично. Но иногда от работодателя могут ...",
+                    "htmlSnippet": "\u003cb\u003eПри суммированном учете\u003c/b\u003e переработка по итогам учетного периода оплачивается как сверхурочная работа, что логично. Но иногда от работодателя могут&nbsp;...",
+                    "formattedUrl": "https://glavkniga.ru/elver/2020/2/4544",
+                    "htmlFormattedUrl": "https://glavkniga.ru/elver/2020/2/4544",
+                    "pagemap": {
+                        "metatags": [
+                            {
+                                "og:image": "/template/images/meta_image_elver.jpg",
+                                "og:type": "website",
+                                "og:image:width": "300",
+                                "og:site_name": "Главная книга",
+                                "author": "Издательство «Главная книга», © 2023 г.",
+                                "og:title": "Суммированный учет: как ничего не нарушить | Журнал «Главная книга» | № 2 за 2020 г.",
+                                "og:image:height": "300",
+                                "yandex-verification": "55c7941609dda72d",
+                                "title": "Суммированный учет: как ничего не нарушить | Журнал «Главная книга» | № 2 за 2020 г.",
+                                "og:description": "При суммированном учете переработка по итогам учетного периода оплачивается как сверхурочная работа, что логично. Но иногда от работодателя могут потребовать оплатить и недоработку. Это возможно в тех случаях, когда количество отработанных сотрудником часов оказалось меньше, чем предусмотрено его трудовым договором.",
+                                "viewport": "width=device-width,minimum-scale=1,initial-scale=1",
+                                "og:author": "Издательство «Главная книга», © 2023 г.",
+                                "og:url": "https://glavkniga.ru/elver/2020/2/4544",
+                                "format-detection": "telephone=no"
+                            }
+                        ],
+                        "cse_image": [
+                            {
+                                "src": "/template/images/meta_image_elver.jpg"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "kind": "customsearch#result",
+                    "title": "Работа вахтовым методом - Онлайн Инспекция",
+                    "htmlTitle": "Работа вахтовым методом - Онлайн Инспекция",
+                    "link": "https://xn--80akibcicpdbetz7e2g.xn--p1ai/reminder/24",
+                    "displayLink": "xn--80akibcicpdbetz7e2g.xn--p1ai",
+                    "snippet": "При вахтовом методе работы работодатель обязан вести суммированный учет рабочего времени за месяц, квартал или иной более длительный период, но не более чем ...",
+                    "htmlSnippet": "\u003cb\u003eПри\u003c/b\u003e вахтовом методе работы работодатель обязан вести \u003cb\u003eсуммированный учет рабочего времени\u003c/b\u003e за месяц, квартал или иной более длительный период, но не более чем&nbsp;...",
+                    "cacheId": "sl6UyIj5SLUJ",
+                    "formattedUrl": "https://онлайнинспекция.рф/reminder/24",
+                    "htmlFormattedUrl": "https://онлайнинспекция.рф/reminder/24",
+                    "pagemap": {
+                        "metatags": [
+                            {
+                                "sputnik-verification": "hQoY5Il5CwfXA3al",
+                                "viewport": "width=device-width, initial-scale=1, maximum-scale=1",
+                                "google-signin-client_id": "304510775260-of847fttdghfs3gnci255ijodquh1nrp.apps.googleusercontent.com",
+                                "format-detection": "telephone=no"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "kind": "customsearch#result",
+                    "title": "Сменный график работы: оформление и оплата в 2023 году ...",
+                    "htmlTitle": "Сменный график работы: оформление и оплата в 2023 году ...",
+                    "link": "https://www.v2b.ru/articles/smennyy-grafik-raboty-oformlenie-i-oplata-v-2022-godu/",
+                    "displayLink": "www.v2b.ru",
+                    "snippet": "Apr 19, 2023 ... 155 ТК РФ, рассчитывают из среднего дневного заработка, а не из среднего часового — как при суммированном учете рабочего времени. В остальном ...",
+                    "htmlSnippet": "Apr 19, 2023 \u003cb\u003e...\u003c/b\u003e 155 ТК РФ, рассчитывают из среднего дневного заработка, а не из среднего часового — как \u003cb\u003eпри суммированном учете рабочего времени\u003c/b\u003e. В остальном&nbsp;...",
+                    "cacheId": "7BtsPsFTSs4J",
+                    "formattedUrl": "https://www.v2b.ru/.../smennyy-grafik-raboty-oformlenie-i-oplata-v-2022- godu/",
+                    "htmlFormattedUrl": "https://www.v2b.ru/.../smennyy-grafik-raboty-oformlenie-i-oplata-v-2022- godu/",
+                    "pagemap": {
+                        "cse_thumbnail": [
+                            {
+                                "src": "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTYXP66jH17q2FjbJj_2ML4JB_Lc84fezUpV2kRYvxapKXJI_zoXY9SkA",
+                                "width": "424",
+                                "height": "119"
+                            }
+                        ],
+                        "imageobject": [
+                            {
+                                "image": "https://www.v2b.ru/wp-content/themes/v2b/images/logoprop.png",
+                                "width": "467",
+                                "url": "https://www.v2b.ru/wp-content/themes/v2b/images/logoprop.png",
+                                "height": "60"
+                            }
+                        ],
+                        "organization": [
+                            {
+                                "address": "117218, Москва, ул. Кржижановского, д. 29, корп. 1, м. Профсоюзная",
+                                "name": "Журнал «Время Бухгалтера»",
+                                "telephone": "8 495 260-7888"
+                            }
+                        ],
+                        "metatags": [
+                            {
+                                "og:image": "https://www.v2b.ru/wp-content/uploads/2022/07/Smennyy-grafik-raboty.jpg",
+                                "viewport": "width=device-width, initial-scale=1",
+                                "og:title": "Сменный график работы: оформление и оплата в 2023 году",
+                                "og:url": "https://www.v2b.ru/articles/smennyy-grafik-raboty-oformlenie-i-oplata-v-2022-godu/"
+                            }
+                        ],
+                        "cse_image": [
+                            {
+                                "src": "https://www.v2b.ru/wp-content/uploads/2022/07/Smennyy-grafik-raboty.jpg"
+                            }
+                        ],
+                        "article": [
+                            {
+                                "articlebody": "Если специфика деятельности компании требует круглосуточного присутствия сотрудников, то на помощь приде...",
+                                "datemodified": "2023-04-19T17:47:56+00:00",
+                                "author": "Автор: Юлия Сыскова",
+                                "headline": "Сменный график работы: оформление и оплата в 2023 году",
+                                "datepublished": "2022-07-20T01:21:13+00:00"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "kind": "customsearch#result",
+                    "title": "Как ввести суммированный учет рабочего времени в организации",
+                    "htmlTitle": "Как ввести \u003cb\u003eсуммированный учет рабочего времени\u003c/b\u003e в организации",
+                    "link": "https://delo-press.ru/journals/staff/oplata-truda-i-sotsialnoe-obespechenie/59059-kak-nachat-vesti-summirovannyy-uchet-rabochego-vremeni/",
+                    "displayLink": "delo-press.ru",
+                    "snippet": "300 ТК РФ). В остальных случаях суммированный учет устанавливается при невозможности или нецелесообразности применения поденного либо понедельного учета (ст.",
+                    "htmlSnippet": "300 ТК РФ). В остальных случаях \u003cb\u003eсуммированный учет\u003c/b\u003e устанавливается \u003cb\u003eпри\u003c/b\u003e невозможности или нецелесообразности применения поденного либо понедельного \u003cb\u003eучета\u003c/b\u003e (ст.",
+                    "cacheId": "-sKsjGsZgToJ",
+                    "formattedUrl": "https://delo-press.ru/.../59059-kak-nachat-vesti-summirovannyy-uchet- rabochego-vremeni/",
+                    "htmlFormattedUrl": "https://delo-press.ru/.../59059-kak-nachat-vesti-summirovannyy-uchet- rabochego-vremeni/",
+                    "pagemap": {
+                        "metatags": [
+                            {
+                                "og:image": "/upload/phpthumb/0/e0004408d878458fb7c220068521cf7d.jpg",
+                                "viewport": "width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover"
+                            }
+                        ],
+                        "cse_image": [
+                            {
+                                "src": "/upload/phpthumb/0/e0004408d878458fb7c220068521cf7d.jpg"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "kind": "customsearch#result",
+                    "title": "Суточные при разъездном характере работы",
+                    "htmlTitle": "Суточные \u003cb\u003eпри\u003c/b\u003e разъездном характере работы",
+                    "link": "https://zhazhda.biz/base/sutochnye-pri-razezdnom-haraktere-raboty",
+                    "displayLink": "zhazhda.biz",
+                    "snippet": "Какие же еще подводные камни могут ожидать обе стороны трудового процесса? ... до рабочего пункта, ему необходимо затратить большое количество времени.",
+                    "htmlSnippet": "Какие же еще \u003cb\u003eподводные камни\u003c/b\u003e могут ожидать обе стороны трудового процесса? ... до \u003cb\u003eрабочего\u003c/b\u003e пункта, ему необходимо затратить большое количество \u003cb\u003eвремени\u003c/b\u003e.",
+                    "cacheId": "6l__G6dTK68J",
+                    "formattedUrl": "https://zhazhda.biz/base/sutochnye-pri-razezdnom-haraktere-raboty",
+                    "htmlFormattedUrl": "https://zhazhda.biz/base/sutochnye-pri-razezdnom-haraktere-raboty",
+                    "pagemap": {
+                        "cse_thumbnail": [
+                            {
+                                "src": "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcRGUkRi9LfCBGMZ3vDXkec_E4n4QvOllm5xu-4pdTur6g8CxmGbjvQd63QL",
+                                "width": "246",
+                                "height": "205"
+                            }
+                        ],
+                        "metatags": [
+                            {
+                                "og:image": "https://zhazhda.biz/wp-content/uploads/2017/04/9JxMqJxUn3bMDmnGTDJX-bmgIMUGHbDjCQ1BCSQ-J41eL7ytLf6_pN8X7e4EwKleAGgKu_UGHkH2oD994TjHZg.png",
+                                "og:type": "profile",
+                                "og:image:width": "300",
+                                "og:image:alt": "суточные при разъездном характере работы, командировочные, оплата, расходы, положены, размер",
+                                "twitter:card": "summary_large_image",
+                                "twitter:title": "Суточные при разъездном характере работы",
+                                "og:site_name": "«Жажда» - бизнес-журнал",
+                                "og:title": "Суточные при разъездном характере работы",
+                                "og:image:height": "250",
+                                "yandex-verification": "5d5d42b14da813be",
+                                "og:image:secure_url": "https://zhazhda.biz/wp-content/uploads/2017/04/9JxMqJxUn3bMDmnGTDJX-bmgIMUGHbDjCQ1BCSQ-J41eL7ytLf6_pN8X7e4EwKleAGgKu_UGHkH2oD994TjHZg.png",
+                                "twitter:image": "https://zhazhda.biz/wp-content/uploads/2017/04/9JxMqJxUn3bMDmnGTDJX-bmgIMUGHbDjCQ1BCSQ-J41eL7ytLf6_pN8X7e4EwKleAGgKu_UGHkH2oD994TjHZg.png",
+                                "viewport": "width=device-width",
+                                "og:locale": "ru_RU",
+                                "og:url": "https://zhazhda.biz/base/sutochnye-pri-razezdnom-haraktere-raboty"
+                            }
+                        ],
+                        "Breadcrumb": [
+                            {
+                                "title": "Главная",
+                                "url": "Главная"
+                            },
+                            {
+                                "title": "База знаний",
+                                "url": "База знаний"
+                            }
+                        ],
+                        "cse_image": [
+                            {
+                                "src": "https://zhazhda.biz/wp-content/uploads/2017/04/9JxMqJxUn3bMDmnGTDJX-bmgIMUGHbDjCQ1BCSQ-J41eL7ytLf6_pN8X7e4EwKleAGgKu_UGHkH2oD994TjHZg.png"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "kind": "customsearch#result",
+                    "title": "режимы рабочего времени 21 07-14",
+                    "htmlTitle": "режимы \u003cb\u003eрабочего времени\u003c/b\u003e 21 07-14",
+                    "link": "https://www.slideshare.net/ssuserf3f120/21-0714",
+                    "displayLink": "www.slideshare.net",
+                    "snippet": "Jan 14, 2016 ... Ненормированный рабочий день – особый режим работы, в соответствии с которым отдельные работники могут по распоряжению работодателя при ...",
+                    "htmlSnippet": "Jan 14, 2016 \u003cb\u003e...\u003c/b\u003e Ненормированный рабочий день – особый режим работы, в соответствии с которым отдельные работники могут по распоряжению работодателя \u003cb\u003eпри\u003c/b\u003e&nbsp;...",
+                    "formattedUrl": "https://www.slideshare.net/ssuserf3f120/21-0714",
+                    "htmlFormattedUrl": "https://www.slideshare.net/ssuserf3f120/21-0714",
+                    "pagemap": {
+                        "cse_thumbnail": [
+                            {
+                                "src": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRVlRsVNpncb4NncEc2IK9ygsmkil2POkOwln44tQ_rAQhhRoQCw-2jaIE",
+                                "width": "259",
+                                "height": "194"
+                            }
+                        ],
+                        "metatags": [
+                            {
+                                "twitter:app:id:googleplay": "net.slideshare.mobile",
+                                "twitter:app:url:iphone": "slideshare-app://ss/165952101",
+                                "og:image": "https://cdn.slidesharecdn.com/ss_thumbnails/21-07-14-160114183615-thumbnail.jpg?width=640&height=640&fit=bounds",
+                                "twitter:card": "summary_large_image",
+                                "twitter:app:url:ipad": "slideshare-app://ss/165952101",
+                                "twitter:app:name:googleplay": "SlideShare Android",
+                                "title": "режимы рабочего времени 21 07-14",
+                                "twitter:app:id:iphone": "917418728",
+                                "og:description": "Вебинар «Режим рабочего времени: какой выбрать, как правильно его установить, изменить и табелировать» www.kadrovik-plyus.ru РЕЖИМЫ РАБОЧЕГО ВРЕМЕНИ: Какой выб...",
+                                "twitter:image": "https://cdn.slidesharecdn.com/ss_thumbnails/21-07-14-160114183615-thumbnail.jpg?width=640&height=640&fit=bounds",
+                                "next-head-count": "35",
+                                "twitter:image:alt": "режимы рабочего времени 21 07-14",
+                                "twitter:player": "https://www.slideshare.net/slideshow/embed_code/key/79kebbKLtIoM81",
+                                "twitter:player:height": "486",
+                                "twitter:site": "@SlideShare",
+                                "twitter:title": "режимы рабочего времени 21 07-14",
+                                "og:image:alt": "режимы рабочего времени 21 07-14",
+                                "og:title": "режимы рабочего времени 21 07-14",
+                                "twitter:app:id:ipad": "917418728",
+                                "twitter:app:name:ipad": "SlideShare iOS",
+                                "viewport": "width=device-width, initial-scale=1.0",
+                                "twitter:description": "Вебинар «Режим рабочего времени: какой выбрать, как правильно его установить, изменить и табелировать» www.kadrovik-plyus.ru РЕЖИМЫ РАБОЧЕГО ВРЕМЕНИ: Какой выб...",
+                                "twitter:player:width": "597",
+                                "og:url": "https://www.slideshare.net/ssuserf3f120/21-0714",
+                                "twitter:app:name:iphone": "SlideShare iOS"
+                            }
+                        ],
+                        "cse_image": [
+                            {
+                                "src": "https://cdn.slidesharecdn.com/ss_thumbnails/21-07-14-160114183615-thumbnail.jpg?width=640&height=640&fit=bounds"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "kind": "customsearch#result",
+                    "title": "Начальник отдела труда и заработной платы",
+                    "htmlTitle": "Начальник отдела труда и заработной платы",
+                    "link": "http://rabe.ru/programs/nachalnik-otdela-truda-i-zarabotnoy-platy/",
+                    "displayLink": "rabe.ru",
+                    "snippet": "Порядок их оформления и ведения; Прием на работу: установление трудовых правоотношений. ... Особенности при суммированном учете рабочего времени.",
+                    "htmlSnippet": "Порядок их оформления и \u003cb\u003eведения\u003c/b\u003e; Прием на работу: установление трудовых правоотношений. ... Особенности \u003cb\u003eпри суммированном учете рабочего времени\u003c/b\u003e.",
+                    "cacheId": "p8MH-IJWNuwJ",
+                    "formattedUrl": "rabe.ru/programs/nachalnik-otdela-truda-i-zarabotnoy-platy/",
+                    "htmlFormattedUrl": "rabe.ru/programs/nachalnik-otdela-truda-i-zarabotnoy-platy/",
+                    "pagemap": {
+                        "metatags": [
+                            {
+                                "msapplication-tilecolor": "#ffffff",
+                                "theme-color": "#ffffff",
+                                "viewport": "width=device-width, initial-scale=1",
+                                "msapplication-tileimage": "/local/templates/rabe_new/fav/ms-icon-144x144.png"
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+    }
+]
