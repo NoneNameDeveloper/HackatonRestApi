@@ -47,23 +47,28 @@ async def reset_state_handler(message: types.Message):
 async def add_rule_bot(message: types.Message):
 
     words = message.text.replace("/add_rule ", "")
-    print(base_url + "/add_filter?token=" + company_token + "&filter=" + str(words))
-    for word in words:
-        response = requests.get(base_url + "/add_filter?token=" + company_token + "&filter=" + str(word)).json()
-        print(response)
 
-        if response['status_code'] == 200:
+    for word in words.split():
+        response = requests.get(base_url + "/add_filter?token=" + company_token + "&filter=" + str(word).lower()).json()
+
+        if response['status'] == "SUCCESS":
             await message.answer(f"Правило добавлено\nID: {response['rule_id']}")
 
 
 @dp.message_handler(commands=["archive_rule"])
 async def archive_filter_handler(message: types.Message):
 
-    id_ = message.text.replace("/add_rule ", "")
+    id_ = message.text.replace("/archive_rule ", "")
 
-    response = requests.get(base_url + "/archive_filter?token=" + company_token + "&filter=" + str(id_))
-    print(response.text)
+    if not id_.isdigit():
+        return await message.answer("Это не целое число!")
 
+    response = requests.get(base_url + "/archive_filter?token=" + company_token + "&rule_id=" + id_).json()
+
+    if response['status'] == 'SUCCESS':
+        return await message.answer("Правило удалено!")
+
+    await message.answer("Ошибка!")
 
 
 @dp.message_handler()
@@ -72,8 +77,12 @@ async def all_text_hander(message: types.Message):
     text = message.text
     user_id = message.chat.id
 
+    response_f = requests.get(base_url + "/get_filter?user_id=" + str(user_id) + "&token=" + company_token).json()
+
+    if message.text.lower() in response_f['content']:
+        return await message.answer("Не допустимый вашей компанией запрос!")
+
     response = requests.get(base_url + "/text_prompt?user_id=" + str(user_id) + "&token=" + company_token + "&text=" + quote(text)).json()
-    print(response)
 
     if response['status'] != "SUCCESS":
         answer = "Ошибка: " + response['STATUS']
@@ -84,8 +93,6 @@ async def all_text_hander(message: types.Message):
     n = 400
 
     [await message.answer(text=s, reply_markup=create_user_kb(buttons)) for s in [answer[i:i+n] for i in range(0, len(answer), n)]]
-
-
 
 
 aiogram.executor.start_polling(dp)
