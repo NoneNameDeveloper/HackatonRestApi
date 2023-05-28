@@ -2,12 +2,12 @@
 from src.data import config
 from src.models import Conversation
 import openai
-
+import time
 
 
 openai_keys = [
-    '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',
-    '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',
+    # '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',
+    # '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',
     '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'
 ]
 
@@ -37,18 +37,26 @@ def complete_chat(prompt: str, conversations: 'list[Conversation]') -> str:
     return response
 
 def complete_custom(system: str, prompt: list[str]) -> str:
-    global openai_key_index
-    global openai_keys
+    n = 0
+    while n < 3:
+        n += 1
+        try:
 
-    openai_key_index += 1
-    if openai_key_index >= len(openai_keys):
-        openai_key_index = 0
-    openai.api_key = openai_keys[openai_key_index]
-    
-    chat_completion = openai.ChatCompletion.create(model="gpt-3.5-turbo", messages=
-        [{"role":"system","content":system}] + [{"role":"user","content":p} for p in prompt]
-    )
+            global openai_key_index
+            global openai_keys
 
-    response = chat_completion.choices[0].message.content
-    print("openai: ", response)
-    return response
+            openai_key_index += 1
+            if openai_key_index >= len(openai_keys):
+                openai_key_index = 0
+            openai.api_key = openai_keys[openai_key_index]
+            
+            chat_completion = openai.ChatCompletion.create(model="gpt-3.5-turbo", messages=
+                [{"role":"system","content":system}] + [{"role":"user","content":p} for p in prompt]
+            )
+
+            response = chat_completion.choices[0].message.content
+            print("openai: ", response)
+            return response
+        except Exception as e:
+            print(e)
+            time.sleep(1)

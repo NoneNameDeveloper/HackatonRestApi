@@ -12,6 +12,7 @@ LINKS_AMOUNT_TOTAL = 3
 
 class HintsTree:
     nodes = {}
+    results = []
 
     def parse(section):
         text = section.get('text')
@@ -35,86 +36,113 @@ class HintsTree:
         HintsTree.nodes[id] = hint
         return hint
 
+    def parse_results(root):
+        HintsTree.results = root['results']
+
+
 HintsTree.parse(hints_config)
+HintsTree.parse_results(hints_config)
 print(HintsTree.nodes)
 
 def handle_user_message(user: User, message: str, history: list[Conversation]):
+
+    state = json.loads(user.history_state) if user.history_state else {'future_questions': [], 'current_question': None, 'current_chapter': 0, 'previous_state': None, 'visited_nodes': []}
+
+    handled = False
+
+    if message.lower() == 'назад' and state['previous_state']:
+        print("Going back from " + str(state) + " to " + str(state['previous_state']))
+        state = state['previous_state']
+        handled = True
+    elif message.lower() in ["меню", "/start"]:
+        state = {'future_questions': [], 'current_question': None, 'current_chapter': 0, 'previous_state': None, 'visited_nodes': []}
+        handled = True
+
+    chapter = state['current_chapter']
+    chapter = HintsTree.nodes.get(chapter)
+    if not chapter:
+        chapter = HintsTree.nodes[0]
+
+    print("Current chapter: ", chapter['id'])
+    print("User state: ", state)
+
+    if 'current_question' in state and state['current_question']:
+        question = HintsTree.nodes[state['current_question']]
+        answer = None
+        for answer_variant in question['children']:
+            if answer_variant['answer'] == message:
+                answer = answer_variant
+                break
+        if answer:
+            state['visited_nodes'] += [answer['id']]
+            state['current_question'] = None
+            state['future_questions'] = [question['id'] for question in answer['children']] + state['future_questions']
+            handled = True
     
-    state = json.loads(user.history_state) if user.history_state else {'nodes': [], 'future_questions': [], 'current_question': None}
-    
-    def a():
-        current_node = (state['nodes'] or [0])[-1]
-        current_node = HintsTree.nodes.get(current_node)
-        if not current_node:
-            current_node = HintsTree.nodes[0]
 
-        response = ""
-        went_to_chapter = None
+    for chapter_variant in chapter['children']:
+        if 'chapter' in chapter_variant and chapter_variant['chapter'] == message:
+            chapter = chapter_variant
+            state['current_chapter'] = chapter['id']
+            handled = True
 
-        if message == 'Назад':
-            print("Going back")
-            if 'answer' in current_node:
-                # todo: удалять вопросы из futute_questions
-                state['nodes'] = state['nodes'][:-2]
-            else:
-                state['nodes'] = state['nodes'][:-1]
-            current_node = HintsTree.nodes.get((state['nodes'] or [0])[-1])
-            if current_node['chapter']:
-                went_to_chapter = current_node
-
-        print("Current node: ", current_node['id'])
-        print("Went to chapter: ", went_to_chapter)
-        print("User state: ", state)
-
-        if 'current_question' in state and state['current_question']:
-            question = HintsTree.nodes[state['current_question']]
-            answer = None
-            for answer_variant in question['children']:
-                if answer_variant['answer'] == message:
-                    answer = answer_variant
-                    break
-            if answer:
-                state['nodes'] += [question['id'], answer['id']]
-                state['current_question'] = None
-                state['future_questions'] = [question['id'] for question in answer['children']] + state['future_questions']
-
-        
-        
-        if current_node.get('chapter'):
-            for c in current_node['children']:
-                if c['chapter'] == message:
-                    went_to_chapter = c
-                    break
-
-        if went_to_chapter:
-            chapter_name = went_to_chapter['chapter']
-            chapter_text = went_to_chapter.get('text') or ""
-            state['nodes'].append(went_to_chapter['id'])
-
-            question_ids = [a['id'] for a in (went_to_chapter['children'] or []) if a.get('question')]
+            question_ids = [a['id'] for a in (chapter['children'] or []) if a.get('question')]
             state['future_questions'] = [qid for qid in question_ids] + state['future_questions']
+            state['visited_nodes'] += [chapter['id']]
 
-            next_chapters = [a for a in (went_to_chapter['children'] or []) if a.get('chapter')]
-            #todo respong chapter_name and chapter_text in questions
-            response = chapter_name + "\n" + chapter_text
-            if next_chapters:
-                return response, [n['chapter'] for n in next_chapters]
+            print("New current chapter: ", chapter['id'])
+            break
+
+    
+    chapter_name = chapter['chapter']
+    chapter_text = chapter.get('text') or ""
+    response = chapter_name + "\n" + chapter_text
+
+    if state['current_question'] or state['future_questions']:
+
+        if state['future_questions'] and not state['current_question']:
+            state['current_question'] = state['future_questions'][0]
+            state['future_questions'] = state['future_questions'][1:]
+        print("Went into question branch")
+        question_node = HintsTree.nodes.get(state['current_question'])
+
+        if user.history_state != json.dumps(state):
+            state['previous_state'] = json.loads(user.history_state)
+            user.history_state = json.dumps(state)
+
+        return response + "\n" + question_node['question'], [answer['answer'] for answer in question_node['children']] + (['Назад'] if chapter['id'] else [])
+    
+    next_chapters = [a for a in (chapter['children'] or []) if a.get('chapter')]
 
 
+    if not handled and chapter['id'] == 0:
+        return generate(message, lambda x: x), ["Меню"]
+    #todo respong chapter_name and chapter_text in questions
+    if next_chapters:
 
-        if state['current_question'] or state['future_questions']:
+        if user.history_state and user.history_state != json.dumps(state):
+            state['previous_state'] = json.loads(user.history_state)
+            user.history_state = json.dumps(state)
 
-            if state['future_questions'] and not state['current_question']:
-                state['current_question'] = state['future_questions'][0]
-                state['future_questions'] = state['future_questions'][1:]
-            print("Went into question branch")
-            question_node = HintsTree.nodes.get(state['current_question'])
-            return response + "\n" + question_node['question'], [answer['answer'] for answer in question_node['children']]
-        
-        return "???", []
-    r, v = a()
-    user.history_state = json.dumps(state)
-    return r, v + ["Назад"]
+        return response, [n['chapter'] for n in next_chapters] + (['Назад'] if chapter['id'] else [])
+    
+    print("Handled: " + str(handled))
+    print("user history 2: " + str(user.history_state))
+    print("userstate: " + str(state))
+
+    if user.history_state != json.dumps(state):
+        state['previous_state'] = json.loads(user.history_state)
+        user.history_state = json.dumps(state)
+    print("visited: " + str(state['visited_nodes']))
+
+    results = [r['text'] for r in HintsTree.results if set(r['nodes']).issubset(set(state['visited_nodes']))]
+    return "Результаты: \n" + "\n".join(results), ['Назад', 'Меню']
+
+
+    # if user.history_state != json.dumps(state):
+    #     state['previous_state'] = json.loads(user.history_state)
+    # user.history_state = json.dumps(state)
+    # return "???", []
     
     
 
