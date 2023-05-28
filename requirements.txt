@@ -69,3 +69,5 @@ urllib3==2.0.2
 uvicorn==0.22.0
 yarl==1.9.2
 pyyaml
+google-api-python-client
+newspaper3k

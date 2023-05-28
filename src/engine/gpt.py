@@ -7,7 +7,7 @@ import time
 openai_keys = [
     # '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',
     # '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',
-    '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'
+    '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'
 ]
 
 openai_key_index = 0
