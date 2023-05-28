@@ -39,6 +39,10 @@ async def get_prompt_handler(user_id: int, text: str, token: str):
     if company is None:
         return JSONResponse(status_code=403, content={"status": "INVALID_API_TOKEN"})
 
+    # проверка пользователя, если не существует - создаем
+    if not crud.get_user(user_id):
+        crud.create_user(user_id, token)
+
     conversations = crud.get_conversation(user_id=user_id)
 
     response = complete(text, conversations)

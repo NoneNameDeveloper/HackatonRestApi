@@ -22,6 +22,8 @@ class User(Model):
 
     industry = TextField(null=True)  # индустрия работы пользователя
 
+    history_state = TextField(null=True)  # история нод/вопросов пользователя
+
     class Meta:
         database = db
         table_name = "users"

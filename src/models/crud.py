@@ -175,3 +175,14 @@ def get_user(user_id: int) -> typing.Union[User, None]:
     """
     return User.get_or_none(User.user_id == user_id)
 
+
+def create_user(user_id: int, token: str):
+    """
+    создание пользователя и привязка его к компании
+    """
+    company = get_company(token)
+
+    return User.create(
+        user_id=user_id,
+        company_id=company.company_id,
+    )
