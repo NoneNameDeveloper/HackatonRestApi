@@ -16,6 +16,7 @@ app.mount(
 
 templates = Jinja2Templates(directory="src/templates")
 
+
 @app.get("/docs/example", include_in_schema=False)
 async def custom_doc_handler(request: Request):
     """

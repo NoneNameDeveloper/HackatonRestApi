@@ -1,12 +1,7 @@
-import typing
+from starlette.responses import JSONResponse
 
 from src.app import app
 
-from fastapi import HTTPException
-from pydantic import BaseModel
-
-from src.data import config
-from src.engine import ChatGPT
 from src.models import crud
 
 
@@ -16,15 +11,15 @@ async def add_filter_handler(filter: str, description: str, token: str):
     # проверка токена
     company = crud.get_company(token)
     if company is None:
-        return {"status": "INVALID_API_TOKEN"}
+        return JSONResponse(status_code=403, content={"status": "INVALID_API_TOKEN"})
 
     # добавление правила
     rule = crud.create_rule(token, filter, description)
 
-    return {
+    return JSONResponse(status_code=200, content={
         "status": "SUCCESS",
         "rule_id": rule.rule_id
-    }
+    })
 
 
 @app.get("archive_filter")
@@ -33,9 +28,9 @@ async def archive_filter_handler(rule_id: int, token: str):
     # проверка токена
     company = crud.get_company(token)
     if company is None:
-        return {"status": "INVALID_API_TOKEN"}
+        return JSONResponse(status_code=403, content={"status": "INVALID_API_TOKEN"})
 
     # архивирование токена
     crud.archive_rule(rule_id)
 
-    return {"status": "SUCCESS"}
+    return JSONResponse(status_code=200, content={"status": "SUCCESS"})

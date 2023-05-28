@@ -186,6 +186,8 @@ def create_user(user_id: int, token: str):
         user_id=user_id,
         company_id=company.company_id,
     )
+
+
 def update_history_state(user_id: int, history_state):
     """
     обновление состояния пользователя

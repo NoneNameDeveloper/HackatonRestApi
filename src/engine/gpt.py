@@ -1,4 +1,3 @@
-
 from src.data import config
 from src.models import Conversation
 import openai
@@ -12,6 +11,7 @@ openai_keys = [
 ]
 
 openai_key_index = 0
+
 
 def complete_chat(prompt: str, conversations: 'list[Conversation]') -> str:
     global openai_key_index
