@@ -94,7 +94,7 @@ def delete_company(company_id: int):
 
 
 # RULES
-def create_rule(token: str, filter_text: str, filter_description: str) -> Rule:
+def create_rule(token: str, filter_text: str) -> Rule:
     """
     добавляем правило
     """
@@ -102,8 +102,7 @@ def create_rule(token: str, filter_text: str, filter_description: str) -> Rule:
 
     return Rule.create(
         company_id=company_id,
-        filter_text=filter_text,
-        filter_description=filter_description
+        filter_text=filter_text
     )
 
 
@@ -194,7 +193,7 @@ def update_history_state(user_id: int, history_state):
     """
 
     User.update(
-        history_state = history_state
+        history_state=history_state
     ).where(
         User.user_id == user_id
     ).execute()

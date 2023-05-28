@@ -16,6 +16,7 @@ base_url = os.environ["TADA_API_BASE_URL"]
 company_token = os.environ["TADA_API_COMPANY_TOKEN"]
 token = os.environ['TELEGRAM_TOKEN']
 
+
 async def bot_command(update, context):
     
     message = update.message
@@ -52,6 +53,18 @@ async def bot_command(update, context):
     # await context.bot.edit_message_text(chat_id=chat_id, text=answer, reply_markup=reply_markup, message_id=response_message.message_id)
 
 
+async def add_rule(update, context):
+    """
+    добавление правила фильтрации
+    """
+    # правила
+    words = context.args
+    print(words)
+    for word in words:
+        path = base_url + "/add_filter?filter=" + word + "&filter=" + str(word)
+        print(path)
+        response = requests.get(base_url + "/add_filter?filter=" + word + "&filter=" + str(word))
+        print(response.text)
 
 
 async def restart_command(update, context):
@@ -62,13 +75,16 @@ async def restart_command(update, context):
     reply_markup = ReplyKeyboardMarkup([['/reset']], resize_keyboard=True)
     await context.bot.send_message(chat_id=update.message.chat_id, text=str(response), reply_markup=reply_markup)
 
+
 def main():
     app = ApplicationBuilder().token(token).build()
     app.add_handler(MessageHandler(~filters.COMMAND, bot_command))
     app.add_handler(CommandHandler("start", restart_command))
     app.add_handler(CommandHandler("restart", restart_command))
     app.add_handler(CommandHandler("reset", restart_command))
+    app.add_handler(CommandHandler("add_rule", add_rule))
     app.run_polling()
+
 
 if __name__ == '__main__':
     main()
