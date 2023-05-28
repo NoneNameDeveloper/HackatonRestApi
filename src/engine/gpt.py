@@ -7,7 +7,7 @@ import time
 openai_keys = [
     # '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',
     # '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',
-    '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'
+    config.OPENAI_KEY
 ]
 
 openai_key_index = 0
@@ -37,6 +37,7 @@ def complete_chat(prompt: str, conversations: 'list[Conversation]') -> str:
     return response
 
 def complete_custom(system: str, prompt: list[str]) -> str:
+    print("SYSTEM: " + str(system))
     n = 0
     while n < 3:
         n += 1

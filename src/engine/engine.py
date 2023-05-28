@@ -48,6 +48,7 @@ HintsTree.parse_results(hints_config)
 def handle_user_message(user: User, message: str, history: list[Conversation]):
 
     state = json.loads(user.history_state) if user.history_state else {'future_questions': [], 'current_question': None, 'current_chapter': 0, 'previous_state': None, 'visited_nodes': []}
+    user.history_state = json.dumps(state)
 
     handled = False
 
@@ -201,7 +202,7 @@ def generate(prompt: str, status_callback) -> str:
     #     summaries[link] = compress_article(source_texts[link], prompt)
 
     status_callback("Пишу ответ")
-    summary = "\n\n".join([p[1]["summary"] + "\nИсточник: " + p[0] for p in compression_prompts])
+    summary = "\n\n".join([p[1]["summary"] + "\nИсточник: " + p[0] for p in compression_prompts if (p[1]["summary"] or "").strip()])
 
     # summary = "\n".join(summaries)
     # summary = ""
@@ -260,7 +261,7 @@ def compress_article(input: str, prompt: str) -> str:
         print(prompt1)
 
         a = complete_custom("You are a text summarizer, you keep all the important details. Do not respond any additional words or phrases, only the summary. You respond a single word 'missing' if no relevant information is found", [prompt1]
-                            ).replace("missing", "")
+                            ).replace("missing", "").replace("Missing.", "")
         print("PARTIAL: " + a)
         summary += "\n" + a
         lines = lines[i:]

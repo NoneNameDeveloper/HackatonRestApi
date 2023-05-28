@@ -4,3 +4,17 @@
 <hr>
 Rest APi для ведения диалога с чат-ботом "Бизнес консультантом".
 
+
+
+Для запуска требуется python 3.10+
+pip install -r requirements.txt
+Запуск апи:
+```bash
+python main.py
+```
+
+Запуск тестового бота (предлагается поменять токены):
+```bash
+cd example-bot
+sh start-bot.sh
+```
