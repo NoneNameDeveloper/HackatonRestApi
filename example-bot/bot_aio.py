@@ -29,7 +29,7 @@ def create_user_kb(buttons: list[str]):
     markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
 
     for u in buttons:
-        markup.add(u)
+        markup.add(u[0])
 
     return markup
 
@@ -91,7 +91,7 @@ async def all_text_hander(message: types.Message):
 
     buttons = [[variant] for variant in response['variants']]
     n = 400
-
+    print(buttons)
     [await message.answer(text=s, reply_markup=create_user_kb(buttons)) for s in [answer[i:i+n] for i in range(0, len(answer), n)]]
 
 
