@@ -5,8 +5,8 @@ import re
 from newspaper import Article
 
 
-LINKS_AMOUNT_PER_QUERY = 2
-LINKS_AMOUNT_TOTAL = 2
+LINKS_AMOUNT_PER_QUERY = 10
+LINKS_AMOUNT_TOTAL = 3
 
 def generate(prompt: str, status_callback) -> str:
     status_callback("Размышляю над вопросом")
@@ -15,27 +15,35 @@ def generate(prompt: str, status_callback) -> str:
     status_callback("Ищу информацию")
     print("Searching google...")
     links = [link for s in [search_links(query)[:LINKS_AMOUNT_PER_QUERY] for query in search_queries] for link in s]
-    links = links[:LINKS_AMOUNT_TOTAL]
+    # links = links[:LINKS_AMOUNT_TOTAL]
     print("Found links:\n" + "\n".join([str(link) for link in links]))
     print("Reading articles...")
     status_callback("Читаю статьи")
     # source_texts = [get_article_text(link) for link in links]
     # source_texts = [text for text in source_texts if text]
-    source_texts = []
+    source_texts = {}
     for link in links:
         text = get_article_text(link)
-        if not text.strip():
+        if not text or not text.strip():
             continue
-        source_texts.append(text)
-        if len(source_texts) > LINKS_AMOUNT_TOTAL:
+        source_texts[link] = text
+        if len(source_texts) >= LINKS_AMOUNT_TOTAL:
             break
 
     print("Compressing articles")
     status_callback("Размышляю над прочитанным")
-    summaries = [compress_article(text, prompt) for text in source_texts]
+    summaries = {}
+    for link in source_texts:
+        summaries[link] = compress_article(source_texts[link], prompt)
 
     status_callback("Пишу ответ")
+
     summary = "\n".join(summaries)
+    summary = ""
+
+    for s in summaries:
+        summary += summaries[s] + "\nИсточник: " + s 
+
     # final_response = complete_custom("Ты юрист-помощник, вежливо и весело отвечаешь на все вопросы клиентов, сохраняя фактическую точность", 
     #                                  [summary + "\n\Используя информацию выше, ответь на следующий вопрос: " + prompt]
     #                                  )

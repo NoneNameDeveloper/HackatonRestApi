@@ -8,13 +8,14 @@ from src.data import config
 from src.engine import complete, generate, compress_article
 from src.models import crud
 
-from fastapi.responses import JSONResponse
+from fastapi.responses import JSONResponse, PlainTextResponse
 
 
 class ResponseModel(BaseModel):
     status: str
     id_: typing.Optional[int]
     result: typing.Optional[str]
+    variants: typing.Optional[list[str]]
 
     class Config:
         schema_extra = {
@@ -40,10 +41,7 @@ async def get_prompt_handler(user_id: int, text: str, token: str):
 
     conversations = crud.get_conversation(user_id=user_id)
 
-    # chatGPT = ChatGPT(conversations)
-
-    # получение ответа от чатжпт во вопросу
-    response = complete(config.ADDITIONAL_PROMPT + text, conversations)
+    response = complete(text, conversations)
 
     # лимит ChatGPT достигнут
     if not response:
@@ -57,7 +55,7 @@ async def get_prompt_handler(user_id: int, text: str, token: str):
 @app.get("/g")
 async def g(prompt: str):
     # return JSONResponse(status_code=200, content=compress_article("Как правильно вести учёт суммированного рабочего времени?"))
-    return JSONResponse(status_code=200, content=generate(prompt, lambda x: x))
+    return PlainTextResponse(status_code=200, content=generate(prompt, lambda x: x))
 
 
 @app.get("/reset_state", tags=["reset_state"])
