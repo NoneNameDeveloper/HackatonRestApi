@@ -5,9 +5,15 @@
 Rest APi для ведения диалога с чат-ботом "Бизнес консультантом".
 
 
+https://t.me/delfikpro
+https://t.me/PontiyCoder
+https://t.me/wasodert
+https://t.me/Polina_Busheva
 
 Для запуска требуется python 3.10+
 pip install -r requirements.txt
+
+Создать config.env (по образцу из config.env.example) и наполнить данными
 Запуск апи:
 ```bash
 python main.py
