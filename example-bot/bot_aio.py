@@ -77,10 +77,13 @@ async def all_text_hander(message: types.Message):
     text = message.text
     user_id = message.chat.id
 
-    response_f = requests.get(base_url + "/get_filter?user_id=" + str(user_id) + "&token=" + company_token).json()
+    try:
+        response_f = requests.get(base_url + "/get_filter?user_id=" + str(user_id) + "&token=" + company_token).json()
 
-    if message.text.lower() in response_f['content']:
-        return await message.answer("Не допустимый вашей компанией запрос!")
+        if message.text.lower() in response_f['content']:
+            return await message.answer("Не допустимый вашей компанией запрос!")
+    except:
+        pass
 
     response = requests.get(base_url + "/text_prompt?user_id=" + str(user_id) + "&token=" + company_token + "&text=" + quote(text)).json()
 
