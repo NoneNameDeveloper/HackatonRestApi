@@ -5,7 +5,7 @@ from src.app import app
 from pydantic import BaseModel
 
 from src.data import config
-from src.engine import complete, generate, compress_article
+from src.engine import complete, generate, handle_user_message
 from src.models import crud
 
 from fastapi.responses import JSONResponse, PlainTextResponse
@@ -44,8 +44,11 @@ async def get_prompt_handler(user_id: int, text: str, token: str):
         crud.create_user(user_id, token)
 
     conversations = crud.get_conversation(user_id=user_id)
+    user = crud.get_user(user_id)
 
-    response = complete(text, conversations)
+    response, btns = handle_user_message(user, text, conversations)
+    # response += "\nВарианты ответа:\n" + "\n".join(btns)
+    crud.update_history_state(user_id, user.history_state)
 
     # лимит ChatGPT достигнут
     if not response:
@@ -54,7 +57,7 @@ async def get_prompt_handler(user_id: int, text: str, token: str):
     # добавление действия в бд
     conversation = crud.create_conversation(user_id, company.company_id, text, response)
 
-    return JSONResponse(status_code=200, content={"status": "SUCCESS", "id_": conversation.conversation_id, "result": response})
+    return JSONResponse(status_code=200, content={"status": "SUCCESS", "id_": conversation.conversation_id, "result": response, "variants": btns})
 
 @app.get("/g")
 async def g(prompt: str):
