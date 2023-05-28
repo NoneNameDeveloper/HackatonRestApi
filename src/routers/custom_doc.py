@@ -9,7 +9,7 @@ from pathlib import Path
 from src.app import app
 
 app.mount(
-    "/src//templates/static",
+    "/src/templates/static",
     StaticFiles(directory="src/templates/static"),
     name="static",
 )
