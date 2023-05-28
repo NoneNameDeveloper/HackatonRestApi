@@ -1,12 +1,127 @@
 import uuid
 from .gpt import complete_custom
 from .google import search_links
+from src.data.config import hints_config
 import re
 from newspaper import Article
-
+from src.models import User, Conversation, Tree
+import json
 
 LINKS_AMOUNT_PER_QUERY = 10
 LINKS_AMOUNT_TOTAL = 3
+
+class HintsTree:
+    nodes = {}
+
+    def parse(section):
+        text = section.get('text')
+
+        chapter = section.get('chapter')
+        question = section.get('question')
+        answer = section.get('answer')
+
+        children = section.get('children')
+        id = section.get('id')
+        children = [HintsTree.parse(c) for c in children or []]
+
+        hint = {
+            'text': text,
+            'id': id,
+            'children': children,
+            'chapter': chapter,
+            'answer': answer,
+            'question': question
+        }
+        HintsTree.nodes[id] = hint
+        return hint
+
+HintsTree.parse(hints_config)
+print(HintsTree.nodes)
+
+def handle_user_message(user: User, message: str, history: list[Conversation]):
+    
+    state = json.loads(user.history_state) if user.history_state else {'nodes': [], 'future_questions': [], 'current_question': None}
+    
+    def a():
+        current_node = (state['nodes'] or [0])[-1]
+        current_node = HintsTree.nodes.get(current_node)
+        if not current_node:
+            current_node = HintsTree.nodes[0]
+
+        response = ""
+        went_to_chapter = None
+
+        if message == 'Назад':
+            print("Going back")
+            if 'answer' in current_node:
+                # todo: удалять вопросы из futute_questions
+                state['nodes'] = state['nodes'][:-2]
+            else:
+                state['nodes'] = state['nodes'][:-1]
+            current_node = HintsTree.nodes.get((state['nodes'] or [0])[-1])
+            if current_node['chapter']:
+                went_to_chapter = current_node
+
+        print("Current node: ", current_node['id'])
+        print("Went to chapter: ", went_to_chapter)
+        print("User state: ", state)
+
+        if 'current_question' in state and state['current_question']:
+            question = HintsTree.nodes[state['current_question']]
+            answer = None
+            for answer_variant in question['children']:
+                if answer_variant['answer'] == message:
+                    answer = answer_variant
+                    break
+            if answer:
+                state['nodes'] += [question['id'], answer['id']]
+                state['current_question'] = None
+                state['future_questions'] = [question['id'] for question in answer['children']] + state['future_questions']
+
+        
+        
+        if current_node.get('chapter'):
+            for c in current_node['children']:
+                if c['chapter'] == message:
+                    went_to_chapter = c
+                    break
+
+        if went_to_chapter:
+            chapter_name = went_to_chapter['chapter']
+            chapter_text = went_to_chapter.get('text') or ""
+            state['nodes'].append(went_to_chapter['id'])
+
+            question_ids = [a['id'] for a in (went_to_chapter['children'] or []) if a.get('question')]
+            state['future_questions'] = [qid for qid in question_ids] + state['future_questions']
+
+            next_chapters = [a for a in (went_to_chapter['children'] or []) if a.get('chapter')]
+            #todo respong chapter_name and chapter_text in questions
+            response = chapter_name + "\n" + chapter_text
+            if next_chapters:
+                return response, [n['chapter'] for n in next_chapters]
+
+
+
+        if state['current_question'] or state['future_questions']:
+
+            if state['future_questions'] and not state['current_question']:
+                state['current_question'] = state['future_questions'][0]
+                state['future_questions'] = state['future_questions'][1:]
+            print("Went into question branch")
+            question_node = HintsTree.nodes.get(state['current_question'])
+            return response + "\n" + question_node['question'], [answer['answer'] for answer in question_node['children']]
+        
+        return "???", []
+    r, v = a()
+    user.history_state = json.dumps(state)
+    return r, v + ["Назад"]
+    
+    
+
+print(hints_config)
+
+
+
 
 def generate(prompt: str, status_callback) -> str:
     status_callback("Размышляю над вопросом")

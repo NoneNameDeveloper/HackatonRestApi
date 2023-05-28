@@ -1,6 +1,6 @@
 import os
-
 import dotenv
+import yaml
 
 # выгрузка переменных среды
 env = dotenv.load_dotenv("config.env")
@@ -12,5 +12,6 @@ POSTGRES_USER = os.getenv("POSTGRES_USER")
 POSTGRES_PASSWORD = os.getenv("POSTGRES_PASSWORD")
 POSTGRES_DATABASE = os.getenv("POSTGRES_DATABASE")
 
-# доп промпт к чатжпт в каждом запросе
-ADDITIONAL_PROMPT = """"""
+hints_config = None
+with open('config.yml', 'r') as file:
+    hints_config = yaml.safe_load(file)
