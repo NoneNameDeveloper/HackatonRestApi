@@ -1,2 +1,2 @@
 cd "$(dirname "$0")"
-rsync -rPvah * tada@greed.implario.net:/home/tada/api/
+rsync -rPvah * tada@greed.implario.net:/home/tada/api_patches/

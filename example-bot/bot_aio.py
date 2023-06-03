@@ -21,26 +21,27 @@ bot = aiogram.Bot(token)
 dp = aiogram.Dispatcher(bot)
 
 
-reset_kb = types.ReplyKeyboardMarkup(resize_keyboard=True)
-reset_kb.add("/reset")
+# reset_kb = types.ReplyKeyboardMarkup(resize_keyboard=True)
+# reset_kb.add("/reset")
 
 
 def create_user_kb(buttons: list[str]):
-    markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
+    keyboard = types.InlineKeyboardMarkup()
+
 
     for u in buttons:
-        markup.add(u[0])
+        keyboard.add(types.InlineKeyboardButton(u, callback_data=u))
 
-    return markup
+    return keyboard
 
 
-@dp.message_handler(commands=["start", "restart", "reset"])
-async def reset_state_handler(message: types.Message):
-    user_id = message.chat.id
+# @dp.message_handler(commands=["start", "restart", "reset"])
+# async def reset_state_handler(message: types.Message):
+#     user_id = message.chat.id
 
-    response = requests.get(base_url + "/reset_state?user_id=" + str(user_id) + "&token=" + company_token).json()
+#     response = requests.get(base_url + "/reset_state?user_id=" + str(user_id) + "&token=" + company_token).json()
 
-    await message.answer(str(response), reply_markup=reset_kb)
+#     await message.answer(str(response), reply_markup=reset_kb)
 
 
 @dp.message_handler(commands=["add_rule"])
@@ -71,6 +72,7 @@ async def archive_filter_handler(message: types.Message):
     await message.answer("Ошибка!")
 
 
+@dp.message_handler(commands=["start", "restart", "reset"])
 @dp.message_handler()
 async def all_text_hander(message: types.Message):
 
@@ -92,11 +94,15 @@ async def all_text_hander(message: types.Message):
     else:
         answer = response['result']
 
-    buttons = [[variant] for variant in response['variants']]
-    n = 400
+    buttons = response['variants']
+    n = 3500
     print(buttons)
     [await message.answer(text=s, reply_markup=create_user_kb(buttons)) for s in [answer[i:i+n] for i in range(0, len(answer), n)]]
 
+
+@dp.callback_query_handler(lambda query: True)
+async def handle_button1_click(query: types.CallbackQuery):
+    await query.answer('You clicked Button 1!')
 
 aiogram.executor.start_polling(dp)
 

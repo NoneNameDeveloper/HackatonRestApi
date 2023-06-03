@@ -6,7 +6,7 @@ from pydantic import BaseModel
 
 from src.data import config
 from src.engine import complete, generate, handle_user_message
-from src.models import crud
+from src.models import crud, Rule, Conversation
 
 from fastapi.responses import JSONResponse, PlainTextResponse
 
@@ -30,6 +30,10 @@ class ResponseModel(BaseModel):
 class Status(BaseModel):
     status: str
 
+@app.get("/conversation")
+async def get_conversation(id: int):
+    return Conversation.get_by_id(id)
+    
 
 @app.get("/text_prompt", tags=["text_prompt"], response_model=ResponseModel)
 async def get_prompt_handler(user_id: int, text: str, token: str):
@@ -43,10 +47,22 @@ async def get_prompt_handler(user_id: int, text: str, token: str):
     if not crud.get_user(user_id):
         crud.create_user(user_id, token)
 
+    rules = Rule.select(Rule.filter_text).where(Rule.company_id == company.company_id)
+
+    response = ""
+    btns = ["Меню"]
+
+    for rule in rules:
+        for word in rule.split(" "):
+            if text.lower().includes(word.lower()):
+                response = "В вопросе содержатся недопустимые слова.\n" + rule.filter_description
+                break
+
     conversations = crud.get_conversation(user_id=user_id)
     user = crud.get_user(user_id)
 
-    response, btns = handle_user_message(user, text, conversations)
+    if not response:
+        response, btns = handle_user_message(user, text, conversations)
     # response += "\nВарианты ответа:\n" + "\n".join(btns)
     crud.update_history_state(user_id, user.history_state)
 

@@ -7,6 +7,7 @@ from newspaper import Article
 from src.models import User, Conversation, Tree
 import json
 import concurrent.futures
+from typing import Callable
 
 LINKS_AMOUNT_PER_QUERY = 10
 LINKS_AMOUNT_TOTAL = 3
@@ -150,12 +151,20 @@ def handle_user_message(user: User, message: str, history: list[Conversation]):
 
 # print(hints_config)
 
+def is_valid_question(prompt: str) -> bool:
+    return complete_custom("Отвечай одним словом \"Да\" или \"Нет\"", ["""
+    Является ли данное предложение адекватным вопросом от клиента к специалисту?
+    Предложение:
+    """ + prompt]).lower().includes("да")
 
 
-
-def generate(prompt: str, status_callback) -> str:
+def generate(prompt: str, status_callback: Callable[[str, bool], None]) -> str:
     # if prompt[0] != "Я":
     #     return "..."
+    status_callback("Читаю вопрос", False)
+    if not is_valid_question(prompt):
+        status_callback("Извините, я вас не совсем понял. Пожалуйста, задайте вопрос или нажмите 'Меню'", True)
+        return
     status_callback("Размышляю над вопросом")
     print("Getting search queries...")
     search_queries = get_search_queries(prompt)
@@ -214,6 +223,7 @@ def generate(prompt: str, status_callback) -> str:
     #                                  [summary + "\n\Используя информацию выше, ответь на следующий вопрос: " + prompt]
     #                                  )
     # return final_response
+    status_callback(summary, True)
     return summary
 
 def get_compression_prompts(article: str, user_prompt: str) -> str:

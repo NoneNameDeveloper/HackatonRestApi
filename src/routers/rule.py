@@ -7,7 +7,7 @@ from src.app import app
 from src.models import crud
 
 
-@app.get("add_filter", tags=["add_filter"])
+@app.get("/add_filter", tags=["add_filter"])
 async def add_filter_handler(filter: str, token: str):
 
     # проверка токена
