@@ -152,29 +152,29 @@ def handle_user_message(user: User, message: str, history: list[Conversation]):
 # print(hints_config)
 
 def is_valid_question(prompt: str) -> bool:
-    return complete_custom("Отвечай одним словом \"Да\" или \"Нет\"", ["""
+    return "да" in complete_custom("Отвечай одним словом \"Да\" или \"Нет\"", ["""
     Является ли данное предложение адекватным вопросом от клиента к специалисту?
     Предложение:
-    """ + prompt]).lower().includes("да")
+    """ + prompt]).lower()
 
 
 def generate(prompt: str, status_callback: Callable[[str, bool], None]) -> str:
     # if prompt[0] != "Я":
     #     return "..."
-    status_callback("Читаю вопрос", False)
+    # status_callback("Читаю вопрос", False)
     if not is_valid_question(prompt):
-        status_callback("Извините, я вас не совсем понял. Пожалуйста, задайте вопрос или нажмите 'Меню'", True)
-        return
-    status_callback("Размышляю над вопросом")
+        # status_callback("Извините, я вас не совсем понял. Пожалуйста, задайте вопрос или нажмите 'Меню'", True)
+        return "Извините, я вас не совсем понял. Пожалуйста, задайте вопрос или нажмите 'Меню'"
+    # status_callback("Размышляю над вопросом", False)
     print("Getting search queries...")
     search_queries = get_search_queries(prompt)
-    status_callback("Ищу информацию")
+    # status_callback("Ищу информацию")
     print("Searching google...")
     links = [link for s in [search_links(query)[:LINKS_AMOUNT_PER_QUERY] for query in search_queries] for link in s]
     # links = links[:LINKS_AMOUNT_TOTAL]
     print("Found links:\n" + "\n".join([str(link) for link in links]))
     print("Reading articles...")
-    status_callback("Читаю статьи")
+    # status_callback("Читаю статьи")
     # source_texts = [get_article_text(link) for link in links]
     # source_texts = [text for text in source_texts if text]
     source_texts = {}
@@ -187,7 +187,7 @@ def generate(prompt: str, status_callback: Callable[[str, bool], None]) -> str:
             break
 
     print("Compressing articles")
-    status_callback("Размышляю над прочитанным")
+    # status_callback("Размышляю над прочитанным")
 
     compression_prompts = []
     for link in source_texts:
@@ -210,7 +210,7 @@ def generate(prompt: str, status_callback: Callable[[str, bool], None]) -> str:
     # for link in source_texts:
     #     summaries[link] = compress_article(source_texts[link], prompt)
 
-    status_callback("Пишу ответ")
+    # status_callback("Пишу ответ")
     summary = "\n\n".join([p[1]["summary"] + "\nИсточник: " + p[0] for p in compression_prompts if (p[1]["summary"] or "").strip()])
 
     # summary = "\n".join(summaries)
@@ -219,12 +219,12 @@ def generate(prompt: str, status_callback: Callable[[str, bool], None]) -> str:
     # for s in summaries:
     #     summary += summaries[s] + "\nИсточник: " + s 
 
-    # final_response = complete_custom("Ты юрист-помощник, вежливо и весело отвечаешь на все вопросы клиентов, сохраняя фактическую точность", 
-    #                                  [summary + "\n\Используя информацию выше, ответь на следующий вопрос: " + prompt]
-    #                                  )
-    # return final_response
-    status_callback(summary, True)
-    return summary
+    final_response = complete_custom("Ты юрист-помощник, вежливо и весело отвечаешь на все вопросы клиентов, сохраняя фактическую точность", 
+                                     [summary + "\n\Используя информацию выше, ответь на следующий вопрос: " + prompt]
+                                     )
+    return final_response
+    # status_callback(summary, True)
+    # return summary
 
 def get_compression_prompts(article: str, user_prompt: str) -> str:
 

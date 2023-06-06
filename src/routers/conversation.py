@@ -53,9 +53,9 @@ async def get_prompt_handler(user_id: int, text: str, token: str):
     btns = ["Меню"]
 
     for rule in rules:
-        for word in rule.split(" "):
-            if text.lower().includes(word.lower()):
-                response = "В вопросе содержатся недопустимые слова.\n" + rule.filter_description
+        for word in rule.filter_text.split(" "):
+            if word.lower() in text.lower():
+                response = "В вопросе содержатся недопустимые слова.\n" + rule.filter_text
                 break
 
     conversations = crud.get_conversation(user_id=user_id)
@@ -78,7 +78,7 @@ async def get_prompt_handler(user_id: int, text: str, token: str):
 @app.get("/g")
 async def g(prompt: str):
     # return JSONResponse(status_code=200, content=compress_article("Как правильно вести учёт суммированного рабочего времени?"))
-    return PlainTextResponse(status_code=200, content=generate(prompt, lambda x: x))
+    return PlainTextResponse(status_code=200, content=generate(prompt, lambda x,y: x))
 
 
 @app.get("/reset_state", tags=["reset_state"])
