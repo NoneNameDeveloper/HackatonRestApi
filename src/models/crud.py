@@ -197,3 +197,10 @@ def update_history_state(user_id: int, history_state):
     ).where(
         User.user_id == user_id
     ).execute()
+
+def set_status(conversation_id: int, status: str):
+    """
+    обновление статуса диалога
+    """
+    print("Setting status " + status)
+    Conversation.update(status=status).where(Conversation.conversation_id == conversation_id).execute()

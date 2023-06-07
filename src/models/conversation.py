@@ -23,11 +23,12 @@ class Conversation(Model):
     active = BooleanField(default=True)  # активно или сброшено
 
     rate = IntegerField(null=True)  # оценка ответу
+    status = TextField(null=True)
 
     class Meta:
         database = db
         table_name = "conversations"
 
 
-# db.drop_tables([Conversation])
+db.drop_tables([Conversation])
 db.create_tables([Conversation])

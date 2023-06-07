@@ -7,6 +7,7 @@ from pydantic import BaseModel
 from src.data import config
 from src.engine import complete, generate, handle_user_message
 from src.models import crud, Rule, Conversation
+import concurrent.futures
 
 from fastapi.responses import JSONResponse, PlainTextResponse
 
@@ -31,12 +32,12 @@ class Status(BaseModel):
     status: str
 
 @app.get("/conversation")
-async def get_conversation(id: int):
+def get_conversation(id: int):
     return Conversation.get_by_id(id)
     
 
 @app.get("/text_prompt", tags=["text_prompt"], response_model=ResponseModel)
-async def get_prompt_handler(user_id: int, text: str, token: str):
+def get_prompt_handler(user_id: int, text: str, token: str):
 
     # проверка токена
     company = crud.get_company(token)
@@ -59,10 +60,14 @@ async def get_prompt_handler(user_id: int, text: str, token: str):
                 break
 
     conversations = crud.get_conversation(user_id=user_id)
+
+    # добавление действия в бд
+    conversation: Conversation = crud.create_conversation(user_id, company.company_id, text, response)
+
     user = crud.get_user(user_id)
 
     if not response:
-        response, btns = handle_user_message(user, text, conversations)
+        response, btns = handle_user_message(user, text, conversations, lambda status, finished: crud.set_status(conversation.conversation_id, status))
     # response += "\nВарианты ответа:\n" + "\n".join(btns)
     crud.update_history_state(user_id, user.history_state)
 
@@ -70,8 +75,6 @@ async def get_prompt_handler(user_id: int, text: str, token: str):
     if not response:
         return JSONResponse(status_code=500, content={"status": "INTERNAL_ERROR"})
 
-    # добавление действия в бд
-    conversation = crud.create_conversation(user_id, company.company_id, text, response)
 
     return JSONResponse(status_code=200, content={"status": "SUCCESS", "id_": conversation.conversation_id, "result": response, "variants": btns})
 

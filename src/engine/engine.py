@@ -10,7 +10,8 @@ import concurrent.futures
 from typing import Callable
 
 LINKS_AMOUNT_PER_QUERY = 10
-LINKS_AMOUNT_TOTAL = 3
+# LINKS_AMOUNT_TOTAL = 3
+LINKS_AMOUNT_TOTAL = 1
 
 class HintsTree:
     nodes = {}
@@ -46,7 +47,7 @@ HintsTree.parse(hints_config)
 HintsTree.parse_results(hints_config)
 # print(HintsTree.nodes)
 
-def handle_user_message(user: User, message: str, history: list[Conversation]):
+def handle_user_message(user: User, message: str, history: list[Conversation], status_callback: Callable[[str, bool], None]):
 
     state = json.loads(user.history_state) if user.history_state else {'future_questions': [], 'current_question': None, 'current_chapter': 0, 'previous_state': None, 'visited_nodes': []}
     user.history_state = json.dumps(state)
@@ -119,7 +120,7 @@ def handle_user_message(user: User, message: str, history: list[Conversation]):
 
 
     if not handled and chapter['id'] == 0:
-        return generate(message, lambda x: x), ["Меню"]
+        return generate(message, status_callback), ["Меню"]
     #todo respong chapter_name and chapter_text in questions
     if next_chapters:
 
@@ -161,33 +162,33 @@ def is_valid_question(prompt: str) -> bool:
 def generate(prompt: str, status_callback: Callable[[str, bool], None]) -> str:
     # if prompt[0] != "Я":
     #     return "..."
-    # status_callback("Читаю вопрос", False)
+    status_callback("Читаю вопрос", False)
     if not is_valid_question(prompt):
-        # status_callback("Извините, я вас не совсем понял. Пожалуйста, задайте вопрос или нажмите 'Меню'", True)
+        status_callback("Извините, я вас не совсем понял. Пожалуйста, задайте вопрос или нажмите 'Меню'", True)
         return "Извините, я вас не совсем понял. Пожалуйста, задайте вопрос или нажмите 'Меню'"
-    # status_callback("Размышляю над вопросом", False)
+    status_callback("Размышляю над вопросом", False)
     print("Getting search queries...")
     search_queries = get_search_queries(prompt)
-    # status_callback("Ищу информацию")
+    status_callback("Ищу информацию", False)
     print("Searching google...")
     links = [link for s in [search_links(query)[:LINKS_AMOUNT_PER_QUERY] for query in search_queries] for link in s]
     # links = links[:LINKS_AMOUNT_TOTAL]
     print("Found links:\n" + "\n".join([str(link) for link in links]))
     print("Reading articles...")
-    # status_callback("Читаю статьи")
+    status_callback("Читаю статьи", False)
     # source_texts = [get_article_text(link) for link in links]
     # source_texts = [text for text in source_texts if text]
     source_texts = {}
     for link in links:
-        text = get_article_text(link)
-        if not text or not text.strip():
+        text = get_article_text(link) or ""
+        if len(text) < 10:
             continue
         source_texts[link] = text
         if len(source_texts) >= LINKS_AMOUNT_TOTAL:
             break
 
     print("Compressing articles")
-    # status_callback("Размышляю над прочитанным")
+    status_callback("Размышляю над прочитанным", False)
 
     compression_prompts = []
     for link in source_texts:
@@ -210,7 +211,7 @@ def generate(prompt: str, status_callback: Callable[[str, bool], None]) -> str:
     # for link in source_texts:
     #     summaries[link] = compress_article(source_texts[link], prompt)
 
-    # status_callback("Пишу ответ")
+    status_callback("Пишу ответ", False)
     summary = "\n\n".join([p[1]["summary"] + "\nИсточник: " + p[0] for p in compression_prompts if (p[1]["summary"] or "").strip()])
 
     # summary = "\n".join(summaries)
@@ -242,7 +243,7 @@ def get_compression_prompts(article: str, user_prompt: str) -> str:
             prompt1 += "\n" + line
 
         prompt1 += "\n\nМожешь вытащить из этого текста информацию, нужную для ответа на вопрос (если релевантная информация отсутствует - ответь \"missing\"): " + user_prompt
-        print(prompt1)
+        # print(prompt1)
         prompts.append({"system": "You are a text summarizer, you keep all the important details. Do not respond any additional words or phrases, only the summary. You respond a single word 'missing' if no relevant information is found", "prompt": [prompt1]})
         lines = lines[i:]
     return prompts
@@ -268,14 +269,14 @@ def compress_article(input: str, prompt: str) -> str:
         # n = 1500
         # chunks = [input[i:i+n] for i in range(0, len(input), n)]
 
-        print(prompt1)
+        # print(prompt1)
 
         a = complete_custom("You are a text summarizer, you keep all the important details. Do not respond any additional words or phrases, only the summary. You respond a single word 'missing' if no relevant information is found", [prompt1]
                             ).replace("missing", "").replace("Missing.", "")
-        print("PARTIAL: " + a)
+        # print("PARTIAL: " + a)
         summary += "\n" + a
         lines = lines[i:]
-    print("COMPLETED: " + summary)
+    # print("COMPLETED: " + summary)
     return summary
 
 def get_article_text(url: str) -> str:
@@ -283,7 +284,7 @@ def get_article_text(url: str) -> str:
         article = Article(url)
         article.download()
         article.parse()
-        print("Text of " + url + ": \n" + article.text)
+        # print("Text of " + url + ": \n" + article.text)
         return article.text
     except Exception as e:
         print(f"Exception parsing article {url}: ", e)
