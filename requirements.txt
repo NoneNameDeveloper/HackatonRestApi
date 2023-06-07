@@ -71,3 +71,4 @@ yarl==1.9.2
 pyyaml
 google-api-python-client
 newspaper3k
+aiogram~=2.25.1
