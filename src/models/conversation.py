@@ -23,7 +23,7 @@ class Conversation(Model):
     active = BooleanField(default=True)  # активно или сброшено
 
     rate = IntegerField(null=True)  # оценка ответу
-    status = TextField(null=True)
+    status = TextField(null=True)  # статус ответа от бота для вывода пользователям
 
     class Meta:
         database = db
