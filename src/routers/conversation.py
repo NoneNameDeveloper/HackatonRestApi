@@ -48,7 +48,7 @@ def new_conversation(token: str, user_id: int):
     conversation = Conversation.create(user_id=user.user_id, company_id=company.company_id, last_user_message="", response_text="", response_buttons="[]")
 
     # Сгенерировать стаартовое сообщение от бота
-    handle_user_message(user, company, "", conversation.update_response)
+    handle_user_message(conversation, "")
     
     return JSONResponse(status_code=200, content={"status": "SUCCESS", "conversation": conversation.to_dto()})
         
@@ -56,7 +56,7 @@ def new_conversation(token: str, user_id: int):
 @app.get("/get_conversation")
 def get_conversation(token: str, conversation_id: int):
     company = get_company_by_token(token)
-    conversation = Conversation.get_or_none(Conversation.conversation_id == id)
+    conversation = Conversation.get_or_none(Conversation.conversation_id == conversation_id)
     if not conversation or conversation.company_id != company.company_id:
         return JSONResponse(status_code=404, content={"status": "CONVERSATION_NOT_FOUND"})
     
@@ -65,7 +65,7 @@ def get_conversation(token: str, conversation_id: int):
 @app.get("/new_user_message", tags=["new_user_message"], response_model=ResponseModel)
 def new_user_message(token: str, user_id: int, conversation_id: int, text: str):
 
-    company = get_company_by_token(token)
+    get_company_by_token(token)
 
     user = User.get_or_none(User.user_id == user_id)
     if not user:
@@ -75,7 +75,7 @@ def new_user_message(token: str, user_id: int, conversation_id: int, text: str):
     if not conversation:
         return JSONResponse(status_code=404, content={"status": "CONVERSATION_NOT_FOUND"})
 
-    handle_user_message(user, company, text, conversation.update_response)
+    handle_user_message(conversation, text)
 
     crud.update_history_state(user_id, user.history_state)
 

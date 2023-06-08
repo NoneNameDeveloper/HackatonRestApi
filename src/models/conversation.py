@@ -20,6 +20,7 @@ class Conversation(Model):
     start_date = DateTimeField(constraints=[SQL('DEFAULT CURRENT_TIMESTAMP')], default=datetime.datetime.now)  # время сообщения
 
     last_user_message = TextField(null=False) # последнее сообщение от пользователя
+    history_state = TextField(null=True)  # история перемещений по дереву базы знаний
 
     response_finished = BooleanField(default=False)  # True, если ответ на последнее сообщение юзера финальный и больше не будет обновлятся
     response_text = TextField(null=False)  # Текущий ответ на сообщение, может меняться пока response_finished = False
@@ -56,7 +57,7 @@ class Conversation(Model):
             'last_user_message': self.last_user_message,
             'response_finished': self.response_finished,
             'response_text': self.response_text,
-            'response_buttons': self.response_buttons,
+            'response_buttons': json.loads(self.response_buttons),
             'rate': self.rate
         }
 

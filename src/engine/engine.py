@@ -7,12 +7,14 @@ from newspaper import Article
 from src.models import User, Conversation, Company, Rule
 import json
 import concurrent.futures
+from concurrent.futures import ThreadPoolExecutor
 from typing import Callable
 
 LINKS_AMOUNT_PER_QUERY = 10
 # LINKS_AMOUNT_TOTAL = 3
 LINKS_AMOUNT_TOTAL = 1
 
+executor = ThreadPoolExecutor(4) 
 
 class HintsTree:
     nodes = {}
@@ -51,20 +53,28 @@ Responder = Callable[[str, list[str], bool], None]
 
 # print(HintsTree.nodes)
 
-def handle_user_message(user: User, company: Company, message: str, responder: Responder):
-
-    rules = Rule.select(Rule.filter_text).where(Rule.company_id == company.company_id)
+def check_rule_violations(conversation: Conversation, message: str):
+    rules = Rule.select(Rule.filter_text).where(Rule.company_id == conversation.company_id)
 
     for rule in rules:
         for word in rule.filter_text.split(" "):
             if word.lower() in message.lower():
-                responder(f"В вопросе содержится недопустимое слово: {word.lower()}.\nПожалуйста, задайте вопрос иначе.", [], True)
-                return
+                conversation.update_response(f"В вопросе содержится недопустимое слово: {word.lower()}.\nПожалуйста, задайте вопрос иначе.", [], True)
+                return True
+    return False
 
-    state = json.loads(user.history_state) if user.history_state else {'future_questions': [], 'current_question': None,
+
+def handle_user_message(conversation: Conversation, message: str):
+
+    if check_rule_violations(conversation, message):
+        return
+    
+
+    
+    state = json.loads(conversation.history_state) if conversation.history_state else {'future_questions': [], 'current_question': None,
                                                                        'current_chapter': 0, 'previous_state': None,
                                                                        'visited_nodes': []}
-    user.history_state = json.dumps(state)
+    conversation.history_state = json.dumps(state)
 
     handled = False
 
@@ -123,38 +133,41 @@ def handle_user_message(user: User, company: Company, message: str, responder: R
         print("Went into question branch")
         question_node = HintsTree.nodes.get(state['current_question'])
 
-        if user.history_state != json.dumps(state):
-            state['previous_state'] = json.loads(user.history_state)
-            user.history_state = json.dumps(state)
+        if conversation.history_state != json.dumps(state):
+            state['previous_state'] = json.loads(conversation.history_state)
+            conversation.history_state = json.dumps(state)
 
-        return response + "\n" + question_node['question'], [answer['answer'] for answer in
+        conversation.update_response(response + "\n" + question_node['question'], [answer['answer'] for answer in
                                                              question_node['children']] + (
-                   ['Назад'] if chapter['id'] else [])
+                   ['Назад'] if chapter['id'] else []), True)
+        return
 
     next_chapters = [a for a in (chapter['children'] or []) if a.get('chapter')]
 
     if not handled and chapter['id'] == 0:
-        return generate(message, status_callback), ["Меню"]
+        executor.submit(lambda: generate(message, conversation.update_response))
+        return
     # todo respong chapter_name and chapter_text in questions
     if next_chapters:
 
-        if user.history_state and user.history_state != json.dumps(state):
-            state['previous_state'] = json.loads(user.history_state)
-            user.history_state = json.dumps(state)
+        if conversation.history_state and conversation.history_state != json.dumps(state):
+            state['previous_state'] = json.loads(conversation.history_state)
+            conversation.history_state = json.dumps(state)
 
-        return response, [n['chapter'] for n in next_chapters] + (['Назад'] if chapter['id'] else [])
+        conversation.update_response(response, [n['chapter'] for n in next_chapters] + (['Назад'] if chapter['id'] else []), True)
+        return
 
     print("Handled: " + str(handled))
-    print("user history 2: " + str(user.history_state))
+    print("user history 2: " + str(conversation.history_state))
     print("userstate: " + str(state))
 
-    if user.history_state != json.dumps(state):
-        state['previous_state'] = json.loads(user.history_state)
-        user.history_state = json.dumps(state)
+    if conversation.history_state != json.dumps(state):
+        state['previous_state'] = json.loads(conversation.history_state)
+        conversation.history_state = json.dumps(state)
     print("visited: " + str(state['visited_nodes']))
 
     results = [r['text'] for r in HintsTree.results if set(r['nodes']).issubset(set(state['visited_nodes']))]
-    responder("Информация в базе знаний tada.team: \n" + "\n".join(results), ['Назад'])
+    conversation.update_response("Информация в базе знаний tada.team: \n" + "\n".join(results), ['Назад'], True)
 
 
 # if user.history_state != json.dumps(state):
@@ -172,23 +185,23 @@ def is_valid_question(prompt: str) -> bool:
     """ + prompt]).lower()
 
 
-def generate(prompt: str, status_callback: Callable[[str, bool], None]) -> str:
+def generate(prompt: str, responder: Responder):
     # if prompt[0] != "Я":
     #     return "..."
-    status_callback("Читаю вопрос", False)
+    responder("Читаю вопрос", ["Отмена"], False)
     if not is_valid_question(prompt):
-        status_callback("Извините, я вас не совсем понял. Пожалуйста, задайте вопрос или нажмите 'Меню'", True)
-        return "Извините, я вас не совсем понял. Пожалуйста, задайте вопрос или нажмите 'Меню'"
-    status_callback("Размышляю над вопросом", False)
+        responder("Извините, я вас не совсем понял. Пожалуйста, задайте вопрос по-другому или нажмите 'Меню'", ["Меню"], True)
+        return
+    responder("Размышляю над вопросом", ["Отмена"], False)
     print("Getting search queries...")
     search_queries = get_search_queries(prompt)
-    status_callback("Ищу информацию", False)
+    responder("Ищу информацию", ["Отмена"], False)
     print("Searching google...")
     links = [link for s in [search_links(query)[:LINKS_AMOUNT_PER_QUERY] for query in search_queries] for link in s]
     # links = links[:LINKS_AMOUNT_TOTAL]
     print("Found links:\n" + "\n".join([str(link) for link in links]))
     print("Reading articles...")
-    status_callback("Читаю статьи", False)
+    responder("Читаю статьи", ["Отмена"], False)
     # source_texts = [get_article_text(link) for link in links]
     # source_texts = [text for text in source_texts if text]
     source_texts = {}
@@ -201,7 +214,7 @@ def generate(prompt: str, status_callback: Callable[[str, bool], None]) -> str:
             break
 
     print("Compressing articles")
-    status_callback("Размышляю над прочитанным", False)
+    responder("Размышляю над прочитанным", ["Отмена"], False)
 
     compression_prompts = []
     for link in source_texts:
@@ -224,7 +237,7 @@ def generate(prompt: str, status_callback: Callable[[str, bool], None]) -> str:
     # for link in source_texts:
     #     summaries[link] = compress_article(source_texts[link], prompt)
 
-    status_callback("Пишу ответ", False)
+    responder("Пишу ответ", ["Отмена"], False)
     summary = "\n\n".join(
         [p[1]["summary"] + "\nИсточник: " + p[0] for p in compression_prompts if (p[1]["summary"] or "").strip()])
 
@@ -238,7 +251,7 @@ def generate(prompt: str, status_callback: Callable[[str, bool], None]) -> str:
         "Ты юрист-помощник, вежливо и весело отвечаешь на все вопросы клиентов, сохраняя фактическую точность",
         [summary + "\n\Используя информацию выше, ответь на следующий вопрос: " + prompt]
     )
-    return final_response
+    responder(final_response, ["точно?"], True)
 
 
 # status_callback(summary, True)

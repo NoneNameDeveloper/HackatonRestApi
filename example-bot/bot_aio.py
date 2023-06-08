@@ -7,8 +7,11 @@ from aiogram import types
 
 import logging
 from urllib.parse import quote
-
+import threading
+import traceback
 import base64
+import time
+import asyncio
 
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
                     level=logging.INFO)
@@ -24,14 +27,16 @@ dp = aiogram.Dispatcher(bot)
 
 user_database = {}
 
-def create_user_kb(buttons: list[str]):
+
+def create_user_kb(buttons: list[str], conversation_id: int):
     keyboard = types.InlineKeyboardMarkup()
 
-    for u in buttons:
+    i = 0
+    for u in buttons or []:
         try:
-            # print(f"tree_{encode_to_base64(u[:32])}")
-            print(f"tree_{u[:30]}")
-            keyboard.add(types.InlineKeyboardButton(u[:32], callback_data=f"tree_{u[:30]}"))
+            keyboard.add(types.InlineKeyboardButton(
+                u[:32], callback_data=f"tree_{conversation_id}_{i}"))
+            i += 1
         except Exception as e:
             print(traceback.format_exc())
             pass
@@ -45,7 +50,8 @@ async def add_rule_bot(message: types.Message):
     words = message.text.replace("/add_rule ", "")
 
     for word in words.split():
-        response = requests.get(base_url + "/add_filter?token=" + company_token + "&filter=" + str(word).lower()).json()
+        response = requests.get(base_url + "/add_filter?token=" +
+                                company_token + "&filter=" + str(word).lower()).json()
 
         if response['status'] == "SUCCESS":
             await message.answer(f"Правило добавлено\nID: {response['rule_id']}")
@@ -59,7 +65,8 @@ async def archive_filter_handler(message: types.Message):
     if not id_.isdigit():
         return await message.answer("Это не целое число!")
 
-    response = requests.get(base_url + "/archive_filter?token=" + company_token + "&rule_id=" + id_).json()
+    response = requests.get(
+        base_url + "/archive_filter?token=" + company_token + "&rule_id=" + id_).json()
 
     if response['status'] == 'SUCCESS':
         return await message.answer("Правило удалено!")
@@ -81,50 +88,111 @@ async def all_text_hander(message: types.Message):
         print(url)
         response = requests.post(url).json()
         print(response)
-        user_database[user_id] = {
-            "conversation_id": response["conversation"]["conversation_id"]
+        state = user_database[user_id] = {
+            "conversation_id": response["conversation"]["conversation_id"],
+            "buttons": response["conversation"]["response_buttons"]
         }
     else:
-        response = requests.get(f"{base_url}/new_user_message?user_id={user_id}&token={company_token}&conversation_id={state['conversation_id']}").json()
+        response = requests.get(
+            f"{base_url}/new_user_message?user_id={user_id}&token={company_token}&conversation_id={state['conversation_id']}&text={quote(text)}").json()
         print(response)
-    
-    if response['status'] != "SUCCESS":
-        message.answer(text="Произошла ошибка.")
-        return
-    conversation = response['conversation']
-    answer = conversation['response_text']
-    buttons = conversation['response_buttons']
-    
+
     n = 3500
-    
-    [await message.answer(text=s, reply_markup=create_user_kb(buttons)) for s in [answer[i:i+n] for i in range(0, len(answer), n)]]
+    error, text, buttons = update_state(user_id, response)
+    if error:
+        message.answer(text="Произошла ошибка: " + error)
+    else:
+        last = [await message.answer(text=s, reply_markup=create_user_kb(buttons, state['conversation_id'])) for s in [text[i:i+n] for i in range(0, len(text), n)]][-1]
+        state["active_message_id"] = last.message_id
 
 
 @dp.callback_query_handler(text_contains="tree_")
-async def handle_tree_buttons_click_handler(call: types.CallbackQuery):
-
-    data = call.data.split("_")  # example: ['tree', 'Экономика']
-
-    print(call.message)
-
-    # получаем название ноды из ветки вопрос-ответов
-    node_title = data[1]
+async def handle_active_conversation_buttons(call: types.CallbackQuery):
 
     user_id = call.message.chat.id
+    print(f"User {user_id} pressed on button {call.data}")
+    data = call.data.split("_")
+    conv_id = int(data[1])
+    state = user_database.get(user_id)
+    if not state or state['conversation_id'] != conv_id:
+        return
+
+    text = state["buttons"][int(data[2])]
 
     response = requests.get(
-        base_url + "/text_prompt?user_id=" + str(user_id) + "&token=" + company_token + "&text=" + quote(node_title)).json()
+        f"{base_url}/new_user_message?user_id={user_id}&token={company_token}&conversation_id={state['conversation_id']}&text={quote(text)}").json()
 
-    if response['status'] != "SUCCESS":
-        answer = "Ошибка: " + response['STATUS']
-    else:
-        answer = response['result']
-
-    buttons = response['variants']
     n = 3500
+    error, text, buttons = update_state(user_id, response)
+    if error:
+        bot.answer_callback_query(
+            call.id, "Произошла ошибка: " + error, show_alert=False)
+    else:
+        state["active_message_id"] = await edit_or_send_more(user_id, call.message.message_id, text, create_user_kb(buttons, conv_id))
 
-    [await call.message.edit_text(text=s, reply_markup=create_user_kb(buttons)) for s in
-     [answer[i:i + n] for i in range(0, len(answer), n)]]
+async def edit_or_send_more(chat_id, message_id, text, markup) -> int:
+    
+    max_length = 3500
+    print(f"editing message {message_id} to {text}, {markup}")
+
+    multiple_messages = len(text) > max_length
+    await bot.edit_message_text(chat_id=chat_id, message_id=message_id, text=text[:max_length],
+                                reply_markup=types.InlineKeyboardMarkup() if multiple_messages else markup)
+    if multiple_messages:
+
+        last_message_id = None
+        text = text[max_length:]
+        while len(text):
+            piece = text[:max_length]
+            text = text[max_length:]
+            m = None if text else markup
+            sent_message = await bot.send_message(chat_id=chat_id, text=text, reply_markup=m)
+            last_message_id = sent_message.message_id
+        return last_message_id
+    return message_id
+            
+
+
+
+
+
+def update_state(user_id, response):
+    global user_database
+    if response['status'] != 'SUCCESS':
+        return response['status'], None, None
+    conversation = response['conversation']
+    state = user_database[user_id]
+    state['conversation_id'] = conversation['conversation_id']
+    state['buttons'] = conversation['response_buttons']
+    state['finished'] = conversation['response_finished']
+    return None, conversation['response_text'], conversation['response_buttons']
+
+async def update_messages():
+    global user_database
+    while True:
+        await asyncio.sleep(1)
+        print("Updating messages")
+        for user_id in user_database.keys():
+            try:
+                state = user_database[user_id]
+                if state.get('finished'):
+                    continue
+                
+                response = requests.get(
+                    f"{base_url}/get_conversation?token={company_token}&conversation_id={state['conversation_id']}").json()
+                
+                error, text, buttons = update_state(user_id, response)
+                print(text, buttons)
+                await edit_or_send_more(user_id, state['active_message_id'], text or f"Произошла ошибка: {error}", create_user_kb(buttons, state['conversation_id']))
+                # bot.edit_message_text(chat_id=user_id, message_id=state['active_message_id'], text=text or f"Произошла ошибка: {error}")
+                # bot.edit_message_reply_markup(chat_id=user_id, message_id=state['active_message_id'], reply_markup=create_user_kb(buttons, state['conversation_id']))
+            except Exception as e:
+                traceback.print_exc()
+
+async def on_startup(_):
+    asyncio.create_task(update_messages())
+
+
 
 
 def rate_keyboard_all():
@@ -136,7 +204,5 @@ def rate_keyboard_all():
     return markup
 
 
-
-aiogram.executor.start_polling(dp, skip_updates=True)
-
-
+threading.Thread(daemon=True, target=update_messages).start()
+aiogram.executor.start_polling(dp, skip_updates=True, on_startup=on_startup)
