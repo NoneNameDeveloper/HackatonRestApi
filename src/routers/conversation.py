@@ -3,10 +3,11 @@ import typing
 from src.app import app
 
 from pydantic import BaseModel
+from fastapi import HTTPException
 
 from src.data import config
-from src.engine import complete, generate, handle_user_message
-from src.models import crud, Rule, Conversation
+from src.engine import generate, handle_user_message
+from src.models import crud, Rule, Conversation, Company, User
 import concurrent.futures
 
 from fastapi.responses import JSONResponse, PlainTextResponse
@@ -31,52 +32,58 @@ class ResponseModel(BaseModel):
 class Status(BaseModel):
     status: str
 
-@app.get("/conversation")
-def get_conversation(id: int):
-    return Conversation.get_by_id(id)
-    
-
-@app.get("/text_prompt", tags=["text_prompt"], response_model=ResponseModel)
-def get_prompt_handler(user_id: int, text: str, token: str):
-
-    # проверка токена
+def get_company_by_token(token: str) -> Company:
     company = crud.get_company(token)
-    if company is None:
-        return JSONResponse(status_code=403, content={"status": "INVALID_API_TOKEN"})
+    if not company:
+        raise HTTPException(status_code=403, detail={"status": "INVALID_API_TOKEN"})
+    return company
 
-    # проверка пользователя, если не существует - создаем
-    if not crud.get_user(user_id):
-        crud.create_user(user_id, token)
+@app.post("/new_conversation")
+def new_conversation(token: str, user_id: int):
 
-    rules = Rule.select(Rule.filter_text).where(Rule.company_id == company.company_id)
+    company = get_company_by_token(token)
 
-    response = ""
-    btns = ["Меню"]
+    user = User.get_or_create(user_id, company.company_id)
 
-    for rule in rules:
-        for word in rule.filter_text.split(" "):
-            if word.lower() in text.lower():
-                response = "В вопросе содержатся недопустимые слова.\n" + rule.filter_text
-                break
+    conversation = Conversation.create(user_id=user.user_id, company_id=company.company_id, last_user_message="", response_text="", response_buttons="[]")
 
-    conversations = crud.get_conversation(user_id=user_id)
+    # Сгенерировать стаартовое сообщение от бота
+    handle_user_message(user, company, "", conversation.update_response)
+    
+    return JSONResponse(status_code=200, content={"status": "SUCCESS", "conversation": conversation.to_dto()})
+        
 
-    # добавление действия в бд
-    conversation: Conversation = crud.create_conversation(user_id, company.company_id, text, response)
+@app.get("/get_conversation")
+def get_conversation(token: str, conversation_id: int):
+    company = get_company_by_token(token)
+    conversation = Conversation.get_or_none(Conversation.conversation_id == id)
+    if not conversation or conversation.company_id != company.company_id:
+        return JSONResponse(status_code=404, content={"status": "CONVERSATION_NOT_FOUND"})
+    
+    return JSONResponse(status_code=200, content={"status": "SUCCESS", "conversation": conversation.to_dto()})
 
-    user = crud.get_user(user_id)
+@app.get("/new_user_message", tags=["new_user_message"], response_model=ResponseModel)
+def new_user_message(token: str, user_id: int, conversation_id: int, text: str):
 
-    if not response:
-        response, btns = handle_user_message(user, text, conversations, lambda status, finished: crud.set_status(conversation.conversation_id, status))
-    # response += "\nВарианты ответа:\n" + "\n".join(btns)
+    company = get_company_by_token(token)
+
+    user = User.get_or_none(User.user_id == user_id)
+    if not user:
+        return JSONResponse(status_code=404, content={"status": "USER_NOT_FOUND"})
+
+    conversation = Conversation.get_or_none(Conversation.conversation_id == conversation_id)
+    if not conversation:
+        return JSONResponse(status_code=404, content={"status": "CONVERSATION_NOT_FOUND"})
+
+    handle_user_message(user, company, text, conversation.update_response)
+
     crud.update_history_state(user_id, user.history_state)
 
     # лимит ChatGPT достигнут
-    if not response:
-        return JSONResponse(status_code=500, content={"status": "INTERNAL_ERROR"})
+    # if not response:
+        # return JSONResponse(status_code=500, content={"status": "INTERNAL_ERROR"})
 
-
-    return JSONResponse(status_code=200, content={"status": "SUCCESS", "id_": conversation.conversation_id, "result": response, "variants": btns})
+    return JSONResponse(status_code=200, content={"status": "SUCCESS", "conversation": conversation.to_dto()})
 
 @app.get("/g")
 async def g(prompt: str):
@@ -119,7 +126,7 @@ async def rate_chat_handler(token: str, user_id: int, rate: int):
     # вытягиваем результирующие вопросы ответы уже оцененные
     conversations_list = crud.get_conversation(user_id)
     # собираем отдельные вопрос-ответы в одну сессию
-    crud.create_session(conversations_list)
+    # crud.create_session(conversations_list)
 
     # деактивируем все вопрос-ответы (сбрасываем состояние сессии)
     crud.deactivate_conversations(user_id)

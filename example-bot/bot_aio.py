@@ -22,10 +22,7 @@ bot = aiogram.Bot(token)
 
 dp = aiogram.Dispatcher(bot)
 
-
-# reset_kb = types.ReplyKeyboardMarkup(resize_keyboard=True)
-# reset_kb.add("/reset")
-
+user_database = {}
 
 def create_user_kb(buttons: list[str]):
     keyboard = types.InlineKeyboardMarkup()
@@ -40,14 +37,6 @@ def create_user_kb(buttons: list[str]):
             pass
 
     return keyboard
-
-# @dp.message_handler(commands=["start", "restart", "reset"])
-# async def reset_state_handler(message: types.Message):
-#     user_id = message.chat.id
-
-#     response = requests.get(base_url + "/reset_state?user_id=" + str(user_id) + "&token=" + company_token).json()
-
-#     await message.answer(str(response), reply_markup=reset_kb)
 
 
 @dp.message_handler(commands=["add_rule"])
@@ -83,27 +72,31 @@ async def all_text_hander(message: types.Message):
 
     text = message.text
     user_id = message.chat.id
-    #
-    # try:
-    #     response_f = requests.get(base_url + "/get_filter?user_id=" + str(user_id) + "&token=" + company_token, timeout=3).json()
-    #
-    #     if message.text.lower() in response_f['content']:
-    #         return await message.answer("Не допустимый вашей компанией запрос!")
-    # except:
-    #     pass
+    global user_database
 
-    # print(base_url + "/text_prompt?user_id=" + str(user_id) + "&token=" + company_token + "&text=" + quote(text))
-
-    response = requests.get(base_url + "/text_prompt?user_id=" + str(user_id) + "&token=" + company_token + "&text=" + quote(text)).json()
-    # print(response.text)
-    if response['status'] != "SUCCESS":
-        answer = "Ошибка: " + response['STATUS']
+    state = user_database.get(user_id)
+    response = None
+    if not state or text.lower() in ["меню", "/start", "/reset", "/restart"]:
+        url = f"{base_url}/new_conversation?user_id={user_id}&token={company_token}"
+        print(url)
+        response = requests.post(url).json()
+        print(response)
+        user_database[user_id] = {
+            "conversation_id": response["conversation"]["conversation_id"]
+        }
     else:
-        answer = response['result']
-
-    buttons = response['variants']
+        response = requests.get(f"{base_url}/new_user_message?user_id={user_id}&token={company_token}&conversation_id={state['conversation_id']}").json()
+        print(response)
+    
+    if response['status'] != "SUCCESS":
+        message.answer(text="Произошла ошибка.")
+        return
+    conversation = response['conversation']
+    answer = conversation['response_text']
+    buttons = conversation['response_buttons']
+    
     n = 3500
-    print("тут")
+    
     [await message.answer(text=s, reply_markup=create_user_kb(buttons)) for s in [answer[i:i+n] for i in range(0, len(answer), n)]]
 
 
@@ -111,6 +104,8 @@ async def all_text_hander(message: types.Message):
 async def handle_tree_buttons_click_handler(call: types.CallbackQuery):
 
     data = call.data.split("_")  # example: ['tree', 'Экономика']
+
+    print(call.message)
 
     # получаем название ноды из ветки вопрос-ответов
     node_title = data[1]

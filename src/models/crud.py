@@ -5,7 +5,6 @@ import typing
 
 from . import Conversation, Rule, User
 from . import Company
-from .session import Session
 
 
 # CONVERSATION
@@ -126,25 +125,6 @@ def get_rules(token: str) -> 'typing.Optional[list[Rule]]':
 
     return Rule.get_or_none(Rule.company_id == company.company_id)
 
-
-# SESSIONS
-def create_session(conversations: list[Conversation]) -> Session:
-    """
-    создание сессии (обьединение полей из таблицы conversation
-    в одном месте)
-
-    проставлется оценка активной на данной момент сессии пользователя
-    """
-    # ID вопрос-ответов
-    conversation_ids_ = []
-    # собираем ID каждого вопрос-ответа
-    for c in conversations:
-        conversation_ids_.append(c.conversation_id)
-
-    return Session.create(
-        conversation_ids=conversation_ids_,
-        rate=conversations[0].rate
-    )
 
 
 # USERS
