@@ -98,6 +98,7 @@ async def all_text_hander(message: types.Message):
         print(response)
 
     n = 3500
+    state["active_message_id"] = None
     error, text, buttons = update_state(user_id, response)
     if error:
         message.answer(text="Произошла ошибка: " + error)
@@ -146,7 +147,7 @@ async def edit_or_send_more(chat_id, message_id, text, markup) -> int:
             piece = text[:max_length]
             text = text[max_length:]
             m = None if text else markup
-            sent_message = await bot.send_message(chat_id=chat_id, text=text, reply_markup=m)
+            sent_message = await bot.send_message(chat_id=chat_id, text=piece, reply_markup=m)
             last_message_id = sent_message.message_id
         return last_message_id
     return message_id
@@ -177,13 +178,16 @@ async def update_messages():
                 state = user_database[user_id]
                 if state.get('finished'):
                     continue
+                msg_id = state.get('active_message_id')
+                if not msg_id:
+                    continue
                 
                 response = requests.get(
                     f"{base_url}/get_conversation?token={company_token}&conversation_id={state['conversation_id']}").json()
                 
                 error, text, buttons = update_state(user_id, response)
                 print(text, buttons)
-                await edit_or_send_more(user_id, state['active_message_id'], text or f"Произошла ошибка: {error}", create_user_kb(buttons, state['conversation_id']))
+                await edit_or_send_more(user_id, msg_id, text or f"Произошла ошибка: {error}", create_user_kb(buttons, state['conversation_id']))
                 # bot.edit_message_text(chat_id=user_id, message_id=state['active_message_id'], text=text or f"Произошла ошибка: {error}")
                 # bot.edit_message_reply_markup(chat_id=user_id, message_id=state['active_message_id'], reply_markup=create_user_kb(buttons, state['conversation_id']))
             except Exception as e:

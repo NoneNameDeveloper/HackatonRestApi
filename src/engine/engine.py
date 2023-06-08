@@ -145,6 +145,7 @@ def handle_user_message(conversation: Conversation, message: str):
     next_chapters = [a for a in (chapter['children'] or []) if a.get('chapter')]
 
     if not handled and chapter['id'] == 0:
+        conversation.update_response("Читаю вопрос...", ["Отмена"], False)
         executor.submit(lambda: generate(message, conversation.update_response))
         return
     # todo respong chapter_name and chapter_text in questions
@@ -186,22 +187,23 @@ def is_valid_question(prompt: str) -> bool:
 
 
 def generate(prompt: str, responder: Responder):
+    print("GPTing prompt: " + prompt)
     # if prompt[0] != "Я":
     #     return "..."
-    responder("Читаю вопрос", ["Отмена"], False)
+    responder("Читаю вопрос...", ["Отмена"], False)
     if not is_valid_question(prompt):
         responder("Извините, я вас не совсем понял. Пожалуйста, задайте вопрос по-другому или нажмите 'Меню'", ["Меню"], True)
         return
-    responder("Размышляю над вопросом", ["Отмена"], False)
+    responder("Размышляю над вопросом...", ["Отмена"], False)
     print("Getting search queries...")
     search_queries = get_search_queries(prompt)
-    responder("Ищу информацию", ["Отмена"], False)
+    responder("Ищу информацию...", ["Отмена"], False)
     print("Searching google...")
     links = [link for s in [search_links(query)[:LINKS_AMOUNT_PER_QUERY] for query in search_queries] for link in s]
     # links = links[:LINKS_AMOUNT_TOTAL]
     print("Found links:\n" + "\n".join([str(link) for link in links]))
     print("Reading articles...")
-    responder("Читаю статьи", ["Отмена"], False)
+    responder("Читаю статьи...", ["Отмена"], False)
     # source_texts = [get_article_text(link) for link in links]
     # source_texts = [text for text in source_texts if text]
     source_texts = {}
@@ -214,7 +216,7 @@ def generate(prompt: str, responder: Responder):
             break
 
     print("Compressing articles")
-    responder("Размышляю над прочитанным", ["Отмена"], False)
+    responder("Размышляю над прочитанным...", ["Отмена"], False)
 
     compression_prompts = []
     for link in source_texts:
@@ -237,7 +239,7 @@ def generate(prompt: str, responder: Responder):
     # for link in source_texts:
     #     summaries[link] = compress_article(source_texts[link], prompt)
 
-    responder("Пишу ответ", ["Отмена"], False)
+    responder("Пишу ответ...", ["Отмена"], False)
     summary = "\n\n".join(
         [p[1]["summary"] + "\nИсточник: " + p[0] for p in compression_prompts if (p[1]["summary"] or "").strip()])
 
