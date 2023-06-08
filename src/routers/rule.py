@@ -24,7 +24,7 @@ async def add_filter_handler(filter: str, token: str):
     })
 
 
-@app.get("archive_filter")
+@app.get("/archive_filter")
 async def archive_filter_handler(rule_id: int, token: str):
 
     # проверка токена
