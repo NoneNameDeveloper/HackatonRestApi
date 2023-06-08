@@ -12,7 +12,7 @@ from typing import Callable
 
 LINKS_AMOUNT_PER_QUERY = 10
 # LINKS_AMOUNT_TOTAL = 3
-LINKS_AMOUNT_TOTAL = 1
+LINKS_AMOUNT_TOTAL = 2
 
 executor = ThreadPoolExecutor(4) 
 
@@ -197,13 +197,13 @@ def generate(prompt: str, responder: Responder):
     responder("Размышляю над вопросом...", ["Отмена"], False)
     print("Getting search queries...")
     search_queries = get_search_queries(prompt)
-    responder("Ищу информацию...", ["Отмена"], False)
+    responder("Ищу нужную информацию в интернете...", ["Отмена"], False)
     print("Searching google...")
     links = [link for s in [search_links(query)[:LINKS_AMOUNT_PER_QUERY] for query in search_queries] for link in s]
     # links = links[:LINKS_AMOUNT_TOTAL]
     print("Found links:\n" + "\n".join([str(link) for link in links]))
     print("Reading articles...")
-    responder("Читаю статьи...", ["Отмена"], False)
+    responder("Выбираю релевантные статьи...", ["Отмена"], False)
     # source_texts = [get_article_text(link) for link in links]
     # source_texts = [text for text in source_texts if text]
     source_texts = {}
@@ -215,8 +215,12 @@ def generate(prompt: str, responder: Responder):
         if len(source_texts) >= LINKS_AMOUNT_TOTAL:
             break
 
+    def pl(n, one, two, five):
+        t = n % 10
+        h = n % 100
+        return one if t == 1 and h != 11 else two if n >= 2 and n <= 4 and h // 10 != 1 else five
     print("Compressing articles")
-    responder("Размышляю над прочитанным...", ["Отмена"], False)
+    responder(f"Читаю {len(source_texts)} {pl(len(source_texts), 'статью', 'статьи', 'статей')} одновременно...", ["Отмена"], False)
 
     compression_prompts = []
     for link in source_texts:
