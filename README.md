@@ -60,7 +60,6 @@ import requests
 # ссылка на апи
 host = "http://greed.implario.net:8095"
 
-
 def new_conversation(user_id: int, initial_message: str, token: str):
     payload_data = {
         "user_id": user_id,
@@ -75,7 +74,6 @@ def new_conversation(user_id: int, initial_message: str, token: str):
     if r.status_code == 200:
         return r.json()
 
-
 def get_conversation(conversation_id: int, token: str):
     payload_data = {
         "conversation_id": conversation_id,
@@ -89,7 +87,6 @@ def get_conversation(conversation_id: int, token: str):
     if r.status_code == 200:
         return r.json()
 
-
 def rate_chat(conversation_id: int, token: str, rate: int) -> bool:
     data = {
         "token": token,
@@ -100,7 +97,6 @@ def rate_chat(conversation_id: int, token: str, rate: int) -> bool:
 
     if r.status_code == 200:
         return True
-
 
 def main():
     # токен компании, к которой вы принадлежите
@@ -143,7 +139,6 @@ def main():
 
     # оценка чат-бота по пятибальной шкале
     rate_chat(conversation_id, token, 5)
-
 
 main()
 ```
