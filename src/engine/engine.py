@@ -285,7 +285,7 @@ def generate(prompt: str, responder: Responder):
 
         final_response = complete_custom(
             # "Ты юрист-помощник, вежливо и весело отвечаешь на все вопросы клиентов, сохраняя фактическую точность",
-            "Ты юрист",
+            "Кратко ответь на вопрос.\n\n\nНе начинай фразы с \"В источнике\", \"В тексте\"",
             [final_prompt]
         )
         final_response += "\n\nИсточники:\n" + "\n".join([str(source["number"]) + ". " + source["url"] for source in sources])

@@ -115,13 +115,12 @@ async def all_text_hander(message: types.Message):
 	if not state or text.lower() in ["меню", "/start", "/reset", "/restart"]:
 
 		# если в диалоге было общение
-		if state:
-			if state['has_answer']:
-				# сообщение с предложением об оценке диалога
-				await message.answer(
-					"Оцените, как прошёл диалог.",
-					reply_markup=rate_keyboard_all(state['conversation_id'])
-				)
+		if state and state['has_answer']:
+			# сообщение с предложением об оценке диалога
+			await message.answer(
+				"Оцените, как прошёл диалог.",
+				reply_markup=rate_keyboard_all(state['conversation_id'])
+			)
 
 		# создание нового диалога
 		url = f"{base_url}/new_conversation?user_id={user_id}&token={company_token}&initial_message={quote(text)}"

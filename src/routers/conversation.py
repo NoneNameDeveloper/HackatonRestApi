@@ -1,37 +1,11 @@
-import typing
-
 from src.app import app
 
-from pydantic import BaseModel
 from fastapi import HTTPException
 
-from src.data import config
-from src.engine import generate, handle_user_message
-from src.models import crud, Rule, Conversation, Company, User
-import concurrent.futures
+from src.engine import handle_user_message
+from src.models import crud, Conversation, Company, User
 
-from fastapi.responses import JSONResponse, PlainTextResponse
-
-
-class ResponseModel(BaseModel):
-    status: str
-    id_: typing.Optional[int]
-    result: typing.Optional[str]
-    variants: typing.Optional[list[str]]
-
-    class Config:
-        schema_extra = {
-            "example": {
-                "status": "SUCCESS",
-                "id_": 1,
-                "result": "Начиная с 2017 года, президентом Зимбабве является Эммерсон Мнангагва."
-            }
-        }
-
-
-class Status(BaseModel):
-    status: str
-
+from fastapi.responses import JSONResponse
 
 def get_company_by_token(token: str) -> Company:
     company = crud.get_company(token)
@@ -66,7 +40,7 @@ def get_conversation(token: str, conversation_id: int):
     return JSONResponse(status_code=200, content={"status": "SUCCESS", "conversation": conversation.to_dto()})
 
 
-@app.get("/new_user_message", tags=["new_user_message"], response_model=ResponseModel)
+@app.get("/new_user_message", tags=["new_user_message"])
 def new_user_message(token: str, user_id: int, conversation_id: int, text: str):
 
     get_company_by_token(token)
@@ -87,23 +61,6 @@ def new_user_message(token: str, user_id: int, conversation_id: int, text: str):
         # return JSONResponse(status_code=500, content={"status": "INTERNAL_ERROR"})
 
     return JSONResponse(status_code=200, content={"status": "SUCCESS", "conversation": conversation.to_dto()})
-
-
-@app.get("/reset_state", tags=["reset_state"])
-async def reset_state_handler(user_id: int, token: str):
-
-    # проверка токена
-    company = crud.get_company(token)
-    if company is None:
-        return JSONResponse(status_code=403, content={"status": "INVALID_API_TOKEN"})
-
-    # количество отредактированных ячеек
-    res = crud.deactivate_conversations(user_id=user_id)
-    # если редактировать было нечего
-    if res == 0:
-        return JSONResponse(status_code=200, content={"status": "NOTHING_TO_RESET"})
-
-    return JSONResponse(status_code=200, content={"status": "SUCCESS"})
 
 
 @app.get("/rate_chat", tags=["rate_chat"])
