@@ -44,17 +44,17 @@ def deactivate_conversations(user_id: int) -> int:
     return res
 
 
-def rate_conversation(user_id: int, rate: int) -> int:
+def rate_conversation(conversation_id: int, rate: int) -> int:
     """
     проставляем оценку всему диалогу (флоу)
 
-    Выставляем оценку всем сообщениям от user_id, который активны
-    на момент проставления оценки
+    Выставляем оценку диалогу
 
     возвращает количество обновленных ячеек в бд
     """
     q = Conversation.update({Conversation.rate: rate}).where(
-        (Conversation.user_id == user_id) & (Conversation.active == True))
+        Conversation.conversation_id == conversation_id
+    )
     return q.execute()
 
 

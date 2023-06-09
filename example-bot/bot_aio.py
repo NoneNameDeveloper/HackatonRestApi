@@ -44,6 +44,22 @@ def create_user_kb(buttons: list[str], conversation_id: int):
     return keyboard
 
 
+def rate_keyboard_all(conversation_id: int):
+    """
+    создание клавиатуры с оценкой
+
+    :conversation_id: ID диалога
+    """
+    markup = types.InlineKeyboardMarkup(row_width=3)
+
+    for rate_value in range(6):
+        markup.insert(
+            types.InlineKeyboardButton(f"{str(rate_value)}", callback_data=f"rate_{rate_value}_{conversation_id}")
+        )
+
+    return markup
+
+
 @dp.message_handler(commands=["add_rule"])
 async def add_rule_bot(message: types.Message):
 
@@ -85,10 +101,16 @@ async def all_text_hander(message: types.Message):
 
     # получае состояние пользователя по user_id из базы
     state = user_database.get(user_id)
-
+    print("Состояние пользователя: " + str(state))
     # если состояний нет или пользователь сбрасывает состояние
     if not state or text.lower() in ["меню", "/start", "/reset", "/restart"]:
-        # создание новогго диалога
+
+        # если в диалоге было общение
+        if state:
+            # сообщение с предложением об оценке диалога
+            await message.answer("Оцените, как прошёл диалог.", reply_markup=rate_keyboard_all(state['conversation_id']))
+
+        # создание нового диалога
         url = f"{base_url}/new_conversation?user_id={user_id}&token={company_token}"
         print(url)
         response = requests.post(url).json()
@@ -100,6 +122,7 @@ async def all_text_hander(message: types.Message):
             "conversation_id": response["conversation"]["conversation_id"],
             "buttons": response["conversation"]["response_buttons"]
         }
+    # диалог уже был начат, сообщение в текущем диалоге
     else:
         # обработка нового сообщения в уже имеющемся диалоге
         response = requests.get(
@@ -146,10 +169,7 @@ async def handle_active_conversation_buttons(call: types.CallbackQuery):
     if not state or state['conversation_id'] != conv_id:
         return
 
-    print(state["buttons"])
-
     text = state["buttons"][int(data[2])]
-    print(text)
 
     # обрабатываем пользовательское нажатие на дереве
     response = requests.get(
@@ -164,6 +184,26 @@ async def handle_active_conversation_buttons(call: types.CallbackQuery):
     else:
         # обновляем активное сообщение пользователя
         state["active_message_id"] = await edit_or_send_more(user_id, call.message.message_id, text, create_user_kb(buttons, conv_id))
+
+
+@dp.callback_query_handler(text_contains="rate_")
+async def get_rate_value_handler(call: types.CallbackQuery):
+
+    await call.answer()
+
+    data = call.data.split("_")
+
+    # получаем значение оценки от пользователя (1-5)
+    rate_value = data[1]
+    # получаем айди диалога
+    conversation_id = data[2]
+
+    response = requests.get(
+        f"{base_url}/rate_chat?token={company_token}&conversation_id={conversation_id}&rate={rate_value}"
+    ).json()
+    print(response)
+    if response["status"] == "SUCCESS":
+        await call.message.answer("Спасибо за Вашу оценку!")
 
 
 async def edit_or_send_more(chat_id, message_id, text, markup) -> int:
@@ -237,6 +277,10 @@ async def update_messages():
 
 
 async def on_startup(_):
+    """
+    функция, запускающаяся при старте бота
+    """
+    # запуск обновления сообщений для пользователей
     asyncio.create_task(update_messages())
 
 
@@ -250,4 +294,6 @@ async def on_startup(_):
 
 
 # threading.Thread(daemon=True, target=update_messages).start()
+
+# запуск бота
 aiogram.executor.start_polling(dp, skip_updates=True, on_startup=on_startup)
