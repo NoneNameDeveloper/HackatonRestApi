@@ -50,7 +50,7 @@ def rate_keyboard_all(conversation_id: int):
 
     :conversation_id: ID диалога
     """
-    markup = types.InlineKeyboardMarkup(row_width=3)
+    markup = types.InlineKeyboardMarkup(row_width=5)
 
     for rate_value in range(6):
         markup.insert(
