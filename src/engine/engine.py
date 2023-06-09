@@ -242,7 +242,8 @@ def generate(prompt: str, responder: Responder):
         def compress(p):
             print("START COMPRESSING " + p[0])
             try:
-                p[1]["summary"] = complete_custom(p[1]["system"], p[1]["prompt"]).replace("missing", "")
+                rr = complete_custom(p[1]["system"], p[1]["prompt"])
+                p[1]["summary"] = "" if "missing" in rr.lower() else rr
             except Exception as e:
                 print(e)
             print("FINISHED")
@@ -285,7 +286,7 @@ def generate(prompt: str, responder: Responder):
 
         final_response = complete_custom(
             # "Ты юрист-помощник, вежливо и весело отвечаешь на все вопросы клиентов, сохраняя фактическую точность",
-            "Кратко ответь на вопрос.\n\n\nНе начинай фразы с \"В источнике\", \"В тексте\"",
+            "Кратко ответь на вопрос.\n\n\nНе начинай фразы с \"В источнике\", \"В тексте\"\nИспользуй все источники, но не перечисляй их по порядку, твои ответы должны быть единым целым.",
             [final_prompt]
         )
         final_response += "\n\nИсточники:\n" + "\n".join([str(source["number"]) + ". " + source["url"] for source in sources])

@@ -5,19 +5,20 @@ from peewee import *
 from src.db import db
 import json
 import pydantic
+import typing
 
 
 class ConversationDto(pydantic.BaseModel):
     conversation_id: int
     user_id: int
     company_id: int
-    start_date: int
+    start_date: str
     last_user_message: str
     response_finished: bool
     response_text: str
     response_buttons: list[str]
     has_answers: bool
-    rate: int
+    rate: typing.Optional[int]
 
 
 class Conversation(Model):
@@ -86,7 +87,7 @@ class Conversation(Model):
             response_text=self.response_text,
             response_buttons=json.loads(self.response_buttons),
             rate=self.rate,
-            has_answer=self.has_answers
+            has_answers=self.has_answers
         )
 
     def update_history_state(self):
@@ -94,10 +95,11 @@ class Conversation(Model):
             .where(Conversation.conversation_id == self.conversation_id) \
             .execute()
 
-    def rate(self, rate: int):
+    def set_rate(self, rate: int):
         Conversation.update(rate=rate) \
             .where(Conversation.conversation_id == self.conversation_id) \
             .execute()
+        self.rate = rate
 
 
 # db.drop_tables([Conversation])

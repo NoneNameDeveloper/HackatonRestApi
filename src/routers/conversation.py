@@ -53,7 +53,7 @@ def new_conversation(user_id: int, initial_message: str, company: Company = Depe
 
     user = User.get_or_create(user_id, company.company_id)
 
-    conversation = Conversation.create(
+    conversation: Conversation = Conversation.create(
         user_id=user.user_id,
         company_id=company.company_id,
         last_user_message=initial_message,
@@ -65,7 +65,7 @@ def new_conversation(user_id: int, initial_message: str, company: Company = Depe
     handle_user_message(conversation, initial_message)
     conversation.update_history_state()
 
-    return JSONResponse(status_code=200, content={"status": "SUCCESS", "conversation": conversation.to_dto()})
+    return JSONResponse(status_code=200, content={"status": "SUCCESS", "conversation": conversation.to_dto().dict()})
 
 
 @app.get("/get_conversation", tags=["Общение с чат-ботом"])
@@ -73,7 +73,7 @@ def get_conversation(
     conversation: Conversation = Depends(require_conversation),
     company: Company = Depends(require_company)
 ) -> ConversationResponse:
-    return JSONResponse(status_code=200, content={"status": "SUCCESS", "conversation": conversation.to_dto()})
+    return JSONResponse(status_code=200, content={"status": "SUCCESS", "conversation": conversation.to_dto().dict()})
 
 
 @app.post("/new_user_message", tags=["Общение с чат-ботом"])
@@ -84,7 +84,7 @@ def new_user_message(
 ) -> ConversationResponse:
     handle_user_message(conversation, text)
     conversation.update_history_state()
-    return JSONResponse(status_code=200, content={"status": "SUCCESS", "conversation": conversation.to_dto()})
+    return JSONResponse(status_code=200, content={"status": "SUCCESS", "conversation": conversation.to_dto().dict()})
 
 
 @app.put("/rate_chat", tags=["Общение с чат-ботом"])
@@ -93,4 +93,5 @@ async def rate_chat_handler(
     conversation: Conversation = Depends(require_conversation),
     company: Company = Depends(require_company)
 ) -> ConversationResponse:
-    return JSONResponse(status_code=200, content={"status": "SUCCESS", "conversation": conversation.to_dto()})
+    conversation.set_rate(rate)
+    return JSONResponse(status_code=200, content={"status": "SUCCESS", "conversation": conversation.to_dto().dict()})

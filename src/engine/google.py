@@ -1,7 +1,7 @@
 from googleapiclient.discovery import build
 
 
-api_key = 'AIzaSyDYm3RMp-tdVHB1nDolab2-QW75ZOT-sHs'
+api_key = 'AIzaSyCtGE_QI_PU09bF7uAxKb4UgPfaVW_DmD8'
 
 service = build("customsearch", "v1", developerKey=api_key)
 

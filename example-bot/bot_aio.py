@@ -115,7 +115,7 @@ async def all_text_hander(message: types.Message):
 	if not state or text.lower() in ["меню", "/start", "/reset", "/restart"]:
 
 		# если в диалоге было общение
-		if state and state['has_answer']:
+		if state and state['has_answers']:
 			# сообщение с предложением об оценке диалога
 			await message.answer(
 				"Оцените, как прошёл диалог.",
@@ -137,7 +137,7 @@ async def all_text_hander(message: types.Message):
 	# диалог уже был начат, сообщение в текущем диалоге
 	else:
 		# обработка нового сообщения в уже имеющемся диалоге
-		response = requests.get(
+		response = requests.post(
 			f"{base_url}/new_user_message?user_id={user_id}&token={company_token}&conversation_id={state['conversation_id']}&text={quote(text)}").json()
 		print(response)
 
@@ -192,7 +192,7 @@ async def handle_active_conversation_buttons(call: types.CallbackQuery):
 	error = None
 	# обрабатываем пользовательское нажатие на дереве
 	try:
-		response = requests.get(
+		response = requests.post(
 			f"{base_url}/new_user_message?user_id={user_id}&token={company_token}&conversation_id={state['conversation_id']}&text={quote(text)}").json()
 	except Exception:
 		traceback.print_exc()
@@ -221,7 +221,7 @@ async def get_rate_value_handler(call: types.CallbackQuery):
 	# получаем айди диалога
 	conversation_id = data[2]
 
-	response = requests.get(
+	response = requests.put(
 		f"{base_url}/rate_chat?token={company_token}&conversation_id={conversation_id}&rate={rate_value}"
 	).json()
 	print(response)
@@ -270,7 +270,7 @@ def update_state(user_id, response):
 	state['conversation_id'] = conversation['conversation_id']
 	state['buttons'] = conversation['response_buttons']
 	state['finished'] = conversation['response_finished']
-	state['has_answer'] = conversation['has_answer']
+	state['has_answers'] = conversation['has_answers']
 
 	return None, conversation['response_text'], conversation['response_buttons']
 
