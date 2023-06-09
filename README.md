@@ -62,9 +62,6 @@ host = "http://greed.implario.net:8095"
 
 
 def new_conversation(user_id: int, initial_message: str, token: str):
-    '''
-    Создание нового диалога с чат-ботом, ответ на сообщение с текстом initial_message
-    '''
     payload_data = {
         "user_id": user_id,
         "initial_message": initial_message,
@@ -80,9 +77,6 @@ def new_conversation(user_id: int, initial_message: str, token: str):
 
 
 def get_conversation(conversation_id: int, token: str):
-    """
-    Получение информации о текущем диалоге, о состоянии ответа в частности
-    """
     payload_data = {
         "conversation_id": conversation_id,
         "token": token
@@ -97,9 +91,6 @@ def get_conversation(conversation_id: int, token: str):
 
 
 def rate_chat(conversation_id: int, token: str, rate: int) -> bool:
-    """
-    Оценивание диалога с чат-ботом по пятибальной шкале
-    """
     data = {
         "token": token,
         "conversation_id": conversation_id,
