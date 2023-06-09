@@ -68,5 +68,5 @@ class Conversation(Model):
         }
 
 
-db.drop_tables([Conversation])
+# db.drop_tables([Conversation])
 db.create_tables([Conversation])
