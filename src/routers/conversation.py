@@ -15,6 +15,10 @@ class ConversationResponse(BaseModel):
     conversation: typing.Optional[ConversationDto]
 
 
+class RateResponse(BaseModel):
+    conversation: typing.Optional[ConversationDto]
+    message: str
+
 class AccessException(Exception):
     pass
 
@@ -100,9 +104,13 @@ async def rate_chat_handler(
     rate: int,
     conversation: Conversation = Depends(require_conversation),
     company: Company = Depends(require_company)
-) -> ConversationResponse:
+) -> RateResponse:
     """
     Оценка прошедшего диалога с чат-ботом.
     """
     conversation.set_rate(rate)
-    return JSONResponse(status_code=200, content={"status": "SUCCESS", "conversation": conversation.to_dto().dict()})
+    return JSONResponse(status_code=200, content={
+            "status": "SUCCESS", "conversation": conversation.to_dto().dict(),
+            "message": "Благодарим за обратную связь! Ваша оценка помогает нам стать лучше."
+        }
+    )

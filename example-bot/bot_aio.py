@@ -22,6 +22,8 @@ dp = aiogram.Dispatcher(bot)
 
 user_database = {}  # база состояний пользователя
 
+telegram_limit_value = 4000  # ограничение телеграма на кол-во символов в одном сообшении
+
 
 def create_user_kb(buttons: list[str], conversation_id: int):
 	"""
@@ -36,9 +38,8 @@ def create_user_kb(buttons: list[str], conversation_id: int):
 			keyboard.add(types.InlineKeyboardButton(
 				u, callback_data=f"tree_{conversation_id}_{i}"))
 			i += 1
-		except Exception as e:
+		except:
 			print(traceback.format_exc())
-			pass
 
 	return keyboard
 
@@ -72,6 +73,9 @@ def user_menu_keyboard():
 
 @dp.message_handler(commands=["add_rule"])
 async def add_rule_bot(message: types.Message):
+	"""
+	Добавление фильтра (стоп-слов)
+	"""
 	words = message.text.replace("/add_rule ", "")  # отделяем текст, который требуется поместить в стоп слова
 
 	# пробегаемся по стоп-словам и передаем их в АПИ по одному
@@ -85,6 +89,9 @@ async def add_rule_bot(message: types.Message):
 
 @dp.message_handler(commands=["archive_rule"])
 async def archive_rule_handler(message: types.Message):
+	"""
+	Архвация фильтра (стоп-слова)
+	"""
 	id_ = message.text.replace("/archive_rule ", "")  # отделяем ID правила от команды
 
 	# проверка на то, что ID правила - целое число
@@ -103,14 +110,22 @@ async def archive_rule_handler(message: types.Message):
 
 @dp.message_handler()
 async def all_text_hander(message: types.Message):
+	"""
+	Обработка все текстовых сообщение, отправленных в бота
+	"""
+	# текст пользователя
 	text = message.text
+	# ID пользователя
 	user_id = message.chat.id
 
 	# получае состояние пользователя по user_id из базы
 	state = user_database.get(user_id)
+
+	# пользователь первый раз начинает диалог
 	new_user = not state
 
 	print("Состояние пользователя: " + str(state) + ", сообщение: " + text)
+
 	# если состояний нет или пользователь сбрасывает состояние
 	if not state or text.lower() in ["меню", "/start", "/reset", "/restart"]:
 
@@ -134,15 +149,14 @@ async def all_text_hander(message: types.Message):
 			"conversation_id": response["conversation"]["conversation_id"],
 			"buttons": response["conversation"]["response_buttons"]
 		}
+		asyncio.create_task(update_messages(user_id=user_id))
+
 	# диалог уже был начат, сообщение в текущем диалоге
 	else:
 		# обработка нового сообщения в уже имеющемся диалоге
 		response = requests.post(
 			f"{base_url}/new_user_message?user_id={user_id}&token={company_token}&conversation_id={state['conversation_id']}&text={quote(text)}").json()
 		print(response)
-
-	# ограничение для срезания сообшения по символам
-	telegram_limit_value = 3500
 
 	# обнуляем активное сообщения пользователя для редактирования
 	state["active_message_id"] = None
@@ -158,10 +172,12 @@ async def all_text_hander(message: types.Message):
 			for cropped_text in [text[answer_part:answer_part + telegram_limit_value]]:
 				if new_user:
 					# отправка сообщения для появления реплай клавиатуры
-					msg_for_kb = await message.answer("👋", reply_markup=user_menu_keyboard())
+					await message.answer("👋", reply_markup=user_menu_keyboard())
 
-				last_message = await message.answer(text=cropped_text,
-													reply_markup=create_user_kb(buttons, state['conversation_id']))
+				last_message = await message.answer(
+					text=cropped_text,
+					reply_markup=create_user_kb(buttons, state['conversation_id'])
+				)
 
 		# запоминаем ID последнего сообщения
 		state["active_message_id"] = last_message.message_id
@@ -189,31 +205,39 @@ async def handle_active_conversation_buttons(call: types.CallbackQuery):
 	text = state["buttons"][int(data[2])]
 
 	response = None
-	error = None
+
 	# обрабатываем пользовательское нажатие на дереве
 	try:
 		response = requests.post(
 			f"{base_url}/new_user_message?user_id={user_id}&token={company_token}&conversation_id={state['conversation_id']}&text={quote(text)}").json()
 	except Exception:
 		traceback.print_exc()
-		error = "Апи выключено"
 
 	# обновляем состояние
 	error, text, buttons = update_state(user_id, response)
 
+	# возникла ошибка
 	if error:
 		await bot.answer_callback_query(
 			call.id, "Произошла ошибка: " + error, show_alert=False)
 	else:
 		# обновляем активное сообщение пользователя
-		state["active_message_id"] = await edit_or_send_more(user_id, call.message.message_id, text,
-															 create_user_kb(buttons, conv_id))
+		state["active_message_id"] = await edit_or_send_more(
+			chat_id=user_id,
+			message_id=call.message.message_id,
+			text=text,
+			markup=create_user_kb(buttons, conv_id)
+		)
 
 
 @dp.callback_query_handler(text_contains="rate_")
 async def get_rate_value_handler(call: types.CallbackQuery):
+	"""
+	Оценка диалога по пятибальной шкале
+	"""
 	await call.answer()
 
+	# разделение callback_data ля получения параметров
 	data = call.data.split("_")
 
 	# получаем значение оценки от пользователя (1-5)
@@ -221,45 +245,62 @@ async def get_rate_value_handler(call: types.CallbackQuery):
 	# получаем айди диалога
 	conversation_id = data[2]
 
+	# запрос на выставление оценки
 	response = requests.put(
 		f"{base_url}/rate_chat?token={company_token}&conversation_id={conversation_id}&rate={rate_value}"
 	).json()
-	print(response)
+	print(response.text)
 	if response["status"] == "SUCCESS":
 		await call.message.edit_text(text=response['message'])
 
 
-async def edit_or_send_more(chat_id, message_id, text, markup) -> int:
-	max_length = 3500
+async def edit_or_send_more(chat_id: int, message_id: int, text: str, markup) -> int:
+	"""
+	Обновление статуса сообщения путем редактирования сообщения / вывод ответа на вопрос
+	"""
 	print(f"editing message {message_id} to {text}, {markup}")
 
-	multiple_messages = len(text) > max_length
+	# флаг для разделения сообщения на части из-за лимита
+	multiple_messages = len(text) > telegram_limit_value
 
+	# обработка ошибки (текст сообщения не изменился)
 	try:
+		# отправка действия от бота "печатает..."
 		await bot.send_chat_action(chat_id, "typing")
 
+		# редактирование сообщения
 		await bot.edit_message_text(
-			chat_id=chat_id, message_id=message_id, text=text[:max_length],
+			chat_id=chat_id, message_id=message_id, text=text[:telegram_limit_value],
 			reply_markup=types.InlineKeyboardMarkup() if multiple_messages else markup
 		)
 	except aiogram.utils.exceptions.MessageNotModified:
 		print("Статус не изменился")
 
+	# если сообщение требуется поделить по частям
 	if multiple_messages:
-
+		# ID последнего сообщения
 		last_message_id = None
-		text = text[max_length:]
+		# обрезанный текст
+		text = text[telegram_limit_value:]
+		# пока в тексте есть символы - отправляем его по частям
 		while len(text):
-			piece = text[:max_length]
-			text = text[max_length:]
+			piece = text[:telegram_limit_value]
+			text = text[telegram_limit_value:]
+
 			m = None if text else markup
+
 			sent_message = await bot.send_message(chat_id=chat_id, text=piece, reply_markup=m)
 			last_message_id = sent_message.message_id
+
 		return last_message_id
+
 	return message_id
 
 
 def update_state(user_id, response):
+	"""
+	Обновление состояния пользователя в 'базе данных'
+	"""
 	# АПИ вернуло ошибку
 	if response['status'] != 'SUCCESS':
 		return response['status'], None, None
@@ -277,52 +318,46 @@ def update_state(user_id, response):
 	return None, conversation['response_text'], conversation['response_buttons']
 
 
-async def update_messages():
+async def update_messages(user_id: int):
+	"""
+	Обновление сообщений для конкретного пользователя (ожидание ответа)
+	"""
 	while True:
 		await asyncio.sleep(1)
-		# print("Updating messages")
-		for user_id in user_database.keys():
-			try:
-				state = user_database[user_id]
-				if state.get('finished'):
-					continue
-				msg_id = state.get('active_message_id')
-				if not msg_id:
-					continue
+		print("Updating messages")
+		try:
+			# получения текущего состояния пользователя в БД
+			state = user_database[user_id]
 
-				response = requests.get(
-					f"{base_url}/get_conversation?token={company_token}&conversation_id={state['conversation_id']}").json()
+			# если ответ получен - завершаем тред
+			if state.get('finished'):
+				return
 
-				error, text, buttons = update_state(user_id, response)
-				print(text, buttons)
+			# получаем ID редактируемого сообщения
+			msg_id = state.get('active_message_id')
+			# если редактировать нечего - завершаем тред
+			if not msg_id:
+				return
 
-				await edit_or_send_more(user_id, msg_id, text or f"Произошла ошибка: {error}",
-										create_user_kb(buttons, state['conversation_id']))
-				if error:
-					state['active_message_id'] = None
+			# получаем текущее состояние ответа в диалоге
+			response = requests.get(
+				f"{base_url}/get_conversation?token={company_token}&conversation_id={state['conversation_id']}").json()
 
-			except Exception as e:
-				traceback.print_exc()
+			# обновляем состояние ползовтеля в соответствии с ответом от АПИ
+			error, text, buttons = update_state(user_id, response)
 
+			# редактирование состояния / ответ на вопрос
+			await edit_or_send_more(
+				chat_id=user_id,
+				message_id=msg_id,
+				text=text or f"Произошла ошибка: {error}",
+				markup=create_user_kb(buttons, state['conversation_id']))
+			if error:
+				state['active_message_id'] = None
 
-async def on_startup(_):
-	"""
-	функция, запускающаяся при старте бота
-	"""
-	# запуск обновления сообщений для пользователей
-	asyncio.create_task(update_messages())
+		except Exception as e:
+			traceback.print_exc()
 
-
-# def rate_keyboard_all():
-#     markup = types.InlineKeyboardMarkup(row_width=2)
-#
-#     for i in range(6):
-#         markup.add(f"Оценить: {str(i)}", callback_data=f"rate_{i}")
-#
-#     return markup
-
-
-# threading.Thread(daemon=True, target=update_messages).start()
 
 # запуск бота
-aiogram.executor.start_polling(dp, skip_updates=True, on_startup=on_startup)
+aiogram.executor.start_polling(dp)
