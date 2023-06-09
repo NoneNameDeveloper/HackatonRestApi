@@ -220,7 +220,7 @@ async def get_rate_value_handler(call: types.CallbackQuery):
     ).json()
     print(response)
     if response["status"] == "SUCCESS":
-        await call.message.answer(response['message'])
+        await call.message.edit_text(text=response['message'])
 
 
 async def edit_or_send_more(chat_id, message_id, text, markup) -> int:
