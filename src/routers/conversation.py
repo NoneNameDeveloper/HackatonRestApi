@@ -89,12 +89,6 @@ def new_user_message(token: str, user_id: int, conversation_id: int, text: str):
     return JSONResponse(status_code=200, content={"status": "SUCCESS", "conversation": conversation.to_dto()})
 
 
-@app.get("/g", include_in_schema=False)
-async def g(prompt: str):
-    # return JSONResponse(status_code=200, content=compress_article("Как правильно вести учёт суммированного рабочего времени?"))
-    return PlainTextResponse(status_code=200, content=generate(prompt, lambda x,y: x))
-
-
 @app.get("/reset_state", tags=["reset_state"])
 async def reset_state_handler(user_id: int, token: str):
 
