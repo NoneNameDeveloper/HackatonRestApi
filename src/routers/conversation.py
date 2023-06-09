@@ -3,7 +3,7 @@ from src.app import app
 from fastapi import Depends
 
 from src.engine import handle_user_message
-from src.models import crud, ConversationDto, Conversation, Company, User
+from src.models import ConversationDto, Conversation, Company, User
 
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel
@@ -50,7 +50,9 @@ def require_conversation(conversation_id: int):
 
 @app.post("/new_conversation", tags=["Общение с чат-ботом"])
 def new_conversation(user_id: int, initial_message: str, company: Company = Depends(require_company)) -> ConversationResponse:
-
+    """
+    Начинает новый диалог, отвечает на сообщение, переданное в параметр initial_message.
+    """
     user = User.get_or_create(user_id, company.company_id)
 
     conversation = Conversation.create(
@@ -73,6 +75,9 @@ def get_conversation(
     conversation: Conversation = Depends(require_conversation),
     company: Company = Depends(require_company)
 ) -> ConversationResponse:
+    """
+    Возвращает диалог и его текущие значения.
+    """
     return JSONResponse(status_code=200, content={"status": "SUCCESS", "conversation": conversation.to_dto()})
 
 
@@ -82,6 +87,9 @@ def new_user_message(
     conversation: Conversation = Depends(require_conversation),
     company: Company = Depends(require_company)
 ) -> ConversationResponse:
+    """
+    Добавление запроса к пользователя к уже существующему диалогу.
+    """
     handle_user_message(conversation, text)
     conversation.update_history_state()
     return JSONResponse(status_code=200, content={"status": "SUCCESS", "conversation": conversation.to_dto()})
@@ -93,4 +101,8 @@ async def rate_chat_handler(
     conversation: Conversation = Depends(require_conversation),
     company: Company = Depends(require_company)
 ) -> ConversationResponse:
+    """
+    Оценка прошедшего диалога с чат-ботом.
+    """
+
     return JSONResponse(status_code=200, content={"status": "SUCCESS", "conversation": conversation.to_dto()})
