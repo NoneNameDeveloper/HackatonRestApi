@@ -188,9 +188,14 @@ async def handle_active_conversation_buttons(call: types.CallbackQuery):
 
     text = state["buttons"][int(data[2])]
 
+    error = None
     # обрабатываем пользовательское нажатие на дереве
-    response = requests.get(
-        f"{base_url}/new_user_message?user_id={user_id}&token={company_token}&conversation_id={state['conversation_id']}&text={quote(text)}").json()
+    try:
+        response = requests.get(
+            f"{base_url}/new_user_message?user_id={user_id}&token={company_token}&conversation_id={state['conversation_id']}&text={quote(text)}").json()
+    except Exception:
+        traceback.print_exc()
+        error = "Апи выключено"
 
     # обновляем состояние
     error, text, buttons = update_state(user_id, response)
