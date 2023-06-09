@@ -72,7 +72,8 @@ def new_conversation(user_id: int, initial_message: str, company: Company = Depe
 
 @app.get("/get_conversation", tags=["Общение с чат-ботом"])
 def get_conversation(
-    conversation: Conversation = Depends(require_conversation)
+    conversation: Conversation = Depends(require_conversation),
+    company: Company = Depends(require_company)
 ) -> ConversationResponse:
     """
     Возвращает диалог и его текущие значения.
@@ -83,7 +84,8 @@ def get_conversation(
 @app.post("/new_user_message", tags=["Общение с чат-ботом"])
 def new_user_message(
     text: str,
-    conversation: Conversation = Depends(require_conversation)
+    conversation: Conversation = Depends(require_conversation),
+    company: Company = Depends(require_company)
 ) -> ConversationResponse:
     """
     Добавление запроса к пользователя к уже существующему диалогу.
@@ -96,7 +98,8 @@ def new_user_message(
 @app.put("/rate_chat", tags=["Общение с чат-ботом"])
 async def rate_chat_handler(
     rate: int,
-    conversation: Conversation = Depends(require_conversation)
+    conversation: Conversation = Depends(require_conversation),
+    company: Company = Depends(require_company)
 ) -> ConversationResponse:
     """
     Оценка прошедшего диалога с чат-ботом.

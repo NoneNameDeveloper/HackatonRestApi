@@ -1,53 +1,56 @@
+import time
+
 import requests
 
 # ссылка на апи
-host = "http://greed.implario.net:8081"
+host = "http://greed.implario.net:8095"
 
 
-def ask(user_id: int, token: str, question: str) -> dict:
+def new_conversation(user_id: int, initial_message: str, token: str):
     """
-    запрос на получение ответа от ассистента
-
-    question: текст вашего вопроса
+    Создание нового диалога с чат-ботом, ответ на сообщение с текстом initial_message
     """
-    data = {
-        "token": token,
+    payload_data = {
         "user_id": user_id,
-        "text": question
+        "initial_message": initial_message,
+        "token": token
     }
-    r = requests.get(url=host + "/text_prompt", params=data)
 
-    # статус ответа - успешный
+    r = requests.post(
+        url=host + "/new_conversation", params=payload_data
+    )
+
     if r.status_code == 200:
         return r.json()
 
 
-def reset_state(user_id: int, token: str) -> bool:
+def get_conversation(conversation_id: int, token: str):
     """
-    сброс истории диалога (состояния флоу) 
+    Получение информации о текущем диалоге, о состоянии ответа в частности
     """
-    data = {
-        "token": token,
-        "user_id": user_id
+    payload_data = {
+        "conversation_id": conversation_id,
+        "token": token
     }
-    r = requests.get(host + "/reset_state", params=data)
+
+    r = requests.get(
+        url=host + "/get_conversation", params=payload_data
+    )
 
     if r.status_code == 200:
-        return True
+        return r.json()
 
 
-def rate_chat(user_id: int, token: str, rate: int) -> bool:
+def rate_chat(conversation_id: int, token: str, rate: int) -> bool:
     """
-    сброс истории диалога (состояния флоу)
-
-    rate: оценка, которую вы ставите сервису (1-5)
+    Оценивание диалога с чат-ботом по пятибальной шкале
     """
     data = {
         "token": token,
-        "user_id": user_id,
+        "conversation_id": conversation_id,
         "rate": rate
     }
-    r = requests.get(host + "/rate_chat", params=data)
+    r = requests.put(host + "/rate_chat", params=data)
 
     if r.status_code == 200:
         return True
@@ -55,22 +58,45 @@ def rate_chat(user_id: int, token: str, rate: int) -> bool:
 
 def main():
     # токен компании, к которой вы принадлежите
-    token = "test"
+    token = "iWhqYL85yASTCOmzfJIhEQ"
 
     # ваш уникальный идентификатор в компании
     user_id = 2
 
-    res_1 = ask(user_id, token, "Какая статья идет после 231 статьи УК РФ?")  # первый ответ
-    res_2 = ask(user_id, token, "А после 198?")  # второй ответ, учитывая предыдущий
+    # создание диалога и вопрос чат-боту произвольный
+    conversation = new_conversation(user_id, "Какой максимальный срок лишения свободы в РФ?", token)
 
-    reset_state(user_id, token)  # история сбросилась
+    # получение ID диалога
+    conversation_id = conversation["conversation"]["conversation_id"]
 
-    res_reseted = ask(user_id, token, "Какое право имеет жена на квартиру, купленную мужем?")  # первый ответ
+    # флаг для определения того, сформирован ответ или нет
+    answered = False
 
-    rate_chat(user_id, token, 5)  # оценка ассистента на 5 баллов
+    # цикл для проверки статуса ответа от чат-бота (сгенерирован/не сгенерирован)
+    while not answered:
+        # запрос на получение статуса ответа
+        conversation_data = get_conversation(conversation_id, token)
 
-    print(res_1)
-    print(res_2)
-    print(res_reseted)
+        # ответ сгенерировался
+        if conversation_data['conversation']['response_finished']:
+            answered = True
+
+        # вывод статуса генерации
+        # print(conversation_data["conversation"]["response_text"])
+
+        # пауза 2 секунды между обновлениями статуса
+        time.sleep(2)
+
+    # текст вопроса
+    question = conversation_data["conversation"]["last_user_message"]
+    # текст ответа на вопрос от чат-бота
+    answer = conversation_data["conversation"]["response_text"]
+
+    print("Question: " + question)
+    print("\nAnswer: " + answer)
+
+    # оценка чат-бота по пятибальной шкале
+    rate_chat(conversation_id, token, 5)
+
 
 main()

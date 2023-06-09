@@ -236,6 +236,8 @@ async def edit_or_send_more(chat_id, message_id, text, markup) -> int:
 	multiple_messages = len(text) > max_length
 
 	try:
+		await bot.send_chat_action(chat_id, "typing")
+
 		await bot.edit_message_text(
 			chat_id=chat_id, message_id=message_id, text=text[:max_length],
 			reply_markup=types.InlineKeyboardMarkup() if multiple_messages else markup
@@ -293,6 +295,7 @@ async def update_messages():
 
 				error, text, buttons = update_state(user_id, response)
 				print(text, buttons)
+
 				await edit_or_send_more(user_id, msg_id, text or f"Произошла ошибка: {error}",
 										create_user_kb(buttons, state['conversation_id']))
 				if error:
