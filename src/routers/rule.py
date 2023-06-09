@@ -1,5 +1,3 @@
-import typing
-
 from starlette.responses import JSONResponse
 
 from src.app import app
@@ -7,9 +5,12 @@ from src.app import app
 from src.models import crud
 
 
-@app.get("/add_filter", tags=["add_filter"])
+@app.get("/add_filter", tags=["Работа с фильтрами"])
 async def add_filter_handler(filter: str, token: str):
-
+    """
+    Добавление правила. После добавления, при обнаружении в запросе "стоп-слов", сервис будет возвращать соответствующее сообщение:
+    В вопросе содержится недопустимое слово: <стоп-слово>.Пожалуйста, задайте вопрос иначе.
+    """
     # проверка токена
     company = crud.get_company(token)
     if company is None:
@@ -24,9 +25,11 @@ async def add_filter_handler(filter: str, token: str):
     })
 
 
-@app.get("/archive_filter")
+@app.get("/archive_filter", tags=["Работа с фильтрами"])
 async def archive_filter_handler(rule_id: int, token: str):
-
+    """
+    Архивация правила. После архивации, ограничение на слово, содержащееся в этом правиле снимаются.
+    """
     # проверка токена
     company = crud.get_company(token)
     if company is None:

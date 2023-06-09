@@ -3,8 +3,6 @@ from starlette.templating import Jinja2Templates
 
 from fastapi.staticfiles import StaticFiles
 
-from pathlib import Path
-
 
 from src.app import app
 
