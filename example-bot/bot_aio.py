@@ -112,16 +112,14 @@ async def all_text_hander(message: types.Message):
 
     # получае состояние пользователя по user_id из базы
     state = user_database.get(user_id)
+    new_user = not state
 
-    # флаг для нового пользователя
-    new_user = False if state else True
-
-    print("Состояние пользователя: " + str(state))
+    print("Состояние пользователя: " + str(state) + ", сообщение: " + text)
     # если состояний нет или пользователь сбрасывает состояние
-    if not new_user or text.lower() in ["меню", "/start", "/reset", "/restart"]:
+    if not state or text.lower() in ["меню", "/start", "/reset", "/restart"]:
 
         # если в диалоге было общение
-        if not new_user:
+        if state:
             # сообщение с предложением об оценке диалога
             await message.answer("Оцените, как прошёл диалог.", reply_markup=rate_keyboard_all(state['conversation_id']))
 
