@@ -124,7 +124,7 @@ async def all_text_hander(message: types.Message):
             await message.answer("Оцените, как прошёл диалог.", reply_markup=rate_keyboard_all(state['conversation_id']))
 
         # создание нового диалога
-        url = f"{base_url}/new_conversation?user_id={user_id}&token={company_token}"
+        url = f"{base_url}/new_conversation?user_id={user_id}&token={company_token}&initial_message={quote(text)}"
         print(url)
         response = requests.post(url).json()
         print(response)
@@ -152,14 +152,14 @@ async def all_text_hander(message: types.Message):
     error, text, buttons = update_state(user_id, response)
 
     if error:
-        message.answer(text="Произошла ошибка: " + error)
+        await message.answer(text="Произошла ошибка: " + error)
     else:
         # ответ пользователю на его вопрос с дроблением сообщения по лимитам Telegram Bot Api
         for answer_part in range(0, len(text), telegram_limit_value):
             for cropped_text in [text[answer_part:answer_part + telegram_limit_value]]:
                 if new_user:
                     # отправка сообщения для появления реплай клавиатуры
-                    msg_for_kb = await message.answer("Воспользуйтесь клавиатурой.", reply_markup=user_menu_keyboard())
+                    msg_for_kb = await message.answer("👋", reply_markup=user_menu_keyboard())
 
                 last_message = await message.answer(text=cropped_text, reply_markup=create_user_kb(buttons, state['conversation_id']))
 
@@ -288,6 +288,8 @@ async def update_messages():
                 error, text, buttons = update_state(user_id, response)
                 print(text, buttons)
                 await edit_or_send_more(user_id, msg_id, text or f"Произошла ошибка: {error}", create_user_kb(buttons, state['conversation_id']))
+                if error:
+                    state['active_message_id'] = None
 
             except Exception as e:
                 traceback.print_exc()

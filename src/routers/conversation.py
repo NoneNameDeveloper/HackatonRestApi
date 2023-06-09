@@ -41,16 +41,16 @@ def get_company_by_token(token: str) -> Company:
 
 
 @app.post("/new_conversation")
-def new_conversation(token: str, user_id: int):
+def new_conversation(token: str, user_id: int, initial_message: str):
 
     company = get_company_by_token(token)
 
     user = User.get_or_create(user_id, company.company_id)
 
-    conversation = Conversation.create(user_id=user.user_id, company_id=company.company_id, last_user_message="", response_text="", response_buttons="[]")
+    conversation = Conversation.create(user_id=user.user_id, company_id=company.company_id, last_user_message=initial_message, response_text="", response_buttons="[]")
 
     # Сгенерировать стаартовое сообщение от бота
-    handle_user_message(conversation, "")
+    handle_user_message(conversation, initial_message)
     
     return JSONResponse(status_code=200, content={"status": "SUCCESS", "conversation": conversation.to_dto()})
         

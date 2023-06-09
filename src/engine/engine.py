@@ -13,7 +13,7 @@ import traceback
 
 LINKS_AMOUNT_PER_QUERY = 10
 # LINKS_AMOUNT_TOTAL = 3
-LINKS_AMOUNT_TOTAL = 3
+LINKS_AMOUNT_TOTAL = 4  
 
 executor = ThreadPoolExecutor(4)
 
@@ -275,19 +275,23 @@ def generate(prompt: str, responder: Responder):
         
         sources.append({'url': current_url, 'text': current_source_text, 'number': i})
 
-        final_prompt = "\nОтветь на вопрос:\n" + "\n\n".join([f"ИСТОЧНИК {source['number']}:\n{source['text']}" for source in sources]) +\
+        final_prompt = "\nДаны источники информации:\n\n" + "\n\n".join([f"ИСТОЧНИК {source['number']}:\n{source['text']}" for source in sources]) +\
+            "Ответь на вопрос:\n" + prompt +\
             "\nВ своём ответе указывай ссылки на источники после каждого предложения в формате [1],[2] и т.д"
 
-        # final_prompt = "\n\n".join(
-        #     [p[1]["summary"] + "\nИсточник: " + p[0] for p in compression_prompts if (p[1]["summary"] or "").strip()])
+        print("Final prompt:\n\n" + final_prompt)
 
         final_response = complete_custom(
             # "Ты юрист-помощник, вежливо и весело отвечаешь на все вопросы клиентов, сохраняя фактическую точность",
             "Ты юрист",
             [final_prompt]
         )
-
         final_response += "\n\nИсточники:\n" + "\n".join([str(source["number"]) + ". " + source["url"] for source in sources])
+
+        responder(final_response + "\n\nПридумываю интересные вопросы...", ["Отмена"], False)
+        
+        # question_suggestions = complete_custom("")
+
         responder(final_response, ["точно?"], True)
     except Exception as e:
         print(traceback.format_exc())
