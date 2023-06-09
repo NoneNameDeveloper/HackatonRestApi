@@ -135,4 +135,6 @@ async def rate_chat_handler(token: str, conversation_id: int, rate: int):
     # деактивируем все вопрос-ответы (сбрасываем состояние сессии)
     # crud.deactivate_conversations(user_id)
 
-    return JSONResponse(status_code=200, content={"status": "SUCCESS"})
+    response_message = "Благодарим за обратную связь! Ваша оценка помогает доработать слабые стороны системы."
+
+    return JSONResponse(status_code=200, content={"status": "SUCCESS", "message": response_message})

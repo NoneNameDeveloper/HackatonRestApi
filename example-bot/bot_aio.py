@@ -52,7 +52,7 @@ def rate_keyboard_all(conversation_id: int):
     """
     markup = types.InlineKeyboardMarkup(row_width=5)
 
-    for rate_value in range(6):
+    for rate_value in range(1, 6):
         markup.insert(
             types.InlineKeyboardButton(f"{str(rate_value)}", callback_data=f"rate_{rate_value}_{conversation_id}")
         )
@@ -222,7 +222,7 @@ async def get_rate_value_handler(call: types.CallbackQuery):
     ).json()
     print(response)
     if response["status"] == "SUCCESS":
-        await call.message.answer("Спасибо за Вашу оценку!")
+        await call.message.answer(response['message'])
 
 
 async def edit_or_send_more(chat_id, message_id, text, markup) -> int:
