@@ -46,8 +46,8 @@ sh start-bot.sh
 <hr>
 
 <h3><a href="http://greed.implario.net:8095/docs">Документация</a></h3>
+![](https://i.ibb.co/2KDjZ9G/image.png)
 
-<img src="https://i.ibb.co/2KDjZ9G/image.png" alt="API DOCS">
 
 <hr>
 
@@ -55,12 +55,17 @@ sh start-bot.sh
 
 ```python
 import time
+
 import requests
 
 # ссылка на апи
 host = "http://greed.implario.net:8095"
 
+
 def new_conversation(user_id: int, initial_message: str, token: str):
+    """
+    Создание нового диалога с чат-ботом, ответ на сообщение с текстом initial_message
+    """
     payload_data = {
         "user_id": user_id,
         "initial_message": initial_message,
@@ -74,7 +79,11 @@ def new_conversation(user_id: int, initial_message: str, token: str):
     if r.status_code == 200:
         return r.json()
 
+
 def get_conversation(conversation_id: int, token: str):
+    """
+    Получение информации о текущем диалоге, о состоянии ответа в частности
+    """
     payload_data = {
         "conversation_id": conversation_id,
         "token": token
@@ -87,7 +96,11 @@ def get_conversation(conversation_id: int, token: str):
     if r.status_code == 200:
         return r.json()
 
+
 def rate_chat(conversation_id: int, token: str, rate: int) -> bool:
+    """
+    Оценивание диалога с чат-ботом по пятибальной шкале
+    """
     data = {
         "token": token,
         "conversation_id": conversation_id,
@@ -97,6 +110,7 @@ def rate_chat(conversation_id: int, token: str, rate: int) -> bool:
 
     if r.status_code == 200:
         return True
+
 
 def main():
     # токен компании, к которой вы принадлежите
@@ -120,7 +134,7 @@ def main():
         conversation_data = get_conversation(conversation_id, token)
 
         # ответ сгенерировался
-        if conversation_data["conversation"]["response_finished"]:
+        if conversation_data['conversation']['response_finished']:
             answered = True
 
         # вывод статуса генерации
@@ -139,6 +153,7 @@ def main():
 
     # оценка чат-бота по пятибальной шкале
     rate_chat(conversation_id, token, 5)
+
 
 main()
 ```
