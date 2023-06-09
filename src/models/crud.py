@@ -126,7 +126,6 @@ def get_rules(token: str) -> 'typing.Optional[list[Rule]]':
     return Rule.get_or_none(Rule.company_id == company.company_id)
 
 
-
 # USERS
 def add_user(
         user_id: int,
@@ -171,12 +170,12 @@ def update_history_state(user_id: int, history_state):
     """
     обновление состояния пользователя
     """
-
     User.update(
         history_state=history_state
     ).where(
         User.user_id == user_id
     ).execute()
+
 
 def set_status(conversation_id: int, status: str):
     """

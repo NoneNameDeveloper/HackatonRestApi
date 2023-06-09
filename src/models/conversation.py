@@ -24,7 +24,7 @@ class Conversation(Model):
 
     response_finished = BooleanField(default=False)  # True, если ответ на последнее сообщение юзера финальный и больше не будет обновлятся
     response_text = TextField(null=False)  # Текущий ответ на сообщение, может меняться пока response_finished = False
-    response_buttons = TextField(null=False) # JSON-список с кнопками, которые предлагаются в ответе
+    response_buttons = TextField(null=False)  # JSON-список с кнопками, которые предлагаются в ответе
 
     rate = IntegerField(null=True)  # оценка разговора
 
@@ -42,7 +42,7 @@ class Conversation(Model):
             response_buttons=json.dumps(buttons), 
             response_finished=finished
         ).where(
-            Conversation.conversation_id==self.conversation_id
+            Conversation.conversation_id == self.conversation_id
         ).execute()
         self.response_text = text
         self.response_buttons = json.dumps(buttons)

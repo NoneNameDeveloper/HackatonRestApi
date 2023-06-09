@@ -32,11 +32,13 @@ class ResponseModel(BaseModel):
 class Status(BaseModel):
     status: str
 
+
 def get_company_by_token(token: str) -> Company:
     company = crud.get_company(token)
     if not company:
         raise HTTPException(status_code=403, detail={"status": "INVALID_API_TOKEN"})
     return company
+
 
 @app.post("/new_conversation")
 def new_conversation(token: str, user_id: int):
@@ -62,6 +64,7 @@ def get_conversation(token: str, conversation_id: int):
     
     return JSONResponse(status_code=200, content={"status": "SUCCESS", "conversation": conversation.to_dto()})
 
+
 @app.get("/new_user_message", tags=["new_user_message"], response_model=ResponseModel)
 def new_user_message(token: str, user_id: int, conversation_id: int, text: str):
 
@@ -85,7 +88,8 @@ def new_user_message(token: str, user_id: int, conversation_id: int, text: str):
 
     return JSONResponse(status_code=200, content={"status": "SUCCESS", "conversation": conversation.to_dto()})
 
-@app.get("/g")
+
+@app.get("/g", include_in_schema=False)
 async def g(prompt: str):
     # return JSONResponse(status_code=200, content=compress_article("Как правильно вести учёт суммированного рабочего времени?"))
     return PlainTextResponse(status_code=200, content=generate(prompt, lambda x,y: x))

@@ -29,13 +29,17 @@ user_database = {}
 
 
 def create_user_kb(buttons: list[str], conversation_id: int):
+    """
+    Создаем клавиатуру для пользователя, с переданным списком кнопок
+    из АПИ, Обрезаем
+    """
     keyboard = types.InlineKeyboardMarkup()
 
     i = 0
     for u in buttons or []:
         try:
             keyboard.add(types.InlineKeyboardButton(
-                u[:32], callback_data=f"tree_{conversation_id}_{i}"))
+                u, callback_data=f"tree_{conversation_id}_{i}"))
             i += 1
         except Exception as e:
             print(traceback.format_exc())
@@ -79,15 +83,19 @@ async def all_text_hander(message: types.Message):
 
     text = message.text
     user_id = message.chat.id
-    global user_database
 
     state = user_database.get(user_id)
-    response = None
+    # response = None
+
+    # если состояний нет или пользователь сбрасывает состояние
     if not state or text.lower() in ["меню", "/start", "/reset", "/restart"]:
         url = f"{base_url}/new_conversation?user_id={user_id}&token={company_token}"
         print(url)
         response = requests.post(url).json()
         print(response)
+
+        # создаем текущее состояние пользователя в словаре user_database,
+        # в котором будут находиться ID диалога (с АПИ) и кнопки пользователя
         state = user_database[user_id] = {
             "conversation_id": response["conversation"]["conversation_id"],
             "buttons": response["conversation"]["response_buttons"]
@@ -109,17 +117,25 @@ async def all_text_hander(message: types.Message):
 
 @dp.callback_query_handler(text_contains="tree_")
 async def handle_active_conversation_buttons(call: types.CallbackQuery):
+    """
+    нажатия на кнопки, переданные из апи с ветками дерева
 
+    Вид: tree_conversaionId_...
+    """
     user_id = call.message.chat.id
     print(f"User {user_id} pressed on button {call.data}")
     data = call.data.split("_")
-    conv_id = int(data[1])
-    state = user_database.get(user_id)
+
+    conv_id = int(data[1])  # ID диалога
+
+    state = user_database.get(user_id)  # получаем состояние пользователя из БД
     if not state or state['conversation_id'] != conv_id:
         return
 
-    text = state["buttons"][int(data[2])]
+    print(state["buttons"])
 
+    text = state["buttons"][int(data[2])]
+    print(text)
     response = requests.get(
         f"{base_url}/new_user_message?user_id={user_id}&token={company_token}&conversation_id={state['conversation_id']}&text={quote(text)}").json()
 
@@ -130,6 +146,7 @@ async def handle_active_conversation_buttons(call: types.CallbackQuery):
             call.id, "Произошла ошибка: " + error, show_alert=False)
     else:
         state["active_message_id"] = await edit_or_send_more(user_id, call.message.message_id, text, create_user_kb(buttons, conv_id))
+
 
 async def edit_or_send_more(chat_id, message_id, text, markup) -> int:
     
@@ -153,12 +170,8 @@ async def edit_or_send_more(chat_id, message_id, text, markup) -> int:
     return message_id
             
 
-
-
-
-
 def update_state(user_id, response):
-    global user_database
+
     if response['status'] != 'SUCCESS':
         return response['status'], None, None
     conversation = response['conversation']
@@ -168,11 +181,12 @@ def update_state(user_id, response):
     state['finished'] = conversation['response_finished']
     return None, conversation['response_text'], conversation['response_buttons']
 
+
 async def update_messages():
     global user_database
     while True:
         await asyncio.sleep(1)
-        print("Updating messages")
+        # print("Updating messages")
         for user_id in user_database.keys():
             try:
                 state = user_database[user_id]
@@ -197,8 +211,6 @@ async def on_startup(_):
     asyncio.create_task(update_messages())
 
 
-
-
 def rate_keyboard_all():
     markup = types.InlineKeyboardMarkup(row_width=2)
 
@@ -208,5 +220,5 @@ def rate_keyboard_all():
     return markup
 
 
-threading.Thread(daemon=True, target=update_messages).start()
+# threading.Thread(daemon=True, target=update_messages).start()
 aiogram.executor.start_polling(dp, skip_updates=True, on_startup=on_startup)
