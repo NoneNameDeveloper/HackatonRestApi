@@ -64,7 +64,8 @@ class Conversation(Model):
             'response_finished': self.response_finished,
             'response_text': self.response_text,
             'response_buttons': json.loads(self.response_buttons),
-            'rate': self.rate
+            'rate': self.rate,
+            'has_answer': self.has_answers
         }
     
     def update_history_state(self):
