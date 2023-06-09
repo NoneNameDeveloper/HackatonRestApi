@@ -54,7 +54,7 @@ def rate_keyboard_all(conversation_id: int):
 
     for rate_value in range(1, 6):
         markup.insert(
-            types.InlineKeyboardButton(f"{str(rate_value)}", callback_data=f"rate_{rate_value}_{conversation_id}")
+            types.InlineKeyboardButton("😢🙁😐🙂😄"[rate_value - 1], callback_data=f"rate_{rate_value}_{conversation_id}")
         )
 
     return markup

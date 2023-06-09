@@ -37,6 +37,10 @@ class Conversation(Model):
     # def get_active_conversation(user_id: int) -> 'Conversation':
     #     Conversation.select(Conversation.user_id == user_id, Conversation.active == true)
 
+    def set_has_answers(self):
+        Conversation.update(has_answers=True).where(Conversation.conversation_id == self.conversation_id).execute()
+        self.has_answers = True
+
     def update_response(self, text: str, buttons: list[str], finished: bool):
         print(f"updating response: {text}, {buttons}")
         Conversation.update(
