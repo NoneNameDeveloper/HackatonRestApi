@@ -51,6 +51,7 @@ def new_conversation(token: str, user_id: int, initial_message: str):
 
     # Сгенерировать стаартовое сообщение от бота
     handle_user_message(conversation, initial_message)
+    conversation.update_history_state()
     
     return JSONResponse(status_code=200, content={"status": "SUCCESS", "conversation": conversation.to_dto()})
         
@@ -79,8 +80,7 @@ def new_user_message(token: str, user_id: int, conversation_id: int, text: str):
         return JSONResponse(status_code=404, content={"status": "CONVERSATION_NOT_FOUND"})
 
     handle_user_message(conversation, text)
-
-    crud.update_history_state(user_id, user.history_state)
+    conversation.update_history_state()
 
     # лимит ChatGPT достигнут
     # if not response:
@@ -135,6 +135,6 @@ async def rate_chat_handler(token: str, conversation_id: int, rate: int):
     # деактивируем все вопрос-ответы (сбрасываем состояние сессии)
     # crud.deactivate_conversations(user_id)
 
-    response_message = "Благодарим за обратную связь! Ваша оценка помогает доработать слабые стороны системы."
+    response_message = "Благодарим за обратную связь! Ваша оценка помогает мне стать лучше!"
 
     return JSONResponse(status_code=200, content={"status": "SUCCESS", "message": response_message})

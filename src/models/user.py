@@ -12,7 +12,6 @@ class User(Model):
     """
     user_id = BigIntegerField(primary_key=True, unique=True)  # айди пользователя (в нашем случае Telegram ID)
     company_id = ForeignKeyField(Company, field=Company.company_id)  # айди компании, к которой привязан юзер (Telegram Chat ID) | только для личного чата с ботом
-    history_state = TextField(null=True)  # история нод/вопросов пользователя
     active_conversation = IntegerField(null=True)
 
     class Meta:
@@ -31,5 +30,5 @@ class User(Model):
         )
 
 
-db.drop_tables([User])
+# db.drop_tables([User])
 db.create_tables([User])

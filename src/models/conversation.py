@@ -66,7 +66,14 @@ class Conversation(Model):
             'response_buttons': json.loads(self.response_buttons),
             'rate': self.rate
         }
+    
+    def update_history_state(self):
+        Conversation.update(
+            history_state=self.history_state
+        ).where(
+            Conversation.conversation_id == self.conversation_id
+        ).execute()
 
 
-db.drop_tables([Conversation])
+# db.drop_tables([Conversation])
 db.create_tables([Conversation])

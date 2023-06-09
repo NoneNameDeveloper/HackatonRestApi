@@ -152,6 +152,7 @@ def handle_user_message(conversation: Conversation, message: str):
     next_chapters = [a for a in (chapter['children'] or []) if a.get('chapter')]
 
     if not handled and chapter['id'] == 0:
+        conversation.set_has_answers()
         conversation.update_response("Читаю вопрос...", ["Отмена"], False)
         executor.submit(lambda: generate(message, conversation.update_response))
         return
@@ -177,6 +178,7 @@ def handle_user_message(conversation: Conversation, message: str):
 
     results = [r['text'] for r in HintsTree.results if set(r['nodes']).issubset(set(state['visited_nodes']))]
     conversation.update_response("Информация в базе знаний tada.team: \n" + "\n".join(results), ['Назад'], True)
+    conversation.set_has_answers()
 
 
 # if user.history_state != json.dumps(state):
