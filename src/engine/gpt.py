@@ -51,8 +51,9 @@ def complete_custom(system: str, prompt: list[str]) -> str:
                 openai_key_index = 0
             openai.api_key = openai_keys[openai_key_index]
             
-            chat_completion = openai.ChatCompletion.create(model="gpt-3.5-turbo", messages=
-                [{"role":"system","content":system}] + [{"role":"user","content":p} for p in prompt]
+            messages = [{"role":"system","content":system}] + [{"role":"user","content":p} for p in prompt]
+            print(messages)
+            chat_completion = openai.ChatCompletion.create(model="gpt-3.5-turbo", messages=messages
             )
 
             response = chat_completion.choices[0].message.content
