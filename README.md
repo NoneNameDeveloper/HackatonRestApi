@@ -52,9 +52,9 @@ sh start-bot.sh
 <hr>
 
 <h3><a href="http://greed.implario.net:8095/docs/example">Пример использования</a></h3>
+
 ```python
 import time
-
 import requests
 
 # ссылка на апи
@@ -120,7 +120,7 @@ def main():
         conversation_data = get_conversation(conversation_id, token)
 
         # ответ сгенерировался
-        if conversation_data['conversation']['response_finished']:
+        if conversation_data["conversation"]["response_finished"]:
             answered = True
 
         # вывод статуса генерации
