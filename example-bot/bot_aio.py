@@ -60,6 +60,17 @@ def rate_keyboard_all(conversation_id: int):
     return markup
 
 
+def user_menu_keyboard():
+    """
+    клавиатура для упрощения взаимодействия с ботом
+    """
+    markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
+
+    markup.row("Меню")
+
+    return markup
+
+
 @dp.message_handler(commands=["add_rule"])
 async def add_rule_bot(message: types.Message):
 
@@ -101,12 +112,16 @@ async def all_text_hander(message: types.Message):
 
     # получае состояние пользователя по user_id из базы
     state = user_database.get(user_id)
+
+    # флаг для нового пользователя
+    new_user = False if state else True
+
     print("Состояние пользователя: " + str(state))
     # если состояний нет или пользователь сбрасывает состояние
-    if not state or text.lower() in ["меню", "/start", "/reset", "/restart"]:
+    if not new_user or text.lower() in ["меню", "/start", "/reset", "/restart"]:
 
         # если в диалоге было общение
-        if state:
+        if not new_user:
             # сообщение с предложением об оценке диалога
             await message.answer("Оцените, как прошёл диалог.", reply_markup=rate_keyboard_all(state['conversation_id']))
 
@@ -144,6 +159,10 @@ async def all_text_hander(message: types.Message):
         # ответ пользователю на его вопрос с дроблением сообщения по лимитам Telegram Bot Api
         for answer_part in range(0, len(text), telegram_limit_value):
             for cropped_text in [text[answer_part:answer_part + telegram_limit_value]]:
+                if new_user:
+                    # отправка сообщения для появления реплай клавиатуры
+                    msg_for_kb = await message.answer("Воспользуйтесь клавиатурой.", reply_markup=user_menu_keyboard())
+
                 last_message = await message.answer(text=cropped_text, reply_markup=create_user_kb(buttons, state['conversation_id']))
 
         # запоминаем ID последнего сообщения

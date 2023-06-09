@@ -19,12 +19,14 @@ class Conversation(Model):
 
     start_date = DateTimeField(constraints=[SQL('DEFAULT CURRENT_TIMESTAMP')], default=datetime.datetime.now)  # время сообщения
 
-    last_user_message = TextField(null=False) # последнее сообщение от пользователя
+    last_user_message = TextField(null=False)  # последнее сообщение от пользователя
     history_state = TextField(null=True)  # история перемещений по дереву базы знаний
 
     response_finished = BooleanField(default=False)  # True, если ответ на последнее сообщение юзера финальный и больше не будет обновлятся
     response_text = TextField(null=False)  # Текущий ответ на сообщение, может меняться пока response_finished = False
     response_buttons = TextField(null=False)  # JSON-список с кнопками, которые предлагаются в ответе
+
+    has_answers = BooleanField(null=False, default=False)  # получал ли пользователь какой то ответ
 
     rate = IntegerField(null=True)  # оценка разговора
 
