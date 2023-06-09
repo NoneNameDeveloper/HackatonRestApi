@@ -113,7 +113,7 @@ async def reset_state_handler(user_id: int, token: str):
 
 
 @app.get("/rate_chat", tags=["rate_chat"])
-async def rate_chat_handler(token: str, user_id: int, rate: int):
+async def rate_chat_handler(token: str, conversation_id: int, rate: int):
 
     # проверка токена
     company = crud.get_company(token)
@@ -121,18 +121,18 @@ async def rate_chat_handler(token: str, user_id: int, rate: int):
         return JSONResponse(status_code=403, content={"status": "INVALID_API_TOKEN"})
 
     # проставляем оценки
-    conversations: int = crud.rate_conversation(user_id=user_id, rate=rate)
+    conversations: int = crud.rate_conversation(conversation_id=conversation_id, rate=rate)
 
     # если нет активного флоу
     if conversations == 0:
         return JSONResponse(status_code=200, content={"status": "NOTHING_TO_RATE"})
 
     # вытягиваем результирующие вопросы ответы уже оцененные
-    conversations_list = crud.get_conversation(user_id)
+    # conversations_list = crud.get_conversation(user_id)
     # собираем отдельные вопрос-ответы в одну сессию
     # crud.create_session(conversations_list)
 
     # деактивируем все вопрос-ответы (сбрасываем состояние сессии)
-    crud.deactivate_conversations(user_id)
+    # crud.deactivate_conversations(user_id)
 
     return JSONResponse(status_code=200, content={"status": "SUCCESS"})
