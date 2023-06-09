@@ -64,7 +64,7 @@ def rate_chat(conversation_id: int, token: str, rate: int) -> bool:
 
 def main():
     # токен компании, к которой вы принадлежите
-    token = "companitoken"
+    token = "company_token"
 
     # ваш уникальный идентификатор в компании
     user_id = 2
