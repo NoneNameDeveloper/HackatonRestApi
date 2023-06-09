@@ -25,9 +25,9 @@ user_database = {}  # база состояний пользователя
 
 def create_user_kb(buttons: list[str], conversation_id: int):
 	"""
-    Создаем клавиатуру для пользователя, с переданным списком кнопок
-    из АПИ
-    """
+	Создаем клавиатуру для пользователя, с переданным списком кнопок
+	из АПИ
+	"""
 	keyboard = types.InlineKeyboardMarkup()
 
 	i = 0
@@ -45,10 +45,10 @@ def create_user_kb(buttons: list[str], conversation_id: int):
 
 def rate_keyboard_all(conversation_id: int):
 	"""
-    создание клавиатуры с оценкой
+	создание клавиатуры с оценкой
 
-    :conversation_id: ID диалога
-    """
+	:conversation_id: ID диалога
+	"""
 	markup = types.InlineKeyboardMarkup(row_width=5)
 
 	for rate_value in range(1, 6):
@@ -61,8 +61,8 @@ def rate_keyboard_all(conversation_id: int):
 
 def user_menu_keyboard():
 	"""
-    клавиатура для упрощения взаимодействия с ботом
-    """
+	клавиатура для упрощения взаимодействия с ботом
+	"""
 	markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
 
 	markup.row("Меню")
@@ -115,13 +115,12 @@ async def all_text_hander(message: types.Message):
 	if not state or text.lower() in ["меню", "/start", "/reset", "/restart"]:
 
 		# если в диалоге было общение
-		if state:
-			if state['has_answer']:
-				# сообщение с предложением об оценке диалога
-				await message.answer(
-					"Оцените, как прошёл диалог.",
-					reply_markup=rate_keyboard_all(state['conversation_id'])
-				)
+		if state and state['has_answer']:
+			# сообщение с предложением об оценке диалога
+			await message.answer(
+				"Оцените, как прошёл диалог.",
+				reply_markup=rate_keyboard_all(state['conversation_id'])
+			)
 
 		# создание нового диалога
 		url = f"{base_url}/new_conversation?user_id={user_id}&token={company_token}&initial_message={quote(text)}"
@@ -171,10 +170,10 @@ async def all_text_hander(message: types.Message):
 @dp.callback_query_handler(text_contains="tree_")
 async def handle_active_conversation_buttons(call: types.CallbackQuery):
 	"""
-    нажатия на кнопки, переданные из апи с ветками дерева
+	нажатия на кнопки, переданные из апи с ветками дерева
 
-    Вид: tree_conversaionId_...TextIDX
-    """
+	Вид: tree_conversaionId_...TextIDX
+	"""
 	user_id = call.message.chat.id
 
 	print(f"User {user_id} pressed on button {call.data}")
@@ -189,9 +188,15 @@ async def handle_active_conversation_buttons(call: types.CallbackQuery):
 
 	text = state["buttons"][int(data[2])]
 
+	response = None
+	error = None
 	# обрабатываем пользовательское нажатие на дереве
-	response = requests.get(
-		f"{base_url}/new_user_message?user_id={user_id}&token={company_token}&conversation_id={state['conversation_id']}&text={quote(text)}").json()
+	try:
+		response = requests.get(
+			f"{base_url}/new_user_message?user_id={user_id}&token={company_token}&conversation_id={state['conversation_id']}&text={quote(text)}").json()
+	except Exception:
+		traceback.print_exc()
+		error = "Апи выключено"
 
 	# обновляем состояние
 	error, text, buttons = update_state(user_id, response)
@@ -299,8 +304,8 @@ async def update_messages():
 
 async def on_startup(_):
 	"""
-    функция, запускающаяся при старте бота
-    """
+	функция, запускающаяся при старте бота
+	"""
 	# запуск обновления сообщений для пользователей
 	asyncio.create_task(update_messages())
 
