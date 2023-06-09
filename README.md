@@ -62,9 +62,9 @@ host = "http://greed.implario.net:8095"
 
 
 def new_conversation(user_id: int, initial_message: str, token: str):
-    """
+    '''
     Создание нового диалога с чат-ботом, ответ на сообщение с текстом initial_message
-    """
+    '''
     payload_data = {
         "user_id": user_id,
         "initial_message": initial_message,
@@ -155,7 +155,6 @@ def main():
 
 
 main()
-
 ```
 
 <hr>
