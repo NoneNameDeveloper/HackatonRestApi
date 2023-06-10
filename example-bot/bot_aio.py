@@ -40,7 +40,7 @@ def create_user_kb(buttons: list[str], conversation_id: int):
 			i += 1
 		except:
 			pass
-			# print(traceback.format_exc())
+		# print(traceback.format_exc())
 
 	return keyboard
 
@@ -72,7 +72,8 @@ def rate_keyboard_bad(level: int, conversation_id: int):
 
 	for rate_value in range(1, 6):
 		markup.insert(
-			types.InlineKeyboardButton("😢🙁😐🙂😄"[rate_value - 1], callback_data=f"rate_{rate_value}_{conversation_id}_{level}")
+			types.InlineKeyboardButton("😢🙁😐🙂😄"[rate_value - 1],
+									   callback_data=f"rate_{rate_value}_{conversation_id}_{level}")
 		)
 
 	return markup
@@ -236,12 +237,32 @@ async def all_text_hander(message: types.Message):
 			"buttons": response["conversation"]["response_buttons"]
 		}
 
+	elif text == "/help":
+		return await message.answer(f"""
+<b>📖 Список доступных команд в боте</b>
+
+<b>Работа с правилами</b>
+/add_rule стоп_слово_1 стоп_слово_2 - <i>добавление минус слова для компании</i>
+/archive_rule стоп_слово_1 стоп_слово_2 - <i>архивирование минус слова для компании</i>
+
+<b>Работа с источниками</b>
+/block_url url1 url2 - <i>добавление источников в черный список</i>
+/unblock_url url1 url2 - <i>удаление источников из черного списка</i>
+
+<b>Как задавать вопросы?</b>
+<i>
+Просто напишите текст своего вопроса.
+
+Если вам непонятно, что вы хотите, вы можете нажать на кнопку "Меню" и проследовать по нашей "Базе знаний"
+</i>
+""")
+
 	# диалог уже был начат, сообщение в текущем диалоге
 	else:
 		# обработка нового сообщения в уже имеющемся диалоге
 		response = requests.post(
 			f"{base_url}/new_user_message?user_id={user_id}&token={company_token}&conversation_id={state['conversation_id']}&text={quote(text)}").json()
-		# print(response)
+	# print(response)
 
 	# обнуляем активное сообщения пользователя для редактирования
 	state["active_message_id"] = None
@@ -299,7 +320,7 @@ async def handle_active_conversation_buttons(call: types.CallbackQuery):
 			f"{base_url}/new_user_message?user_id={user_id}&token={company_token}&conversation_id={state['conversation_id']}&text={quote(text)}").json()
 	except Exception:
 		pass
-		# traceback.print_exc()
+	# traceback.print_exc()
 
 	# обновляем состояние
 	error, text, buttons = update_state(user_id, response)
@@ -327,8 +348,6 @@ async def get_rate_value_handler(call: types.CallbackQuery):
 
 	# разделение callback_data ля получения параметров
 	data = call.data.split("_")
-
-
 
 	# получаем значение оценки от пользователя (1-5)
 	rate_value = int(data[1])
@@ -412,7 +431,7 @@ async def edit_or_send_more(chat_id: int, message_id: int, text: str, markup) ->
 		)
 	except aiogram.utils.exceptions.MessageNotModified:
 		pass
-		# print("Статус не изменился")
+	# print("Статус не изменился")
 
 	# если сообщение требуется поделить по частям
 	if multiple_messages:
@@ -427,7 +446,8 @@ async def edit_or_send_more(chat_id: int, message_id: int, text: str, markup) ->
 
 			m = None if text else markup
 
-			sent_message = await bot.send_message(chat_id=chat_id, text=piece, reply_markup=m, disable_web_page_preview=True)
+			sent_message = await bot.send_message(chat_id=chat_id, text=piece, reply_markup=m,
+												  disable_web_page_preview=True)
 			last_message_id = sent_message.message_id
 
 		return last_message_id
@@ -465,7 +485,6 @@ def update_state(user_id, response):
 	state['finished'] = conversation['response_finished']
 	state['has_answers'] = conversation['has_answers']
 
-
 	return None, conversation['response_text'], conversation['response_buttons']
 
 
@@ -487,7 +506,7 @@ async def update_messages():
 
 				# получаем ID редактируемого сообщения
 				msg_id = state.get('active_message_id')
-				
+
 				# если активное сообщение ещё не отправилось - его пока не выйдет отредактировать
 				if not msg_id:
 					continue
@@ -511,12 +530,28 @@ async def update_messages():
 
 			except Exception as e:
 				pass
-				# traceback.print_exc()
+			# traceback.print_exc()
+
+
+from aiogram import types
+
+
+async def set_default_commands(dp):
+	await dp.bot.set_my_commands(
+		[
+			types.BotCommand("start", "Запустить бота"),
+			types.BotCommand("help", "Вывести справку"),
+		]
+	)
 
 
 async def on_startup(_):
 	# запуск обновления сообщений для пользователей
 	asyncio.create_task(update_messages())
+
+	# Устанавливаем дефолтные команды
+	await set_default_commands(dp)
+
 
 # запуск бота
 aiogram.executor.start_polling(dp, skip_updates=True, on_startup=on_startup)
