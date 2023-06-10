@@ -112,7 +112,8 @@ async def rate_chat_handler(
     """
     conversation.set_rate(rate)
     return JSONResponse(status_code=200, content={
-            "status": "SUCCESS", "conversation": conversation.to_dto().dict(),
-            "message": "Благодарим за обратную связь! Ваша оценка помогает нам стать лучше."
+        "status": "SUCCESS",
+        "conversation": conversation.to_dto().dict(),
+        "message": "Благодарим за обратную связь! Ваша оценка помогает нам стать лучше."
         }
     )
