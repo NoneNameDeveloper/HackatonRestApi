@@ -339,10 +339,10 @@ async def get_rate_value_handler(call: types.CallbackQuery):
 		rate_level = int(data[3])
 		# запрос на выставление оценки
 
-		res = requests.put(
+		# проставление оценки на разных уровнях
+		requests.put(
 			f"{base_url}/rate_chat?token={company_token}&conversation_id={conversation_id}&rate={rate_value}&level={rate_level}"
 		).json()
-		print(res)
 
 		# если ответ на самый первый вопрос
 		if rate_level == 2:
@@ -368,9 +368,7 @@ async def get_rate_value_handler(call: types.CallbackQuery):
 		else:
 			return await call.message.edit_text(text="Спасибо за оценку! Благодаря Вам мы становимся лучше!")
 
-
-
-	# если оценка хорошая (4, 5) и доп. вопросы не нужны
+	# если оценка хорошая (4, 5) и доп. вопросы не нужны (самая первая просьба оценки)
 	if rate_value >= 4:
 		# запрос на выставление оценки
 		response = requests.put(
