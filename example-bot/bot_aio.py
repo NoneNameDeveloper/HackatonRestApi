@@ -127,7 +127,7 @@ async def block_url_handler(message: types.Message):
 	urls = message.text.replace("/block_url", "")  # отделяем текст, который требуется поместить в стоп слова
 	print(urls)
 	if not urls:
-		return await message.answer("Неверный форамат ввода.")
+		return await message.answer("Неверный формат ввода.")
 
 	# список
 	urls_list: list[str] = []
@@ -169,7 +169,7 @@ async def unblock_url_handler(message: types.Message):
 			status_text += f"✅ Ресурс <i>{response['uri']}</i> был успешно удалён из черного списка!\n"
 		# ссылка уже удалена / не существует
 		else:
-			status_text += f"❌ Фильтр <i>{url}</i> не был удален!\n"
+			status_text += f"❌ Ресурс <i>{url}</i> не был удален!\n"
 
 	return await message.answer(status_text)
 
