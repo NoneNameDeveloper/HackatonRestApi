@@ -167,3 +167,7 @@ test.http
 
 Task.txt
 test.py
+
+
+article-cache.txt
+google-cache.json
