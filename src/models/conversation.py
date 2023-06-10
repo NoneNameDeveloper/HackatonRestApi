@@ -41,10 +41,7 @@ class Conversation(Model):
 
 	# последнее сообщение от пользователя
 	last_user_message = TextField(null=False)
-	
-	# Дата последнего нового сообщения от бота
-	# last_bot_message_date = DateTimeField(constraints=[SQL(
-	# 	'DEFAULT CURRENT_TIMESTAMP')], default=datetime.datetime.now)
+
 	# история перемещений по дереву базы знаний
 	current_chapter = TextField(null=False)
 
