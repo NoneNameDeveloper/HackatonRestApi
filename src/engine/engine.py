@@ -90,7 +90,7 @@ def handle_user_message(conversation: Conversation, message: str):
         print("Going back from " + str(state) + " to " + str(state['previous_state']))
         state = state['previous_state']
         handled = True
-    elif message.lower() in ["", "меню", "/start"]:
+    elif message.lower() in ["", "меню", "/start", "отмена"]:
         state = {'future_questions': [], 'current_question': None, 'current_chapter': 0, 'previous_state': None,
                  'visited_nodes': []}
         handled = True
