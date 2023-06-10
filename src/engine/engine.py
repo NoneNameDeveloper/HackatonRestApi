@@ -13,7 +13,7 @@ import traceback
 
 LINKS_AMOUNT_PER_QUERY = 10
 # LINKS_AMOUNT_TOTAL = 3
-LINKS_AMOUNT_TOTAL = 4  
+LINKS_AMOUNT_TOTAL = 4
 
 executor = ThreadPoolExecutor(4)
 
@@ -160,8 +160,8 @@ def generate(prompt: str, responder: Responder, conversation: Conversation):
             knowledge_base_text = "\n\n".join([a for a in [(HintsTree.nodes.get(chapter_name.strip().lower()) or {"text":""})["text"] for chapter_name in chapters.split(";")] if a][:3])
             source_texts['База знаний tada.team'] = knowledge_base_text
 
-        if conversation.context:
-            source_texts['Предыдущий ответ'] = conversation.context
+        # if conversation.context:
+        #     source_texts['Предыдущий ответ'] = conversation.context
 
         responder("Размышляю над вопросом...", ["Отмена"], False)
         print("Getting search queries...")
