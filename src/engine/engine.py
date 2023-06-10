@@ -13,7 +13,7 @@ import traceback
 
 LINKS_AMOUNT_PER_QUERY = 10
 # LINKS_AMOUNT_TOTAL = 3
-LINKS_AMOUNT_TOTAL = 1
+LINKS_AMOUNT_TOTAL = 3
 
 executor = ThreadPoolExecutor(4)
 
