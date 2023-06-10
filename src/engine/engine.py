@@ -293,9 +293,11 @@ def generate(prompt: str, responder: Responder):
 
         responder(final_response + "\n\nПридумываю интересные вопросы...", ["Отмена"], False)
         
-        # question_suggestions = complete_custom("")
+        suggestions_prompt = "Клиент задал вопрос: \n" + prompt + "\n\nОтвет специалиста:\n" + final_response + "\n\nКакие еще несколько дополнительных вопросов можно создать исходя из данного ответа?" 
+        suggestions_response = complete_custom("", [suggestions_prompt])
+        suggestions = [re.sub(r'^\d+\.\s+', '', suggestion) for suggestion in suggestions_response.split("\n")]
 
-        responder(final_response, ["точно?"], True)
+        responder(final_response + "\n\nВам также может быть интересно:", suggestions, True)
     except Exception as e:
         print(traceback.format_exc())
 

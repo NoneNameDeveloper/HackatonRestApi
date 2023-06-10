@@ -35,8 +35,7 @@ def create_user_kb(buttons: list[str], conversation_id: int):
 	i = 0
 	for u in buttons or []:
 		try:
-			keyboard.add(types.InlineKeyboardButton(
-				u, callback_data=f"tree_{conversation_id}_{i}"))
+			keyboard.add(types.InlineKeyboardButton(u, callback_data=f"tree_{conversation_id}_{i}"))
 			i += 1
 		except:
 			print(traceback.format_exc())
@@ -149,7 +148,6 @@ async def all_text_hander(message: types.Message):
 			"conversation_id": response["conversation"]["conversation_id"],
 			"buttons": response["conversation"]["response_buttons"]
 		}
-		asyncio.create_task(update_messages(user_id=user_id))
 
 	# диалог уже был начат, сообщение в текущем диалоге
 	else:
@@ -176,7 +174,8 @@ async def all_text_hander(message: types.Message):
 
 				last_message = await message.answer(
 					text=cropped_text,
-					reply_markup=create_user_kb(buttons, state['conversation_id'])
+					reply_markup=create_user_kb(buttons, state['conversation_id']),
+					disable_web_page_preview=True
 				)
 
 		# запоминаем ID последнего сообщения
@@ -249,9 +248,8 @@ async def get_rate_value_handler(call: types.CallbackQuery):
 	response = requests.put(
 		f"{base_url}/rate_chat?token={company_token}&conversation_id={conversation_id}&rate={rate_value}"
 	).json()
-	print(response.text)
 	if response["status"] == "SUCCESS":
-		await call.message.edit_text(text=response['message'])
+		await call.message.edit_text(text='Спасибо за оценку! Благодаря вам мы становимся лучше!')
 
 
 async def edit_or_send_more(chat_id: int, message_id: int, text: str, markup) -> int:
@@ -271,7 +269,7 @@ async def edit_or_send_more(chat_id: int, message_id: int, text: str, markup) ->
 		# редактирование сообщения
 		await bot.edit_message_text(
 			chat_id=chat_id, message_id=message_id, text=text[:telegram_limit_value],
-			reply_markup=types.InlineKeyboardMarkup() if multiple_messages else markup
+			reply_markup=types.InlineKeyboardMarkup() if multiple_messages else markup, disable_web_page_preview=True
 		)
 	except aiogram.utils.exceptions.MessageNotModified:
 		print("Статус не изменился")
@@ -289,7 +287,7 @@ async def edit_or_send_more(chat_id: int, message_id: int, text: str, markup) ->
 
 			m = None if text else markup
 
-			sent_message = await bot.send_message(chat_id=chat_id, text=piece, reply_markup=m)
+			sent_message = await bot.send_message(chat_id=chat_id, text=piece, reply_markup=m, disable_web_page_preview=True)
 			last_message_id = sent_message.message_id
 
 		return last_message_id
@@ -318,46 +316,52 @@ def update_state(user_id, response):
 	return None, conversation['response_text'], conversation['response_buttons']
 
 
-async def update_messages(user_id: int):
+async def update_messages():
 	"""
 	Обновление сообщений для конкретного пользователя (ожидание ответа)
 	"""
+
 	while True:
 		await asyncio.sleep(1)
-		print("Updating messages")
-		try:
-			# получения текущего состояния пользователя в БД
-			state = user_database[user_id]
+		for user_id in user_database.keys():
+			print("Updating messages")
+			try:
+				# получения текущего состояния пользователя в БД
+				state = user_database[user_id]
 
-			# если ответ получен - завершаем тред
-			if state.get('finished'):
-				return
+				# если бот прислал finished, то обновлений текущего ответа больше не будет
+				if state.get('finished'):
+					continue
 
-			# получаем ID редактируемого сообщения
-			msg_id = state.get('active_message_id')
-			# если редактировать нечего - завершаем тред
-			if not msg_id:
-				return
+				# получаем ID редактируемого сообщения
+				msg_id = state.get('active_message_id')
+				
+				# если активное сообщение ещё не отправилось - его пока не выйдет отредактировать
+				if not msg_id:
+					continue
 
-			# получаем текущее состояние ответа в диалоге
-			response = requests.get(
-				f"{base_url}/get_conversation?token={company_token}&conversation_id={state['conversation_id']}").json()
+				# получаем текущее состояние ответа в диалоге
+				response = requests.get(
+					f"{base_url}/get_conversation?token={company_token}&conversation_id={state['conversation_id']}").json()
 
-			# обновляем состояние ползовтеля в соответствии с ответом от АПИ
-			error, text, buttons = update_state(user_id, response)
+				# обновляем состояние ползовтеля в соответствии с ответом от АПИ
+				error, text, buttons = update_state(user_id, response)
 
-			# редактирование состояния / ответ на вопрос
-			await edit_or_send_more(
-				chat_id=user_id,
-				message_id=msg_id,
-				text=text or f"Произошла ошибка: {error}",
-				markup=create_user_kb(buttons, state['conversation_id']))
-			if error:
-				state['active_message_id'] = None
+				# редактирование состояния / ответ на вопрос
+				await edit_or_send_more(
+					chat_id=user_id,
+					message_id=msg_id,
+					text=text or f"Произошла ошибка: {error}",
+					markup=create_user_kb(buttons, state['conversation_id']))
+				if error:
+					state['active_message_id'] = None
 
-		except Exception as e:
-			traceback.print_exc()
+			except Exception as e:
+				traceback.print_exc()
 
+async def on_startup(_):
+	# запуск обновления сообщений для пользователей
+	asyncio.create_task(update_messages())
 
 # запуск бота
-aiogram.executor.start_polling(dp)
+aiogram.executor.start_polling(dp, on_startup=on_startup)

@@ -45,8 +45,7 @@ def require_company(token: str):
 
 
 def require_conversation(conversation_id: int):
-    conversation = Conversation.get_or_none(
-        Conversation.conversation_id == conversation_id)
+    conversation = Conversation.get_or_none(Conversation.conversation_id == conversation_id)
     if not conversation:
         return ConversationNotFoundException()
     return conversation
@@ -82,6 +81,9 @@ def get_conversation(
     """
     Возвращает диалог и его текущие значения.
     """
+    # Кидаем 404 если диалог принадлежит не той компании, которая запрашивает
+    if conversation.company_id != company.company_id:
+        raise ConversationNotFoundException()
     return JSONResponse(status_code=200, content={"status": "SUCCESS", "conversation": conversation.to_dto().dict()})
 
 
