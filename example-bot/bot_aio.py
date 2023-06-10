@@ -39,7 +39,8 @@ def create_user_kb(buttons: list[str], conversation_id: int):
 			keyboard.add(types.InlineKeyboardButton(u, callback_data=f"tree_{conversation_id}_{i}"))
 			i += 1
 		except:
-			print(traceback.format_exc())
+			pass
+			# print(traceback.format_exc())
 
 	return keyboard
 
@@ -143,7 +144,7 @@ async def block_url_handler(message: types.Message):
 	Помещение ссылки в черный список
 	"""
 	urls = message.text.replace("/block_url", "")  # отделяем текст, который требуется поместить в стоп слова
-	print(urls)
+	# print(urls)
 	if not urls:
 		return await message.answer("Неверный формат ввода.")
 
@@ -209,11 +210,11 @@ async def all_text_hander(message: types.Message):
 	# пользователь первый раз начинает диалог
 	new_user = not state
 
-	print("Состояние пользователя: " + str(state) + ", сообщение: " + text)
+	# print("Состояние пользователя: " + str(state) + ", сообщение: " + text)
 
 	# если состояний нет или пользователь сбрасывает состояние
 	if not state or text.lower() in ["меню", "/start", "/reset", "/restart"]:
-		print(state)
+		# print(state)
 		# если в диалоге было общение
 		if state and state['has_answers']:
 			# сообщение с предложением об оценке диалога
@@ -224,9 +225,9 @@ async def all_text_hander(message: types.Message):
 
 		# создание нового диалога
 		url = f"{base_url}/new_conversation?user_id={user_id}&token={company_token}&initial_message={quote(text)}"
-		print(url)
+		# print(url)
 		response = requests.post(url).json()
-		print(response)
+		# print(response)
 
 		# создаем текущее состояние пользователя в словаре user_database,
 		# в котором будут находиться ID диалога (с АПИ) и кнопки пользователя
@@ -240,7 +241,7 @@ async def all_text_hander(message: types.Message):
 		# обработка нового сообщения в уже имеющемся диалоге
 		response = requests.post(
 			f"{base_url}/new_user_message?user_id={user_id}&token={company_token}&conversation_id={state['conversation_id']}&text={quote(text)}").json()
-		print(response)
+		# print(response)
 
 	# обнуляем активное сообщения пользователя для редактирования
 	state["active_message_id"] = None
@@ -277,7 +278,7 @@ async def handle_active_conversation_buttons(call: types.CallbackQuery):
 	"""
 	user_id = call.message.chat.id
 
-	print(f"User {user_id} pressed on button {call.data}")
+	# print(f"User {user_id} pressed on button {call.data}")
 
 	# получаем данные из кнопки, разделяя по символу
 	data = call.data.split("_")
@@ -297,7 +298,8 @@ async def handle_active_conversation_buttons(call: types.CallbackQuery):
 		response = requests.post(
 			f"{base_url}/new_user_message?user_id={user_id}&token={company_token}&conversation_id={state['conversation_id']}&text={quote(text)}").json()
 	except Exception:
-		traceback.print_exc()
+		pass
+		# traceback.print_exc()
 
 	# обновляем состояние
 	error, text, buttons = update_state(user_id, response)
@@ -393,7 +395,7 @@ async def edit_or_send_more(chat_id: int, message_id: int, text: str, markup) ->
 	"""
 	Обновление статуса сообщения путем редактирования сообщения / вывод ответа на вопрос
 	"""
-	print(f"editing message {message_id} to {text}, {markup}")
+	# print(f"editing message {message_id} to {text}, {markup}")
 
 	# флаг для разделения сообщения на части из-за лимита
 	multiple_messages = len(text) > telegram_limit_value
@@ -409,7 +411,8 @@ async def edit_or_send_more(chat_id: int, message_id: int, text: str, markup) ->
 			reply_markup=None if multiple_messages else markup, disable_web_page_preview=True
 		)
 	except aiogram.utils.exceptions.MessageNotModified:
-		print("Статус не изменился")
+		pass
+		# print("Статус не изменился")
 
 	# если сообщение требуется поделить по частям
 	if multiple_messages:
@@ -447,13 +450,13 @@ def update_state(user_id, response):
 
 	was_finished = not (state.get('finished') is False)
 	became_finished = conversation['response_finished']
-	print(f"was finished: {was_finished}, became_finished: {became_finished}, dt: {state.get('start_generating_datetime')}")
+	# print(f"was finished: {was_finished}, became_finished: {became_finished}, dt: {state.get('start_generating_datetime')}")
 	if was_finished and not became_finished:
-		print("received non-finished after a finished one")
+		# print("received non-finished after a finished one")
 		state['start_generating_datetime'] = datetime.now()
 	# время окончания генерации
 	elif became_finished and state.get('start_generating_datetime'):
-		print("received finished after a non-finished one")
+		# print("received finished after a non-finished one")
 		state['generating_time'] = datetime.now() - state.get('start_generating_datetime')
 
 	# обновляем состояние
@@ -473,7 +476,7 @@ async def update_messages():
 	while True:
 		await asyncio.sleep(1)
 		for user_id in user_database.keys():
-			print("Updating messages")
+			# print("Updating messages")
 			try:
 				# получения текущего состояния пользователя в БД
 				state = user_database[user_id]
@@ -507,7 +510,8 @@ async def update_messages():
 					state['active_message_id'] = None
 
 			except Exception as e:
-				traceback.print_exc()
+				pass
+				# traceback.print_exc()
 
 
 async def on_startup(_):
