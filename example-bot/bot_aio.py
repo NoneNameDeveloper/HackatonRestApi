@@ -436,7 +436,7 @@ async def update_messages():
 					text=text or f"Произошла ошибка: {error}",
 					markup=create_user_kb(buttons, state['conversation_id']),
 					generation_time=state['generating_time'] if 'generating_time' in state.keys() else None
-				)
+					)
 				if error:
 					state['active_message_id'] = None
 
