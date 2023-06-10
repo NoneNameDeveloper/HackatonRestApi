@@ -16,7 +16,7 @@ base_url = os.environ["TADA_API_BASE_URL"]  # Ссылка на АПИ
 company_token = os.environ["TADA_API_COMPANY_TOKEN"]  # токен компании, являющейся клиентом в TADA
 token = os.environ['TELEGRAM_TOKEN']  # Токен телеграм бот для демонстрации работы АПИ
 
-bot = aiogram.Bot(token)
+bot = aiogram.Bot(token, parse_mode="html")
 
 dp = aiogram.Dispatcher(bot)
 
@@ -77,13 +77,19 @@ async def add_rule_bot(message: types.Message):
 	"""
 	words = message.text.replace("/add_rule ", "")  # отделяем текст, который требуется поместить в стоп слова
 
+	# список
+	rules_list: list[str] = []
+
 	# пробегаемся по стоп-словам и передаем их в АПИ по одному
 	for word in words.split():
-		response = requests.get(base_url + "/add_filter?token=" +
-								company_token + "&filter=" + str(word).lower()).json()
+		response = requests.post(
+			base_url + "/add_filter?token=" + company_token + "&filter=" + str(word).lower()
+		).json()
 
 		if response['status'] == "SUCCESS":
-			await message.answer(f"Правило добавлено\nID: {response['rule_id']}")
+			rules_list.append(str(response['filter_text']))
+
+	await message.answer(f"✅ Правила добавлены\n<i>{','.join(rules_list)}</i>")
 
 
 @dp.message_handler(commands=["archive_rule"])
@@ -91,20 +97,75 @@ async def archive_rule_handler(message: types.Message):
 	"""
 	Архвация фильтра (стоп-слова)
 	"""
-	id_ = message.text.replace("/archive_rule ", "")  # отделяем ID правила от команды
+	rules_texts = message.text.replace("/archive_rule ", "")  # получаем текста правил на архивацию
 
-	# проверка на то, что ID правила - целое число
-	if not id_.isdigit():
-		return await message.answer("Это не целое число!")
+	# текст по статусу удаления каждого правила
+	status_text = ""
 
-	# архивация правила
-	response = requests.get(
-		base_url + "/archive_filter?token=" + company_token + "&rule_id=" + id_).json()
+	# бежим по переданным в сообщении айдишникам
+	for text in rules_texts.split():
 
-	if response['status'] == 'SUCCESS':
-		return await message.answer("Правило удалено!")
+		# архивация правила
+		response = requests.get(
+			base_url + "/archive_filter?token=" + company_token + "&rule_text=" + text).json()
 
-	return await message.answer("Ошибка!")
+		# успех
+		if response['status'] == 'SUCCESS':
+			status_text += f"✅ Фильтр <i>{response['filter_text']}</i> был успешно удалён!\n"
+		# фильтр уже удален / не существует
+		else:
+			status_text += f"❌ Фильтр <i>{text}</i> не был удален!\n"
+
+	return await message.answer(status_text)
+
+
+@dp.message_handler(commands=["block_url"])
+async def block_url_handler(message: types.Message):
+	"""
+	Помещение ссылки в черный список
+	"""
+	urls = message.text.replace("/block_url ", "")  # отделяем текст, который требуется поместить в стоп слова
+
+	# список
+	urls_list: list[str] = []
+
+	# пробегаемся по стоп-словам и передаем их в АПИ по одному
+	for url in urls.split():
+		response = requests.post(
+			base_url + "/block_url?token=" + company_token + "&uri=" + str(url).lower()
+		).json()
+
+		if response['status'] == "SUCCESS":
+			urls_list.append(str(response['uri']))
+
+	await message.answer(f"✅ URL добавлены в черный список\n<i>{','.join(rules_list)}</i>")
+
+
+@dp.message_handler(commands=["unblock_url"])
+async def unblock_url_handler(message: types.Message):
+	"""
+	Удаление ссылки из черного списка
+	"""
+	urls = message.text.replace("/unblock_url ", "")  # получаем текста правил на архивацию
+
+	# текст по статусу удаления каждого правила
+	status_text = ""
+
+	# бежим по переданным в сообщении айдишникам
+	for url in urls.split():
+
+		# архивация правила
+		response = requests.get(
+			base_url + "/unblock_url?token=" + company_token + "&uri=" + url).json()
+
+		# успех
+		if response['status'] == 'SUCCESS':
+			status_text += f"✅ Ресурс <i>{response['uri']}</i> был успешно удалён из черного списка!\n"
+		# ссылка уже удалена / не существует
+		else:
+			status_text += f"❌ Фильтр <i>{url}</i> не был удален!\n"
+
+	return await message.answer(status_text)
 
 
 @dp.message_handler()
@@ -193,6 +254,7 @@ async def handle_active_conversation_buttons(call: types.CallbackQuery):
 
 	print(f"User {user_id} pressed on button {call.data}")
 
+	# получаем данные из кнопки, разделяя по символу
 	data = call.data.split("_")
 
 	conv_id = int(data[1])  # ID диалога (conversation_id)

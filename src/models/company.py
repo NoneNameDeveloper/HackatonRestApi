@@ -1,6 +1,8 @@
 import datetime
 
 from peewee import *
+from playhouse.postgres_ext import ArrayField
+
 from src.db import db
 
 import hashlib
@@ -19,15 +21,16 @@ class Company(Model):
 
     date = DateTimeField(constraints=[SQL('DEFAULT CURRENT_TIMESTAMP')], default=datetime.datetime.now)  # дата-время регистрации компании
 
+    url_black_list = ArrayField(TextField, default=[])  # список запрещенных ссылок для исключения из поиска
+
     class Meta:
         database = db
         table_name = "companies"
-
 
     def get_by_token(token: str) -> 'Company':
         token_hash = hashlib.sha256(token.encode()).hexdigest()  # хешируем токен обратно для поиска в бд
         return Company.get_or_none(Company.token_hash == token_hash)
 
 
-# db.drop_tables([Company])
+# db.drop_tables([Company], cascade=True)
 db.create_tables([Company])
