@@ -148,19 +148,18 @@ def generate(prompt: str, responder: Responder, conversation: Conversation):
                     True)
             return
         
-        responder(chapters, ["Ищу ответ в базе знаний..."], True)
+        responder("Ищу ответ в базе знаний...", ["Отмена"], False)
         chapters = complete_custom("Отвечай только названия подходящих статей через точку с запятой, ничего больше. Если подходящих статей нет - отвечай \"missing\"", [
             "Есть справочник со следующим списком статей:\n" + "\n".join(HintsTree.nodes.keys()) \
-            + "\n\nКакие статьи из этого справочника пригодятся, чтобы ответить на вопрос:\n" + prompt + "\n\nЕсли подходящих статей нет - ответь \"missing\""])
+            + "\n\nКакие три статьи из этого справочника пригодятся, чтобы ответить на вопрос:\n" + prompt + "\n\nЕсли подходящих статей нет - ответь \"missing\""])
         
         print("Подходящие главы: " + chapters)
         
-        sources = []
+        source_texts = {}
         if not ('missing' in chapters.lower()):
-            knowledge_base_text = [HintsTree.chapters[chapter_name.lower()] for chapter_name in chapters.split(";")]
-            sources.append({'url': 'База знаний tada.team', 'text': knowledge_base_text, 'number': 1})
+            knowledge_base_text = "\n\n".join([a for a in [(HintsTree.nodes.get(chapter_name.strip().lower()) or {"text":""})["text"] for chapter_name in chapters.split(";")] if a][:3])
+            source_texts['База знаний tada.team'] = knowledge_base_text
 
-        # return
         responder("Размышляю над вопросом...", ["Отмена"], False)
         print("Getting search queries...")
         search_queries = get_search_queries(prompt)
@@ -178,7 +177,6 @@ def generate(prompt: str, responder: Responder, conversation: Conversation):
         responder("Выбираю релевантные статьи...", ["Отмена"], False)
         # source_texts = [get_article_text(link) for link in links]
         # source_texts = [text for text in source_texts if text]
-        source_texts = {}
         for link in links:
             text = get_article_text(link) or ""
             if len(text) < 10:
@@ -208,7 +206,7 @@ def generate(prompt: str, responder: Responder, conversation: Conversation):
                 p[1]["summary"] = "" if "missing" in rr.lower() else rr
             except Exception as e:
                 print(e)
-            print("FINISHED")
+            print("FINISHED COMPRESSING " + p[0])
 
         with concurrent.futures.ThreadPoolExecutor(max_workers=5) as executor:
             futures = [executor.submit(compress, p) for p in compression_prompts]
@@ -220,9 +218,9 @@ def generate(prompt: str, responder: Responder, conversation: Conversation):
 
         responder("Пишу ответ...", ["Отмена"], False)
         
-        sources = []
         final_prompt = "Даны источники информации:"
 
+        sources = []
         i = len(sources)
         current_source_text = ""
         current_url = None

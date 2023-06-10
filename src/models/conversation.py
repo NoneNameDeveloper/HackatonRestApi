@@ -128,5 +128,5 @@ class Conversation(Model):
 	# 	self.last_bot_message_date = now
 
 
-db.drop_tables([Conversation])
+# db.drop_tables([Conversation])
 db.create_tables([Conversation])
