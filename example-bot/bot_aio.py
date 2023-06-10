@@ -124,7 +124,10 @@ async def block_url_handler(message: types.Message):
 	"""
 	Помещение ссылки в черный список
 	"""
-	urls = message.text.replace("/block_url ", "")  # отделяем текст, который требуется поместить в стоп слова
+	urls = message.text.replace("/block_url", "")  # отделяем текст, который требуется поместить в стоп слова
+	print(urls)
+	if not urls:
+		return await message.answer("Неверный форамат ввода.")
 
 	# список
 	urls_list: list[str] = []
@@ -138,7 +141,7 @@ async def block_url_handler(message: types.Message):
 		if response['status'] == "SUCCESS":
 			urls_list.append(str(response['uri']))
 
-	await message.answer(f"✅ URL добавлены в черный список\n<i>{','.join(rules_list)}</i>")
+	await message.answer(f"✅ URL добавлены в черный список\n<i>{','.join(urls_list)}</i>")
 
 
 @dp.message_handler(commands=["unblock_url"])
@@ -146,7 +149,10 @@ async def unblock_url_handler(message: types.Message):
 	"""
 	Удаление ссылки из черного списка
 	"""
-	urls = message.text.replace("/unblock_url ", "")  # получаем текста правил на архивацию
+	urls = message.text.replace("/unblock_url", "")  # получаем текста правил на архивацию
+
+	if not urls:
+		return await message.answer("Неверный форамат ввода.")
 
 	# текст по статусу удаления каждого правила
 	status_text = ""
@@ -155,7 +161,7 @@ async def unblock_url_handler(message: types.Message):
 	for url in urls.split():
 
 		# архивация правила
-		response = requests.get(
+		response = requests.post(
 			base_url + "/unblock_url?token=" + company_token + "&uri=" + url).json()
 
 		# успех
