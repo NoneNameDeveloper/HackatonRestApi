@@ -40,8 +40,7 @@ def complete_chat(prompt: str, conversations: 'list[Conversation]') -> str:
 def complete_custom(system: str, prompt: list[str]) -> str:
     print("SYSTEM: " + str(system))
     n = 0
-    while n < 3:
-        n += 1
+    while True:
         try:
 
             global openai_key_index
@@ -61,4 +60,7 @@ def complete_custom(system: str, prompt: list[str]) -> str:
             return response
         except Exception as e:
             print(e)
+            n += 1
+            if n > 3:
+                raise e
             time.sleep(1)

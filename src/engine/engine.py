@@ -30,13 +30,15 @@ class HintsTree:
             raise Exception("Chapter doesn't have a name! " + str(section))
         children = section.get('children')
         prompt_frame = section.get('prompt_frame')
+        disclaimer = section.get('prompt_frame')
         children = [HintsTree.parse(c) for c in children or []]
 
         chapter = {
             'chapter_name': chapter_name,
             'text': text,
             'prompt_frame': prompt_frame,
-            'children': children
+            'disclaimer': disclaimer,
+            'children': children,
         }
 
         for child in children:
@@ -102,7 +104,7 @@ def handle_user_message(conversation: Conversation, message: str):
     if not handled:
         conversation.set_has_answers()
         conversation.update_response("Читаю вопрос...", ["Отмена"], False)
-        executor.submit(lambda: generate(message, conversation.update_response))
+        executor.submit(lambda: generate(message, conversation.update_response, conversation))
         return
     
     chapter_name = chapter['chapter_name']
@@ -135,7 +137,7 @@ def is_valid_question(prompt: str) -> bool:
     "Является ли данное предложение адекватным вопросом от клиента к специалисту?\nПредложение: " + prompt]).lower()
 
 
-def generate(prompt: str, responder: Responder):
+def generate(prompt: str, responder: Responder, conversation: Conversation):
     try:
         print("GPTing prompt: " + prompt)
         # if prompt[0] != "Я":
@@ -149,8 +151,13 @@ def generate(prompt: str, responder: Responder):
         print("Getting search queries...")
         search_queries = get_search_queries(prompt)
         responder("Ищу нужную информацию в интернете...", ["Отмена"], False)
+
         print("Searching google...")
+        links_black_list = Company.get_by_id(conversation.company_id).url_black_list
         links = [link for s in [search_links(query)[:LINKS_AMOUNT_PER_QUERY] for query in search_queries] for link in s]
+        # фильтруем заблокированные
+        links = [link for link in links if not next((True for blocked in links_black_list if blocked in link), False)]
+
         # links = links[:LINKS_AMOUNT_TOTAL]
         print("Found links:\n" + "\n".join([str(link) for link in links]))
         print("Reading articles...")
