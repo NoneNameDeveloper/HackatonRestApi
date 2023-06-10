@@ -377,11 +377,16 @@ def update_state(user_id, response):
 
 	# получаем текущее состояние пользователя из бд
 	state = user_database[user_id]
-	
-	if state.get('finished') and not conversation['response_finished']:
+
+	was_finished = not (state.get('finished') is False)
+	became_finished = conversation['response_finished']
+	print(f"was finished: {was_finished}, became_finished: {became_finished}, dt: {state.get('start_generating_datetime')}")
+	if was_finished and not became_finished:
+		print("received non-finished after a finished one")
 		state['start_generating_datetime'] = datetime.now()
 	# время окончания генерации
-	elif not state.get('finished') and conversation['response_finised']:
+	elif became_finished and state.get('start_generating_datetime'):
+		print("received finished after a non-finished one")
 		state['generating_time'] = datetime.now() - state.get('start_generating_datetime')
 
 	# обновляем состояние
