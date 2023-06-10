@@ -30,13 +30,15 @@ class HintsTree:
             raise Exception("Chapter doesn't have a name! " + str(section))
         children = section.get('children')
         prompt_frame = section.get('prompt_frame')
+        disclaimer = section.get('prompt_frame')
         children = [HintsTree.parse(c) for c in children or []]
 
         chapter = {
             'chapter_name': chapter_name,
             'text': text,
             'prompt_frame': prompt_frame,
-            'children': children
+            'disclaimer': disclaimer,
+            'children': children,
         }
 
         for child in children:
@@ -102,7 +104,7 @@ def handle_user_message(conversation: Conversation, message: str):
     if not handled:
         conversation.set_has_answers()
         conversation.update_response("Читаю вопрос...", ["Отмена"], False)
-        executor.submit(lambda: generate(message, conversation.update_response))
+        executor.submit(lambda: generate(message, conversation.update_response, conversation))
         return
     
     chapter_name = chapter['chapter_name']
