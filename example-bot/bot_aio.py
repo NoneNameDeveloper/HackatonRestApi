@@ -124,7 +124,10 @@ async def block_url_handler(message: types.Message):
 	"""
 	Помещение ссылки в черный список
 	"""
-	urls = message.text.replace("/block_url ", "")  # отделяем текст, который требуется поместить в стоп слова
+	urls = message.text.replace("/block_url", "")  # отделяем текст, который требуется поместить в стоп слова
+	print(urls)
+	if not urls:
+		return await message.answer("Неверный формат ввода.")
 
 	# список
 	urls_list: list[str] = []
@@ -138,7 +141,7 @@ async def block_url_handler(message: types.Message):
 		if response['status'] == "SUCCESS":
 			urls_list.append(str(response['uri']))
 
-	await message.answer(f"✅ URL добавлены в черный список\n<i>{','.join(rules_list)}</i>")
+	await message.answer(f"✅ URL добавлены в черный список\n<i>{','.join(urls_list)}</i>")
 
 
 @dp.message_handler(commands=["unblock_url"])
@@ -146,7 +149,10 @@ async def unblock_url_handler(message: types.Message):
 	"""
 	Удаление ссылки из черного списка
 	"""
-	urls = message.text.replace("/unblock_url ", "")  # получаем текста правил на архивацию
+	urls = message.text.replace("/unblock_url", "")  # получаем текста правил на архивацию
+
+	if not urls:
+		return await message.answer("Неверный форамат ввода.")
 
 	# текст по статусу удаления каждого правила
 	status_text = ""
@@ -155,7 +161,7 @@ async def unblock_url_handler(message: types.Message):
 	for url in urls.split():
 
 		# архивация правила
-		response = requests.get(
+		response = requests.post(
 			base_url + "/unblock_url?token=" + company_token + "&uri=" + url).json()
 
 		# успех
@@ -163,7 +169,7 @@ async def unblock_url_handler(message: types.Message):
 			status_text += f"✅ Ресурс <i>{response['uri']}</i> был успешно удалён из черного списка!\n"
 		# ссылка уже удалена / не существует
 		else:
-			status_text += f"❌ Фильтр <i>{url}</i> не был удален!\n"
+			status_text += f"❌ Ресурс <i>{url}</i> не был удален!\n"
 
 	return await message.answer(status_text)
 
@@ -323,11 +329,11 @@ async def edit_or_send_more(chat_id: int, message_id: int, text: str, markup) ->
 	# флаг для разделения сообщения на части из-за лимита
 	multiple_messages = len(text) > telegram_limit_value
 
+	# отправка действия от бота "печатает..."
+	await bot.send_chat_action(chat_id, "typing")
+
 	# обработка ошибки (текст сообщения не изменился)
 	try:
-		# отправка действия от бота "печатает..."
-		await bot.send_chat_action(chat_id, "typing")
-
 		# редактирование сообщения
 		await bot.edit_message_text(
 			chat_id=chat_id, message_id=message_id, text=text[:telegram_limit_value],
@@ -382,7 +388,6 @@ async def update_messages():
 	"""
 	Обновление сообщений для конкретного пользователя (ожидание ответа)
 	"""
-
 	while True:
 		await asyncio.sleep(1)
 		for user_id in user_database.keys():

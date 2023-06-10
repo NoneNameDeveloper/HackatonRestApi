@@ -5,6 +5,10 @@ class AccessException(Exception):
     pass
 
 
+class ConversationNotFoundException(Exception):
+    pass
+
+
 def require_company(token: str):
     """
     зависимость для роутеров, которая получает данные о компании по ID
@@ -13,4 +17,3 @@ def require_company(token: str):
     if not company:
         raise AccessException()
     return company
-

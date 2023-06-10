@@ -148,6 +148,9 @@ def unblock_url(uri: str, company_id: int):
     if not company:
         return "error"
 
+    if not uri in company.url_black_list:
+        return "error"
+
     company.url_black_list.remove(uri)
     company.save()
 

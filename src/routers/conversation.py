@@ -9,7 +9,7 @@ from fastapi.responses import JSONResponse
 from pydantic import BaseModel
 import typing
 
-from src.utils.misc import AccessException, require_company
+from src.utils.misc import AccessException, require_company, ConversationNotFoundException
 
 
 class ConversationResponse(BaseModel):
@@ -20,10 +20,6 @@ class ConversationResponse(BaseModel):
 class RateResponse(BaseModel):
     conversation: typing.Optional[ConversationDto]
     message: str
-
-
-class ConversationNotFoundException(Exception):
-    pass
 
 
 @app.exception_handler(AccessException)

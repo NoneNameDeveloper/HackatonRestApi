@@ -50,10 +50,10 @@ async def archive_filter_handler(rule_text: str, company: Company = Depends(requ
     return JSONResponse(status_code=200, content={"status": "SUCCESS", "filter_text": archived_text})
 
 
-@app.post("/block_url", tags=["Работа с фильтрами"])
+@app.post("/block_url", tags=["Работа с черным списком ресурсов"])
 async def block_url(uri: str, company: Company = Depends(require_company)) -> BlackListUrlResponse:
     """
-    Добавление ссылки черный список компании. Эта ссылка больше не будет
+    Добавление ресурса черный список компании. Этот ресурс больше не будет
     использоваться в качестве источника для поиска информации.
     """
     add_result = crud.block_url(uri=uri, company_id=company.company_id)
@@ -64,10 +64,10 @@ async def block_url(uri: str, company: Company = Depends(require_company)) -> Bl
     return JSONResponse(status_code=200, content={"status": "SUCCESS", "uri": uri})
 
 
-@app.post("/unblock_url", tags=["Работа с фильтрами"])
+@app.post("/unblock_url", tags=["Работа с черным списком ресурсов"])
 async def unblock_url(uri: str, company: Company = Depends(require_company)) -> BlackListUrlResponse:
     """
-    Удаление ссылки из черного списка компании.
+    Удаление ресурса из черного списка компании.
     """
     add_result = crud.unblock_url(uri=uri, company_id=company.company_id)
 
