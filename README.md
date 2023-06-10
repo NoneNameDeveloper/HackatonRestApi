@@ -17,12 +17,14 @@
     <li><a href="https://docs.pydantic.dev/latest/">Pydantic</a> - Models and Validation</li>
     <li><a href="https://docs.peewee-orm.com/en/latest/">Peewee (PostgreSQL ORM)</a> - Database</li>
     <li><a href="https://newspaper.readthedocs.io/en/latest/">Newspaper3k</a> - News parser</li>
-    <li><a href="https://github.com/googleapis/google-api-python-client/blob/main/docs/README.md">Google API Client</a> - Google resources parser</li>
+    <li><a href="https://github.com/googleapis/google-api-python-client/blob/main/docs/README.md">Google API Client</a> - Web Search</li>
     <li><a href="https://openai.com/">GPT-3.5</a> - AI Model</li>
 </ul>
 
 <hr>
 <a name="run"><h3>Запуск</h3></a>
+
+Для запуска требуются база данных Postgres и ключи для OpenAI API и Google Custom Search API.
 
 Для запуска требуется python 3.10+
 ```bash
