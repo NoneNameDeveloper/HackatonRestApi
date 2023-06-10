@@ -97,6 +97,7 @@ def handle_user_message(conversation: Conversation, message: str):
     for chapter_variant in chapter['children']:
         if chapter_variant['chapter_name'] == message:
             chapter = chapter_variant
+            conversation.set_has_answers()
             conversation.update_current_chapter(chapter['chapter_name'])
             handled = True
             break
