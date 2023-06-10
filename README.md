@@ -13,12 +13,12 @@
 
 Стек технологий:
 <ul>
-    <li><a href="https://fastapi.tiangolo.com/">FastAPI</a></li>
-    <li><a href="https://docs.pydantic.dev/latest/">Pydantic</a></li>
-    <li><a href="https://docs.peewee-orm.com/en/latest/">Peewee (PostgreSQL ORM)</a></li>
-    <li><a href="https://newspaper.readthedocs.io/en/latest/">Newspaper3k</a></li>
-    <li><a href="https://github.com/googleapis/google-api-python-client/blob/main/docs/README.md">Google API Client</a></li>
-    <li><a href="https://openai.com/">GPT-3.5</a></li>
+    <li><a href="https://fastapi.tiangolo.com/">FastAPI</a> - Rest API</li>
+    <li><a href="https://docs.pydantic.dev/latest/">Pydantic</a> - Models and Validation</li>
+    <li><a href="https://docs.peewee-orm.com/en/latest/">Peewee (PostgreSQL ORM)</a> - Database</li>
+    <li><a href="https://newspaper.readthedocs.io/en/latest/">Newspaper3k</a> - News parser</li>
+    <li><a href="https://github.com/googleapis/google-api-python-client/blob/main/docs/README.md">Google API Client</a> - Google resources parser</li>
+    <li><a href="https://openai.com/">GPT-3.5</a> - AI Model</li>
 </ul>
 
 <hr>
