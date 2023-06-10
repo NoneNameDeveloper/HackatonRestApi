@@ -93,28 +93,34 @@ def delete_company(company_id: int):
 
 
 # RULES
-def create_rule(token: str, filter_text: str) -> Rule:
+def create_rule(company_id: int, filter_text: str) -> Rule:
     """
-    добавляем правило
+    добавляем правило для компании
     """
-    company_id = get_company(token).company_id
-
     return Rule.create(
         company_id=company_id,
         filter_text=filter_text
     )
 
 
-def archive_rule(rule_id: int) -> None:
+def archive_rule(rule_id: int) -> str:
     """
     архивирование правила
+
+    возвращается текст заархиввированного правила
     """
-    rule = Rule.get(Rule.rule_id == rule_id)
+    rule = Rule.get_or_none(Rule.rule_id == rule_id)
+
+    # правило уже заархивировано
+    if not rule or rule.archived:
+        return "already"
 
     rule.archived = True
     rule.archive_date = datetime.datetime.now()
 
     rule.save()
+
+    return rule.filter_text
 
 
 def get_rules(token: str) -> 'typing.Optional[list[Rule]]':

@@ -16,7 +16,7 @@ base_url = os.environ["TADA_API_BASE_URL"]  # Ссылка на АПИ
 company_token = os.environ["TADA_API_COMPANY_TOKEN"]  # токен компании, являющейся клиентом в TADA
 token = os.environ['TELEGRAM_TOKEN']  # Токен телеграм бот для демонстрации работы АПИ
 
-bot = aiogram.Bot(token)
+bot = aiogram.Bot(token, parse_mode="html")
 
 dp = aiogram.Dispatcher(bot)
 
@@ -77,13 +77,19 @@ async def add_rule_bot(message: types.Message):
 	"""
 	words = message.text.replace("/add_rule ", "")  # отделяем текст, который требуется поместить в стоп слова
 
+	# список
+	rules_list: list[str] = []
+
 	# пробегаемся по стоп-словам и передаем их в АПИ по одному
 	for word in words.split():
-		response = requests.get(base_url + "/add_filter?token=" +
-								company_token + "&filter=" + str(word).lower()).json()
+		response = requests.get(
+			base_url + "/add_filter?token=" + company_token + "&filter=" + str(word).lower()
+		).json()
 
 		if response['status'] == "SUCCESS":
-			await message.answer(f"Правило добавлено\nID: {response['rule_id']}")
+			rules_list.append(str(response['rule_id']))
+
+	await message.answer(f"✅ Правила добавлены\nID: {', '.join(rules_list)}")
 
 
 @dp.message_handler(commands=["archive_rule"])
@@ -91,20 +97,29 @@ async def archive_rule_handler(message: types.Message):
 	"""
 	Архвация фильтра (стоп-слова)
 	"""
-	id_ = message.text.replace("/archive_rule ", "")  # отделяем ID правила от команды
+	ids = message.text.replace("/archive_rule ", "")  # отделяем ID правила от команды
 
-	# проверка на то, что ID правила - целое число
-	if not id_.isdigit():
-		return await message.answer("Это не целое число!")
+	# текст по статусу удаления каждого правила
+	status_text = ""
 
-	# архивация правила
-	response = requests.get(
-		base_url + "/archive_filter?token=" + company_token + "&rule_id=" + id_).json()
+	# бежим по переданным в сообщении айдишникам
+	for id_ in ids.split():
+		# проверка на то, что ID правила - целое число
+		if not id_.isdigit():
+			return await message.answer("Введите целые числа через пробел!\nПример: /archive_rule 1 2 3")
 
-	if response['status'] == 'SUCCESS':
-		return await message.answer("Правило удалено!")
+		# архивация правила
+		response = requests.get(
+			base_url + "/archive_filter?token=" + company_token + "&rule_id=" + id_).json()
 
-	return await message.answer("Ошибка!")
+		print(response)
+
+		if response['status'] == 'SUCCESS':
+			status_text += f"✅ Фильтр <i>{response['archived_text']}</i> был успешно удалён!\n"
+		else:
+			status_text += f"❌ Фильтр <i>{id_}</i> не был удален!\n"
+
+	return await message.answer(status_text)
 
 
 @dp.message_handler()
@@ -193,6 +208,7 @@ async def handle_active_conversation_buttons(call: types.CallbackQuery):
 
 	print(f"User {user_id} pressed on button {call.data}")
 
+	# получаем данные из кнопки, разделяя по символу
 	data = call.data.split("_")
 
 	conv_id = int(data[1])  # ID диалога (conversation_id)
