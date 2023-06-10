@@ -16,7 +16,7 @@ class FilterResponse(BaseModel):
     filter_text: typing.Optional[str]
 
 
-@app.get("/add_filter", tags=["Работа с фильтрами"])
+@app.post("/add_filter", tags=["Работа с фильтрами"])
 async def add_filter_handler(filter: str, company: Company = Depends(require_company)) -> FilterResponse:
     """
     Добавление правила. После добавления, при обнаружении в запросе "стоп-слов", сервис будет возвращать соответствующее сообщение:
@@ -43,3 +43,31 @@ async def archive_filter_handler(rule_text: str, company: Company = Depends(requ
         return JSONResponse(status_code=404, content={"status": "ALREADY_ARCHIVED"})
 
     return JSONResponse(status_code=200, content={"status": "SUCCESS", "filter_text": archived_text})
+
+
+
+@app.post("/block_url", tags=["Работа с фильтрами"])
+async def block_url(uri: str, company: Company = Depends(require_company)):
+    """
+    Добавление ссылки черный список компании. Эта ссылка больше не будет
+    использоваться в качестве источника для поиска информации.
+    """
+    add_result = crud.block_url(uri=uri, company_id=company.company_id)
+
+    if add_result == "error":
+        return JSONResponse(status_code=404, content={"status": "ERROR"})
+
+    return JSONResponse(status_code=200, content={"status": "SUCCESS", "uri": uri})
+
+
+@app.post("/unblock_url", tags=["Работа с фильтрами"])
+async def unblock_url(uri: str, company: Company = Depends(require_company)):
+    """
+    Удаление ссылки из черного списка компании.
+    """
+    add_result = crud.unblock_url(uri=uri, company_id=company.company_id)
+
+    if add_result == "error":
+        return JSONResponse(status_code=404, content={"status": "ERROR"})
+
+    return JSONResponse(status_code=200, content={"status": "SUCCESS", "uri": uri})

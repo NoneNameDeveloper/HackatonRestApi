@@ -82,7 +82,7 @@ async def add_rule_bot(message: types.Message):
 
 	# пробегаемся по стоп-словам и передаем их в АПИ по одному
 	for word in words.split():
-		response = requests.get(
+		response = requests.post(
 			base_url + "/add_filter?token=" + company_token + "&filter=" + str(word).lower()
 		).json()
 

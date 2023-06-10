@@ -123,13 +123,35 @@ def archive_rule(filter_text: str) -> str:
     return rule.filter_text
 
 
-def get_rules(token: str) -> 'typing.Optional[list[Rule]]':
+# URL BLACKLIST
+def block_url(uri: str, company_id: int):
     """
-    вытащить правила определенной компании по токену 
+    добавление ссылки в черный список компании
     """
-    company = get_company(token)
+    company = Company.get_or_none(Company.company_id == company_id)
 
-    return Rule.get_or_none(Rule.company_id == company.company_id)
+    if not company:
+        return "COMPANY_DOESNT_EXiSTS"
+
+    company.url_black_list.append(uri)
+    company.save()
+
+    return "success"
+
+
+def unblock_url(uri: str, company_id: int):
+    """
+    добавление ссылки в черный список компании
+    """
+    company = Company.get_or_none(Company.company_id == company_id)
+
+    if not company:
+        return "error"
+
+    company.url_black_list.remove(uri)
+    company.save()
+
+    return "success"
 
 
 # USERS
