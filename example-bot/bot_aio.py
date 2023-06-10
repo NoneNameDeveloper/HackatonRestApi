@@ -87,9 +87,9 @@ async def add_rule_bot(message: types.Message):
 		).json()
 
 		if response['status'] == "SUCCESS":
-			rules_list.append(str(response['rule_id']))
+			rules_list.append(str(response['filter_text']))
 
-	await message.answer(f"✅ Правила добавлены\nID: {', '.join(rules_list)}")
+	await message.answer(f"✅ Правила добавлены\n<i>{','.join(rules_list)}</i>")
 
 
 @dp.message_handler(commands=["archive_rule"])
@@ -97,27 +97,24 @@ async def archive_rule_handler(message: types.Message):
 	"""
 	Архвация фильтра (стоп-слова)
 	"""
-	ids = message.text.replace("/archive_rule ", "")  # отделяем ID правила от команды
+	rules_texts = message.text.replace("/archive_rule ", "")  # получаем текста правил на архивацию
 
 	# текст по статусу удаления каждого правила
 	status_text = ""
 
 	# бежим по переданным в сообщении айдишникам
-	for id_ in ids.split():
-		# проверка на то, что ID правила - целое число
-		if not id_.isdigit():
-			return await message.answer("Введите целые числа через пробел!\nПример: /archive_rule 1 2 3")
+	for text in rules_texts.split():
 
 		# архивация правила
 		response = requests.get(
-			base_url + "/archive_filter?token=" + company_token + "&rule_id=" + id_).json()
+			base_url + "/archive_filter?token=" + company_token + "&rule_text=" + text).json()
 
-		print(response)
-
+		# успех
 		if response['status'] == 'SUCCESS':
-			status_text += f"✅ Фильтр <i>{response['archived_text']}</i> был успешно удалён!\n"
+			status_text += f"✅ Фильтр <i>{response['filter_text']}</i> был успешно удалён!\n"
+		# фильтр уже удален / не существует
 		else:
-			status_text += f"❌ Фильтр <i>{id_}</i> не был удален!\n"
+			status_text += f"❌ Фильтр <i>{text}</i> не был удален!\n"
 
 	return await message.answer(status_text)
 

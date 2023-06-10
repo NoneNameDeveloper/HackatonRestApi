@@ -11,18 +11,13 @@ from src.models import crud, Company
 from src.utils.misc import require_company
 
 
-class FilterCreateResponse(BaseModel):
+class FilterResponse(BaseModel):
     status: str
-    rule_id: typing.Optional[int]
-
-
-class FilterArchiveResponse(BaseModel):
-    status: str
-    archived_text: typing.Optional[str]
+    filter_text: typing.Optional[str]
 
 
 @app.get("/add_filter", tags=["Работа с фильтрами"])
-async def add_filter_handler(filter: str, company: Company = Depends(require_company)) -> FilterCreateResponse:
+async def add_filter_handler(filter: str, company: Company = Depends(require_company)) -> FilterResponse:
     """
     Добавление правила. После добавления, при обнаружении в запросе "стоп-слов", сервис будет возвращать соответствующее сообщение:
     В вопросе содержится недопустимое слово: <стоп-слово>.Пожалуйста, задайте вопрос иначе.
@@ -32,19 +27,19 @@ async def add_filter_handler(filter: str, company: Company = Depends(require_com
 
     return JSONResponse(status_code=200, content={
         "status": "SUCCESS",
-        "rule_id": rule.rule_id
+        "filter_text": rule.filter_text
     })
 
 
 @app.get("/archive_filter", tags=["Работа с фильтрами"])
-async def archive_filter_handler(rule_id: int, company: Company = Depends(require_company)) -> FilterArchiveResponse:
+async def archive_filter_handler(rule_text: str, company: Company = Depends(require_company)) -> FilterResponse:
     """
     Архивация правила. После архивации, ограничение на слово, содержащееся в этом правиле снимаются.
     """
     # архивирование токена
-    archived_text: str = crud.archive_rule(rule_id)
+    archived_text: str = crud.archive_rule(rule_text)
 
     if archived_text == "already":
         return JSONResponse(status_code=404, content={"status": "ALREADY_ARCHIVED"})
 
-    return JSONResponse(status_code=200, content={"status": "SUCCESS", "archived_text": archived_text})
+    return JSONResponse(status_code=200, content={"status": "SUCCESS", "filter_text": archived_text})

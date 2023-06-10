@@ -103,13 +103,13 @@ def create_rule(company_id: int, filter_text: str) -> Rule:
     )
 
 
-def archive_rule(rule_id: int) -> str:
+def archive_rule(filter_text: str) -> str:
     """
     архивирование правила
 
     возвращается текст заархиввированного правила
     """
-    rule = Rule.get_or_none(Rule.rule_id == rule_id)
+    rule = Rule.get_or_none(Rule.filter_text == filter_text)
 
     # правило уже заархивировано
     if not rule or rule.archived:
