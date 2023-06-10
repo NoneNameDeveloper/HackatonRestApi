@@ -46,7 +46,7 @@ sh start-bot.sh
 <hr>
 
 <h3><a href="http://greed.implario.net:8095/docs">Документация</a></h3>
-![](https://i.ibb.co/2KDjZ9G/image.png)
+![](https://i.ibb.co/528W9qq/image.png)
 
 
 <hr>
