@@ -111,15 +111,29 @@ class Conversation(Model):
 		"""
 		выставление оценки на уровне level
 		"""
-		rate_attr = getattr(self, f"rate_{level}")
+		if level == 1:
+			Conversation.update(rate_1=rate) \
+				.where(Conversation.conversation_id == self.conversation_id) \
+				.execute()
+			self.rate_1 = rate
+		if level == 2:
+			Conversation.update(rate_2=rate) \
+				.where(Conversation.conversation_id == self.conversation_id) \
+				.execute()
+			self.rate_2 = rate
 
-		print(rate_attr)
+		if level == 3:
+			Conversation.update(rate_3=rate) \
+				.where(Conversation.conversation_id == self.conversation_id) \
+				.execute()
+			self.rate_3 = rate
 
-		Conversation.update(rate_attr=rate) \
-			.where(Conversation.conversation_id == self.conversation_id) \
-			.execute()
-		rate_attr = rate
-		
+		if level == 4:
+			Conversation.update(rate_4=rate) \
+				.where(Conversation.conversation_id == self.conversation_id) \
+				.execute()
+			self.rate_4 = rate
+
 	# def update_last_bot_message_date(self):
 	# 	now = datetime.now()	
 	# 	Conversation.update(last_bot_message_date=now) \

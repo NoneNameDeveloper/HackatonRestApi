@@ -347,9 +347,9 @@ async def get_rate_value_handler(call: types.CallbackQuery):
 		# если ответ на самый первый вопрос
 		if rate_level == 2:
 			if rate_value <= 4:
-				await call.message.edit_text(text="Спасибо за оценку! Благодаря Вам мы становимся лучше!")
+				return await call.message.edit_text(text="Спасибо за оценку! Благодаря Вам мы становимся лучше!")
 			else:
-				await call.message.edit_text(
+				return await call.message.edit_text(
 					text="Пожалуйста, оцените фактическую точность ответа.",
 					reply_markup=rate_keyboard_bad(level=3, conversation_id=conversation_id)
 				)
@@ -357,16 +357,18 @@ async def get_rate_value_handler(call: types.CallbackQuery):
 		# ответ на третьем уровне
 		elif rate_level == 3:
 			if rate_value <= 4:
-				await call.message.edit_text(text="Спасибо за оценку! Благодаря Вам мы становимся лучше!")
+				return await call.message.edit_text(text="Спасибо за оценку! Благодаря Вам мы становимся лучше!")
 			else:
-				await call.message.edit_text(
+				return await call.message.edit_text(
 					text="Пожалуйста, оцените полноту ответа.",
 					reply_markup=rate_keyboard_bad(level=4, conversation_id=conversation_id)
 				)
 
 		# ответ на четвертом (последнем) уровне
 		else:
-			await call.message.edit_text(text="Спасибо за оценку! Благодаря Вам мы становимся лучше!")
+			return await call.message.edit_text(text="Спасибо за оценку! Благодаря Вам мы становимся лучше!")
+
+
 
 	# если оценка хорошая (4, 5) и доп. вопросы не нужны
 	if rate_value >= 4:
