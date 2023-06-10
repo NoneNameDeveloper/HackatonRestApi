@@ -16,6 +16,11 @@ class FilterResponse(BaseModel):
     filter_text: typing.Optional[str]
 
 
+class BlackListUrlResponse(BaseModel):
+    status: str
+    url: typing.Optional[str]
+
+
 @app.post("/add_filter", tags=["Работа с фильтрами"])
 async def add_filter_handler(filter: str, company: Company = Depends(require_company)) -> FilterResponse:
     """
@@ -45,9 +50,8 @@ async def archive_filter_handler(rule_text: str, company: Company = Depends(requ
     return JSONResponse(status_code=200, content={"status": "SUCCESS", "filter_text": archived_text})
 
 
-
 @app.post("/block_url", tags=["Работа с фильтрами"])
-async def block_url(uri: str, company: Company = Depends(require_company)):
+async def block_url(uri: str, company: Company = Depends(require_company)) -> BlackListUrlResponse:
     """
     Добавление ссылки черный список компании. Эта ссылка больше не будет
     использоваться в качестве источника для поиска информации.
@@ -61,7 +65,7 @@ async def block_url(uri: str, company: Company = Depends(require_company)):
 
 
 @app.post("/unblock_url", tags=["Работа с фильтрами"])
-async def unblock_url(uri: str, company: Company = Depends(require_company)):
+async def unblock_url(uri: str, company: Company = Depends(require_company)) -> BlackListUrlResponse:
     """
     Удаление ссылки из черного списка компании.
     """
