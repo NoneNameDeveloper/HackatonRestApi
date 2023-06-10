@@ -6,7 +6,6 @@ from src.db import db
 import json
 import pydantic
 import typing
-# from datetime import datetime
 
 
 class ConversationDto(pydantic.BaseModel):
@@ -20,6 +19,8 @@ class ConversationDto(pydantic.BaseModel):
 	response_buttons: list[str]
 	has_answers: bool
 	rate: typing.Optional[int]
+	rate_1: typing.Optional[int]
+	rate_2: typing.Optional[int]
 
 
 class Conversation(Model):
@@ -57,8 +58,10 @@ class Conversation(Model):
 	# получал ли пользователь какой то ответ
 	has_answers = BooleanField(null=False, default=False)
 
-	rate = IntegerField(null=True)  # оценка разговора
-
+	rate_1 = IntegerField(null=True)  # оценка диалога первая
+	rate_2 = IntegerField(null=True)  # оценка диалога вторая
+	rate_3 = IntegerField(null=True)  # оценка диалога третья
+	rate_4 = IntegerField(null=True)  # оценка диалога четвертая
 	class Meta:
 		database = db
 		table_name = "conversations"
@@ -91,7 +94,10 @@ class Conversation(Model):
 			response_finished=self.response_finished,
 			response_text=self.response_text,
 			response_buttons=json.loads(self.response_buttons),
-			rate=self.rate,
+			rate_1=self.rate_1,
+			rate_2=self.rate_2,
+			rate_3=self.rate_3,
+			rate_4=self.rate_4,
 			has_answers=self.has_answers
 		)
 
@@ -100,13 +106,19 @@ class Conversation(Model):
 			.where(Conversation.conversation_id == self.conversation_id) \
 			.execute()
 		self.current_chapter = chapter
-		
 
-	def set_rate(self, rate: int):
-		Conversation.update(rate=rate) \
+	def set_rate(self, rate: int, level: int):
+		"""
+		выставление оценки на уровне level
+		"""
+		rate_attr = getattr(self, f"rate_{level}")
+
+		print(rate_attr)
+
+		Conversation.update(rate_attr=rate) \
 			.where(Conversation.conversation_id == self.conversation_id) \
 			.execute()
-		self.rate = rate
+		rate_attr = rate
 		
 	# def update_last_bot_message_date(self):
 	# 	now = datetime.now()	
@@ -116,5 +128,5 @@ class Conversation(Model):
 	# 	self.last_bot_message_date = now
 
 
-# db.drop_tables([Conversation])
+db.drop_tables([Conversation])
 db.create_tables([Conversation])

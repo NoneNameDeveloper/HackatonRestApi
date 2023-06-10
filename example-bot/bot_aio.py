@@ -60,6 +60,23 @@ def rate_keyboard_all(conversation_id: int):
 	return markup
 
 
+def rate_keyboard_bad(level: int, conversation_id: int):
+	"""
+	создание клавиатуры с оценкой после rate_keyboard_all(),
+	при оценке <=4
+
+	:level: уровень вопроса (всего 2).
+	"""
+	markup = types.InlineKeyboardMarkup(row_width=5)
+
+	for rate_value in range(1, 6):
+		markup.insert(
+			types.InlineKeyboardButton("😢🙁😐🙂😄"[rate_value - 1], callback_data=f"rate_{rate_value}_{conversation_id}_{level}")
+		)
+
+	return markup
+
+
 def user_menu_keyboard():
 	"""
 	клавиатура для упрощения взаимодействия с ботом
@@ -196,7 +213,7 @@ async def all_text_hander(message: types.Message):
 
 	# если состояний нет или пользователь сбрасывает состояние
 	if not state or text.lower() in ["меню", "/start", "/reset", "/restart"]:
-
+		print(state)
 		# если в диалоге было общение
 		if state and state['has_answers']:
 			# сообщение с предложением об оценке диалога
@@ -309,17 +326,67 @@ async def get_rate_value_handler(call: types.CallbackQuery):
 	# разделение callback_data ля получения параметров
 	data = call.data.split("_")
 
-	# получаем значение оценки от пользователя (1-5)
-	rate_value = data[1]
-	# получаем айди диалога
-	conversation_id = data[2]
 
-	# запрос на выставление оценки
-	response = requests.put(
-		f"{base_url}/rate_chat?token={company_token}&conversation_id={conversation_id}&rate={rate_value}"
-	).json()
-	if response["status"] == "SUCCESS":
-		await call.message.edit_text(text='Спасибо за оценку! Благодаря вам мы становимся лучше!')
+
+	# получаем значение оценки от пользователя (1-5)
+	rate_value = int(data[1])
+	# получаем айди диалога
+	conversation_id = int(data[2])
+
+	# оценка уровня 2 или 3 (уточнения, почему не понравилось)
+	if len(data) == 4:
+		# уровень оценки
+		rate_level = int(data[3])
+		# запрос на выставление оценки
+
+		res = requests.put(
+			f"{base_url}/rate_chat?token={company_token}&conversation_id={conversation_id}&rate={rate_value}&level={rate_level}"
+		).json()
+		print(res)
+
+		# если ответ на самый первый вопрос
+		if rate_level == 2:
+			if rate_value <= 4:
+				await call.message.edit_text(text="Спасибо за оценку! Благодаря Вам мы становимся лучше!")
+			else:
+				await call.message.edit_text(
+					text="Пожалуйста, оцените фактическую точность ответа.",
+					reply_markup=rate_keyboard_bad(level=3, conversation_id=conversation_id)
+				)
+
+		# ответ на третьем уровне
+		elif rate_level == 3:
+			if rate_value <= 4:
+				await call.message.edit_text(text="Спасибо за оценку! Благодаря Вам мы становимся лучше!")
+			else:
+				await call.message.edit_text(
+					text="Пожалуйста, оцените полноту ответа.",
+					reply_markup=rate_keyboard_bad(level=4, conversation_id=conversation_id)
+				)
+
+		# ответ на четвертом (последнем) уровне
+		else:
+			await call.message.edit_text(text="Спасибо за оценку! Благодаря Вам мы становимся лучше!")
+
+	# если оценка хорошая (4, 5) и доп. вопросы не нужны
+	if rate_value >= 4:
+		# запрос на выставление оценки
+		response = requests.put(
+			f"{base_url}/rate_chat?token={company_token}&conversation_id={conversation_id}&rate={rate_value}"
+		).json()
+		if response["status"] == "SUCCESS":
+			await call.message.edit_text(text='Спасибо за оценку! Благодаря вам мы становимся лучше!')
+
+	else:
+		# запрос на выставление оценки
+		response = requests.put(
+			f"{base_url}/rate_chat?token={company_token}&conversation_id={conversation_id}&rate={rate_value}&level=1"
+		).json()
+		if response["status"] == "SUCCESS":
+			await call.message.edit_text(
+				text='Мы сожалеем, что ответ Вас не устроил. Пожалуйста, оцените соответствие ответа вопросу.',
+				reply_markup=rate_keyboard_bad(level=2, conversation_id=conversation_id)
+			)
 
 
 async def edit_or_send_more(chat_id: int, message_id: int, text: str, markup) -> int:
