@@ -91,13 +91,14 @@ def new_user_message(
 @app.put("/rate_chat", tags=["Общение с чат-ботом"])
 async def rate_chat_handler(
     rate: int,
+    level: int = 1,
     conversation: Conversation = Depends(require_conversation),
     company: Company = Depends(require_company)
 ) -> RateResponse:
     """
     Оценка прошедшего диалога с чат-ботом.
     """
-    conversation.set_rate(rate)
+    conversation.set_rate(rate=rate, level=level)
     return JSONResponse(status_code=200, content={
         "status": "SUCCESS",
         "conversation": conversation.to_dto().dict(),
