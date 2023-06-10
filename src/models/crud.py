@@ -44,20 +44,6 @@ def deactivate_conversations(user_id: int) -> int:
     return res
 
 
-def rate_conversation(conversation_id: int, rate: int) -> int:
-    """
-    проставляем оценку всему диалогу (флоу)
-
-    Выставляем оценку диалогу
-
-    возвращает количество обновленных ячеек в бд
-    """
-    q = Conversation.update({Conversation.rate: rate}).where(
-        Conversation.conversation_id == conversation_id
-    )
-    return q.execute()
-
-
 # COMPANY
 def create_company(company_name: typing.Union[str, None], company_id: int):
     """
