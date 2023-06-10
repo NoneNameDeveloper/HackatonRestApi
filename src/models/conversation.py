@@ -75,7 +75,7 @@ class Conversation(Model):
 		self.has_answers = True
 
 	def update_response(self, text: str, buttons: list[str], finished: bool):
-		print(f"updating response: {text}, {buttons}")
+		print(f"updating response: {text}, {buttons}, {finished}, {self.user_id}, {self.conversation_id}, {self.company_id}")
 		Conversation.update(
 			response_text=text,
 			response_buttons=json.dumps(buttons),

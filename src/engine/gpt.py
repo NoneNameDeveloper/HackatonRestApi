@@ -33,7 +33,7 @@ def complete_chat(prompt: str, conversations: 'list[Conversation]') -> str:
     chat_completion = openai.ChatCompletion.create(model="gpt-3.5-turbo", messages=messages)
 
     response = chat_completion.choices[0].message.content
-    print("openai: ", response)
+    # print("openai: ", response)
     return response
 
 

@@ -212,5 +212,5 @@ def set_status(conversation_id: int, status: str):
     """
     обновление статуса диалога
     """
-    print("Setting status " + status)
+    # print("Setting status " + status)
     Conversation.update(status=status).where(Conversation.conversation_id == conversation_id).execute()

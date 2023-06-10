@@ -148,8 +148,8 @@ def main():
     # текст ответа на вопрос от чат-бота
     answer = conversation_data["conversation"]["response_text"]
 
-    print("Question: " + question)
-    print("\nAnswer: " + answer)
+    # print("Question: " + question)
+    # print("\nAnswer: " + answer)
 
     # оценка чат-бота по пятибальной шкале
     rate_chat(conversation_id, token, 5)

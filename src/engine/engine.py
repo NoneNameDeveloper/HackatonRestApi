@@ -77,7 +77,7 @@ def handle_user_message(conversation: Conversation, message: str):
         return
 
     chapter_name = conversation.current_chapter or ""
-    print("current chapter is " + chapter_name)
+    # print("current chapter is " + chapter_name)
     chapter = HintsTree.nodes.get(chapter_name.lower())
     if not chapter:
         chapter = menu_chapter
@@ -139,7 +139,7 @@ def is_valid_question(prompt: str) -> bool:
 
 def generate(prompt: str, responder: Responder, conversation: Conversation):
     try:
-        print("GPTing prompt: " + prompt)
+        # print("GPTing prompt: " + prompt)
         # if prompt[0] != "Я":
         #     return "..."
         responder("Читаю вопрос...", ["Отмена"], False)
@@ -153,7 +153,7 @@ def generate(prompt: str, responder: Responder, conversation: Conversation):
             "Есть справочник со следующим списком статей:\n" + "\n".join(HintsTree.nodes.keys()) \
             + "\n\nКакие три статьи из этого справочника пригодятся, чтобы ответить на вопрос:\n" + prompt + "\n\nЕсли подходящих статей нет - ответь \"missing\""])
         
-        print("Подходящие главы: " + chapters)
+        # print("Подходящие главы: " + chapters)
         
         source_texts = {}
         if not ('missing' in chapters.lower()):
@@ -164,19 +164,19 @@ def generate(prompt: str, responder: Responder, conversation: Conversation):
         #     source_texts['Предыдущий ответ'] = conversation.context
 
         responder("Размышляю над вопросом...", ["Отмена"], False)
-        print("Getting search queries...")
+        # print("Getting search queries...")
         search_queries = get_search_queries(prompt)
         responder("Ищу нужную информацию в интернете...", ["Отмена"], False)
 
-        print("Searching google...")
+        # print("Searching google...")
         links_black_list = Company.get_by_id(conversation.company_id).url_black_list
         links = [link for s in [search_links(query)[:LINKS_AMOUNT_PER_QUERY] for query in search_queries] for link in s]
         # фильтруем заблокированные
         links = [link for link in links if not next((True for blocked in links_black_list if blocked in link), False)]
 
         # links = links[:LINKS_AMOUNT_TOTAL]
-        print("Found links:\n" + "\n".join([str(link) for link in links]))
-        print("Reading articles...")
+        # print("Found links:\n" + "\n".join([str(link) for link in links]))
+        # print("Reading articles...")
         responder("Выбираю релевантные статьи...", ["Отмена"], False)
         # source_texts = [get_article_text(link) for link in links]
         # source_texts = [text for text in source_texts if text]
@@ -193,7 +193,7 @@ def generate(prompt: str, responder: Responder, conversation: Conversation):
             h = n % 100
             return one if t == 1 and h != 11 else two if n >= 2 and n <= 4 and h // 10 != 1 else five
 
-        print("Compressing articles")
+        # print("Compressing articles")
         responder(f"Читаю {len(source_texts)} {pl(len(source_texts), 'статью', 'статьи', 'статей')}...",
                 ["Отмена"], False)
 
@@ -203,13 +203,13 @@ def generate(prompt: str, responder: Responder, conversation: Conversation):
                 compression_prompts.append((link, page))
 
         def compress(p):
-            print("START COMPRESSING " + p[0])
+            # print("START COMPRESSING " + p[0])
             try:
                 rr = complete_custom(p[1]["system"], p[1]["prompt"])
                 p[1]["summary"] = "" if "missing" in rr.lower() else rr
             except Exception as e:
                 print(e)
-            print("FINISHED COMPRESSING " + p[0])
+            # print("FINISHED COMPRESSING " + p[0])
 
         with concurrent.futures.ThreadPoolExecutor(max_workers=5) as executor:
             futures = [executor.submit(compress, p) for p in compression_prompts]
@@ -245,7 +245,7 @@ def generate(prompt: str, responder: Responder, conversation: Conversation):
             "Ответь на вопрос:\n" + prompt +\
             "\nВ своём ответе указывай ссылки на источники после каждого предложения в формате [1],[2] и т.д"
 
-        print("Final prompt:\n\n" + final_prompt)
+        # print("Final prompt:\n\n" + final_prompt)
 
         final_response = complete_custom(
             # "Ты юрист-помощник, вежливо и весело отвечаешь на все вопросы клиентов, сохраняя фактическую точность",
@@ -265,7 +265,8 @@ def generate(prompt: str, responder: Responder, conversation: Conversation):
 
         responder(final_response + "\n\nВам также может быть интересно:", suggestions, True)
     except Exception as e:
-        print(traceback.format_exc())
+        pass
+        # print(traceback.format_exc())
 
 # status_callback(summary, True)
 # return summary
@@ -345,5 +346,5 @@ def get_search_queries(prompt: str) -> str:
         ["Составь от одного до трёх поисковых запросов для поиска источников " +
          "с информацией, необходимых, чтобы отчётливо ответить на следующий вопрос: " + prompt])
     search_queries = re.findall(r'\{([^}]+)\}', gpt_search_queries)
-    print("Search queries: " + str(search_queries))
+    # print("Search queries: " + str(search_queries))
     return search_queries
