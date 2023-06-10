@@ -58,6 +58,7 @@ Responder = Callable[[str, list[str], bool], None]
 
 
 def check_rule_violations(conversation: Conversation, message: str):
+    # выборка активных правил фильтрации
     rules = Rule.select(Rule.filter_text).where((Rule.company_id == conversation.company_id) & (Rule.archived == False))
 
     for rule in rules:
