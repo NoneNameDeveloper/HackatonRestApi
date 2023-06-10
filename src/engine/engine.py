@@ -147,6 +147,12 @@ def generate(prompt: str, responder: Responder, conversation: Conversation):
             responder("Извините, я вас не совсем понял. Пожалуйста, задайте вопрос по-другому или нажмите 'Меню'", ["Меню"],
                     True)
             return
+        
+        chapters = complete_custom("Отвечай только названия подходящих статей через точку с запятой, ничего больше. Если подходящих статей нет - отвечай \"missing\"", [
+            "Есть справочник со следующим списком статей:\n" + "\n".join(HintsTree.nodes.keys()) \
+            + "\n\nКакие статьи из этого справочника пригодятся, чтобы ответить на вопрос:\n" + prompt + "\n\nЕсли подходящих статей нет - ответь \"missing\""])
+        responder(chapters, ["Ну ахуеть спасибо а ответ где"], True)
+        return
         responder("Размышляю над вопросом...", ["Отмена"], False)
         print("Getting search queries...")
         search_queries = get_search_queries(prompt)

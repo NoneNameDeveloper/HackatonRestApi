@@ -295,8 +295,7 @@ async def handle_active_conversation_buttons(call: types.CallbackQuery):
 			chat_id=user_id,
 			message_id=call.message.message_id,
 			text=text,
-			markup=create_user_kb(buttons, conv_id),
-			generation_time=None
+			markup=create_user_kb(buttons, conv_id)
 		)
 
 
@@ -323,7 +322,7 @@ async def get_rate_value_handler(call: types.CallbackQuery):
 		await call.message.edit_text(text='Спасибо за оценку! Благодаря вам мы становимся лучше!')
 
 
-async def edit_or_send_more(chat_id: int, message_id: int, text: str, generation_time: datetime | None, markup) -> int:
+async def edit_or_send_more(chat_id: int, message_id: int, text: str, markup) -> int:
 	"""
 	Обновление статуса сообщения путем редактирования сообщения / вывод ответа на вопрос
 	"""
@@ -334,9 +333,6 @@ async def edit_or_send_more(chat_id: int, message_id: int, text: str, generation
 
 	# отправка действия от бота "печатает..."
 	await bot.send_chat_action(chat_id, "typing")
-
-	if generation_time:
-		await bot.send_message(chat_id, str(generation_time))
 
 	# обработка ошибки (текст сообщения не изменился)
 	try:
@@ -379,6 +375,12 @@ def update_state(user_id, response):
 
 	conversation = response['conversation']
 
+	if state.get('finished') and not conversation['response_finished']:
+		state['start_generating_datetime'] = datetime.now()
+	# время окончания генерации
+	elif not state.get('finished') and conversation['response_finised']:
+		state['generating_time'] = datetime.now() - state.get('start_generating_datetime')
+
 	# получаем текущее состояние пользователя из бд
 	state = user_database[user_id]
 	# обновляем состояние
@@ -387,15 +389,7 @@ def update_state(user_id, response):
 	state['finished'] = conversation['response_finished']
 	state['has_answers'] = conversation['has_answers']
 
-	# обозначаем время начала генерации
-	if not conversation['response_finished']:
-		state['start_generating_datetime'] = datetime.now()
-	# время окончания генерации
-	else:
-		try:
-			state['generating_time'] = datetime.now() - state['start_generating_datetime']
-		except:
-			pass
+
 	return None, conversation['response_text'], conversation['response_buttons']
 
 
@@ -433,10 +427,9 @@ async def update_messages():
 				await edit_or_send_more(
 					chat_id=user_id,
 					message_id=msg_id,
-					text=text or f"Произошла ошибка: {error}",
+					text=(text or f"Произошла ошибка: {error}") + f"\n{state.get('generating_time') or ''}",
 					markup=create_user_kb(buttons, state['conversation_id']),
-					generation_time=state['generating_time'] if 'generating_time' in state.keys() else None
-					)
+				)
 				if error:
 					state['active_message_id'] = None
 
