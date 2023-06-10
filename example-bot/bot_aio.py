@@ -329,11 +329,11 @@ async def edit_or_send_more(chat_id: int, message_id: int, text: str, markup) ->
 	# флаг для разделения сообщения на части из-за лимита
 	multiple_messages = len(text) > telegram_limit_value
 
+	# отправка действия от бота "печатает..."
+	await bot.send_chat_action(chat_id, "typing")
+
 	# обработка ошибки (текст сообщения не изменился)
 	try:
-		# отправка действия от бота "печатает..."
-		await bot.send_chat_action(chat_id, "typing")
-
 		# редактирование сообщения
 		await bot.edit_message_text(
 			chat_id=chat_id, message_id=message_id, text=text[:telegram_limit_value],
@@ -388,7 +388,6 @@ async def update_messages():
 	"""
 	Обновление сообщений для конкретного пользователя (ожидание ответа)
 	"""
-
 	while True:
 		await asyncio.sleep(1)
 		for user_id in user_database.keys():
