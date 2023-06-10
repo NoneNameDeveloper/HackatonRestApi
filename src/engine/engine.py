@@ -160,6 +160,9 @@ def generate(prompt: str, responder: Responder, conversation: Conversation):
             knowledge_base_text = "\n\n".join([a for a in [(HintsTree.nodes.get(chapter_name.strip().lower()) or {"text":""})["text"] for chapter_name in chapters.split(";")] if a][:3])
             source_texts['База знаний tada.team'] = knowledge_base_text
 
+        if conversation.context:
+            source_texts['Предыдущий ответ'] = conversation.context
+
         responder("Размышляю над вопросом...", ["Отмена"], False)
         print("Getting search queries...")
         search_queries = get_search_queries(prompt)
@@ -249,7 +252,10 @@ def generate(prompt: str, responder: Responder, conversation: Conversation):
             "Кратко ответь на вопрос.\n\n\nНе начинай фразы с \"В источнике\", \"В тексте\"\nИспользуй все источники, но не перечисляй их по порядку, твои ответы должны быть единым целым.",
             [final_prompt]
         )
+        conversation.context = final_response
+
         final_response += "\n\nИсточники:\n" + "\n".join([str(source["number"]) + ". " + source["url"] for source in sources])
+
 
         responder(final_response + "\n\nПридумываю интересные вопросы...", ["Отмена"], False)
         

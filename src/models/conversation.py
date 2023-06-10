@@ -62,6 +62,9 @@ class Conversation(Model):
 	rate_2 = IntegerField(null=True)  # оценка диалога вторая
 	rate_3 = IntegerField(null=True)  # оценка диалога третья
 	rate_4 = IntegerField(null=True)  # оценка диалога четвертая
+
+	context = TextField(null=False, default='')
+
 	class Meta:
 		database = db
 		table_name = "conversations"
@@ -98,7 +101,8 @@ class Conversation(Model):
 			rate_2=self.rate_2,
 			rate_3=self.rate_3,
 			rate_4=self.rate_4,
-			has_answers=self.has_answers
+			has_answers=self.has_answers,
+			context=self.context
 		)
 
 	def update_current_chapter(self, chapter: str):
