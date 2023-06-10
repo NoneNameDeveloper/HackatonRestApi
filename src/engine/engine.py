@@ -43,7 +43,7 @@ class HintsTree:
 
         for child in children:
             child['parent_chapter'] = chapter
-        HintsTree.nodes[chapter_name] = chapter
+        HintsTree.nodes[chapter_name.lower()] = chapter
         return chapter
 
 
@@ -78,7 +78,7 @@ def handle_user_message(conversation: Conversation, message: str):
 
     chapter_name = conversation.current_chapter or ""
     print("current chapter is " + chapter_name)
-    chapter = HintsTree.nodes.get(chapter_name)
+    chapter = HintsTree.nodes.get(chapter_name.lower())
     if not chapter:
         chapter = menu_chapter
         conversation.update_chapter(chapter["chapter_name"])
@@ -86,7 +86,7 @@ def handle_user_message(conversation: Conversation, message: str):
     handled = False
 
     if message.lower() == 'назад':
-        chapter = HintsTree.nodes.get("parent_chapter") or menu_chapter
+        chapter = chapter.get("parent_chapter") or menu_chapter
         conversation.update_current_chapter(chapter['chapter_name'])
         handled = True
     elif message.lower() in ["", "меню", "/start", "отмена"]:
@@ -148,10 +148,18 @@ def generate(prompt: str, responder: Responder, conversation: Conversation):
                     True)
             return
         
-        # chapters = complete_custom("Отвечай только названия подходящих статей через точку с запятой, ничего больше. Если подходящих статей нет - отвечай \"missing\"", [
-        #     "Есть справочник со следующим списком статей:\n" + "\n".join(HintsTree.nodes.keys()) \
-        #     + "\n\nКакие статьи из этого справочника пригодятся, чтобы ответить на вопрос:\n" + prompt + "\n\nЕсли подходящих статей нет - ответь \"missing\""])
-        # responder(chapters, ["Ну ахуеть спасибо а ответ где"], True)
+        responder(chapters, ["Ищу ответ в базе знаний..."], True)
+        chapters = complete_custom("Отвечай только названия подходящих статей через точку с запятой, ничего больше. Если подходящих статей нет - отвечай \"missing\"", [
+            "Есть справочник со следующим списком статей:\n" + "\n".join(HintsTree.nodes.keys()) \
+            + "\n\nКакие статьи из этого справочника пригодятся, чтобы ответить на вопрос:\n" + prompt + "\n\nЕсли подходящих статей нет - ответь \"missing\""])
+        
+        print("Подходящие главы: " + chapters)
+        
+        sources = []
+        if not ('missing' in chapters.lower()):
+            knowledge_base_text = [HintsTree.chapters[chapter_name.lower()] for chapter_name in chapters.split(";")]
+            sources.append({'url': 'База знаний tada.team', 'text': knowledge_base_text, 'number': 1})
+
         # return
         responder("Размышляю над вопросом...", ["Отмена"], False)
         print("Getting search queries...")
@@ -215,7 +223,7 @@ def generate(prompt: str, responder: Responder, conversation: Conversation):
         sources = []
         final_prompt = "Даны источники информации:"
 
-        i = 1
+        i = len(sources)
         current_source_text = ""
         current_url = None
         for p in compression_prompts:
@@ -223,14 +231,14 @@ def generate(prompt: str, responder: Responder, conversation: Conversation):
             url = p[0]
             if url != current_url:
                 if current_url:
-                    sources.append({'url': current_url, 'text': current_source_text, 'number': i})
                     i += 1
+                    sources.append({'url': current_url, 'text': current_source_text, 'number': i})
                 current_url = url
                 current_source_text = "Текст статьи из интернета.\n"
 
             current_source_text += "\n" + p[1]["summary"]
         
-        sources.append({'url': current_url, 'text': current_source_text, 'number': i})
+        sources.append({'url': current_url, 'text': current_source_text, 'number': i + 1})
 
         final_prompt = "\nДаны источники информации:\n\n" + "\n\n".join([f"ИСТОЧНИК {source['number']}:\n{source['text']}" for source in sources]) +\
             "Ответь на вопрос:\n" + prompt +\
