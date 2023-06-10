@@ -17,10 +17,10 @@ else
 fi
 
 if [[ "$2" == "local" ]]; then
-    export TADA_API_BASE_URL="http://greed.implario.net:8095"
-else
     export TADA_API_BASE_URL="http://127.0.0.1:8095"
+else
+    export TADA_API_BASE_URL="http://greed.implario.net:8095"
 fi
 
-export TADA_API_COMPANY_TOKEN="iWhqYL85yASTCOmzfJIhEQ"
+export TADA_API_COMPANY_TOKEN="vi_V0CvBsUsFNkSuZc1QXw"
 python3 bot_aio.py

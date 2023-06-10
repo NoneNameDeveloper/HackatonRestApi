@@ -45,7 +45,7 @@ class Conversation(Model):
 	# last_bot_message_date = DateTimeField(constraints=[SQL(
 	# 	'DEFAULT CURRENT_TIMESTAMP')], default=datetime.datetime.now)
 	# история перемещений по дереву базы знаний
-	history_state = TextField(null=True)
+	current_chapter = TextField(null=False)
 
 	# True, если ответ на последнее сообщение юзера финальный и больше не будет обновлятся
 	response_finished = BooleanField(default=False)
@@ -95,10 +95,12 @@ class Conversation(Model):
 			has_answers=self.has_answers
 		)
 
-	def update_history_state(self):
-		Conversation.update(history_state=self.history_state) \
+	def update_current_chapter(self, chapter: str):
+		Conversation.update(current_chapter=chapter) \
 			.where(Conversation.conversation_id == self.conversation_id) \
 			.execute()
+		self.current_chapter = chapter
+		
 
 	def set_rate(self, rate: int):
 		Conversation.update(rate=rate) \
@@ -114,5 +116,5 @@ class Conversation(Model):
 	# 	self.last_bot_message_date = now
 
 
-# db.drop_tables([Conversation])
+db.drop_tables([Conversation])
 db.create_tables([Conversation])

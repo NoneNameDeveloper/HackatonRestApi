@@ -63,12 +63,12 @@ def new_conversation(user_id: int, initial_message: str, company: Company = Depe
         company_id=company.company_id,
         last_user_message=initial_message,
         response_text="",
-        response_buttons="[]"
+        response_buttons="[]",
+        current_chapter=""
     )
 
     # Сгенерировать стартовое сообщение от бота
     handle_user_message(conversation, initial_message)
-    conversation.update_history_state()
 
     return JSONResponse(status_code=200, content={"status": "SUCCESS", "conversation": conversation.to_dto().dict()})
 
@@ -97,7 +97,6 @@ def new_user_message(
     Добавление запроса к пользователя к уже существующему диалогу.
     """
     handle_user_message(conversation, text)
-    conversation.update_history_state()
     return JSONResponse(status_code=200, content={"status": "SUCCESS", "conversation": conversation.to_dto().dict()})
 
 
