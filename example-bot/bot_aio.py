@@ -375,14 +375,15 @@ def update_state(user_id, response):
 
 	conversation = response['conversation']
 
+	# получаем текущее состояние пользователя из бд
+	state = user_database[user_id]
+	
 	if state.get('finished') and not conversation['response_finished']:
 		state['start_generating_datetime'] = datetime.now()
 	# время окончания генерации
 	elif not state.get('finished') and conversation['response_finised']:
 		state['generating_time'] = datetime.now() - state.get('start_generating_datetime')
 
-	# получаем текущее состояние пользователя из бд
-	state = user_database[user_id]
 	# обновляем состояние
 	state['conversation_id'] = conversation['conversation_id']
 	state['buttons'] = conversation['response_buttons']
