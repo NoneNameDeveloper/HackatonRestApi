@@ -119,6 +119,55 @@ async def archive_rule_handler(message: types.Message):
 	return await message.answer(status_text)
 
 
+@dp.message_handler(commands=["block_url"])
+async def block_url_handler(message: types.Message):
+	"""
+	Помещение ссылки в черный список
+	"""
+	urls = message.text.replace("/block_url ", "")  # отделяем текст, который требуется поместить в стоп слова
+
+	# список
+	urls_list: list[str] = []
+
+	# пробегаемся по стоп-словам и передаем их в АПИ по одному
+	for url in urls.split():
+		response = requests.post(
+			base_url + "/block_url?token=" + company_token + "&uri=" + str(url).lower()
+		).json()
+
+		if response['status'] == "SUCCESS":
+			urls_list.append(str(response['uri']))
+
+	await message.answer(f"✅ URL добавлены в черный список\n<i>{','.join(rules_list)}</i>")
+
+
+@dp.message_handler(commands=["unblock_url"])
+async def unblock_url_handler(message: types.Message):
+	"""
+	Удаление ссылки из черного списка
+	"""
+	urls = message.text.replace("/unblock_url ", "")  # получаем текста правил на архивацию
+
+	# текст по статусу удаления каждого правила
+	status_text = ""
+
+	# бежим по переданным в сообщении айдишникам
+	for url in urls.split():
+
+		# архивация правила
+		response = requests.get(
+			base_url + "/unblock_url?token=" + company_token + "&uri=" + url).json()
+
+		# успех
+		if response['status'] == 'SUCCESS':
+			status_text += f"✅ Ресурс <i>{response['uri']}</i> был успешно удалён из черного списка!\n"
+		# ссылка уже удалена / не существует
+		else:
+			status_text += f"❌ Фильтр <i>{url}</i> не был удален!\n"
+
+	return await message.answer(status_text)
+
+
 @dp.message_handler()
 async def all_text_hander(message: types.Message):
 	"""
