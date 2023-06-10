@@ -39,7 +39,7 @@ async def access_error_handler(request, exc: AccessException):
 def require_conversation(conversation_id: int):
     conversation = Conversation.get_or_none(Conversation.conversation_id == conversation_id)
     if not conversation:
-        return ConversationNotFoundException()
+        raise ConversationNotFoundException()
     return conversation
 
 
